@@ -136,13 +136,41 @@ function initContactForm() {
         e.preventDefault();
         const btn = form.querySelector('.form-submit');
         const originalText = btn.innerHTML;
-        btn.innerHTML = '<span style="display:inline-flex;align-items:center;gap:8px;">✓ Consultation Booked!</span>';
-        btn.style.background = 'linear-gradient(135deg, #10b981, #06b6d4)';
-        setTimeout(() => {
-            btn.innerHTML = originalText;
-            btn.style.background = '';
-            form.reset();
-        }, 3000);
+        btn.innerHTML = 'Sending...';
+
+        const formData = new FormData(form);
+
+        fetch(form.action, {
+            method: 'POST',
+            body: formData,
+            headers: {
+                'Accept': 'application/json'
+            }
+        }).then(response => {
+            if (response.ok) {
+                btn.innerHTML = '<span style="display:inline-flex;align-items:center;gap:8px;">✓ Consultation Booked!</span>';
+                btn.style.background = 'linear-gradient(135deg, #10b981, #06b6d4)';
+                setTimeout(() => {
+                    btn.innerHTML = originalText;
+                    btn.style.background = '';
+                    form.reset();
+                }, 3000);
+            } else {
+                btn.innerHTML = 'Error Sending';
+                btn.style.background = '#ef4444';
+                setTimeout(() => {
+                    btn.innerHTML = originalText;
+                    btn.style.background = '';
+                }, 3000);
+            }
+        }).catch(error => {
+            btn.innerHTML = 'Error Sending';
+            btn.style.background = '#ef4444';
+            setTimeout(() => {
+                btn.innerHTML = originalText;
+                btn.style.background = '';
+            }, 3000);
+        });
     });
 }
 
@@ -252,7 +280,7 @@ function initVideoPlaceholders() {
         <div style="font-size:2.5rem;margin-bottom:8px">🎬</div>
         <h4 style="font-family:'Outfit',sans-serif;font-size:1.2rem;font-weight:700;color:#fff">${titles[videoType] || 'Product Video'}</h4>
         <p style="font-size:.85rem;color:#94a3b8;max-width:280px;line-height:1.6">Full explainer video coming soon.<br>Book a free consultation!</p>
-        <a href="tel:+918890819966" class="btn btn-primary" style="padding:10px 24px;font-size:.85rem;margin-top:8px">📞 Call +91 88908 19966</a>
+        <a href="https://wa.me/918890819966" class="btn btn-primary" style="padding:10px 24px;font-size:.85rem;margin-top:8px" target="_blank" rel="noopener">WhatsApp Us</a>
         <button style="position:absolute;top:12px;right:12px;background:rgba(255,255,255,0.1);border:none;color:#fff;width:32px;height:32px;border-radius:50%;cursor:pointer;font-size:1rem;display:flex;align-items:center;justify-content:center" onclick="this.parentElement.remove()">✕</button>`;
             wrapper.style.position = 'relative';
             wrapper.appendChild(overlay);

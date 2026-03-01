@@ -1,0 +1,23 @@
+{
+  "name": "naitik-vijayji-site",
+  "version": "1.0.0",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/naitikvj31/Naitik-Vijay.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/naitikvj31/Naitik-Vijay/issues"
+  },
+  "homepage": "https://github.com/naitikvj31/Naitik-Vijay#readme",
+  "description": "",
+  "dependencies": {
+    "nodemailer": "^8.0.1"
+  }
+}
