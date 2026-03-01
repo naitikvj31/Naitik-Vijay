@@ -139,11 +139,13 @@ function initContactForm() {
         btn.innerHTML = 'Sending...';
 
         const formData = new FormData(form);
+        const jsonData = Object.fromEntries(formData.entries());
 
         fetch(form.action, {
             method: 'POST',
-            body: formData,
+            body: JSON.stringify(jsonData),
             headers: {
+                'Content-Type': 'application/json',
                 'Accept': 'application/json'
             }
         }).then(response => {
