@@ -1,0 +1,950 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>NaiGrowth — Video Advertisement</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Outfit:wght@500;600;700;800;900&display=swap"
+        rel="stylesheet">
+    <style>
+        *,
+        *::before,
+        *::after {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --bg: #050816;
+            --accent: #4f6ef7;
+            --accent2: #7c3aed;
+            --gold: #f5c518;
+            --text: #e2e8f0;
+            --text-muted: #94a3b8;
+        }
+
+        body {
+            background: var(--bg);
+            color: var(--text);
+            font-family: 'Inter', sans-serif;
+            overflow: hidden;
+            width: 100vw;
+            height: 100vh;
+        }
+
+        .ad-container {
+            position: relative;
+            width: 100vw;
+            height: 100vh;
+            overflow: hidden;
+        }
+
+        /* Background animated orbs */
+        .orb {
+            position: absolute;
+            border-radius: 50%;
+            filter: blur(80px);
+            opacity: 0;
+            animation: orbFloat 8s ease-in-out infinite;
+        }
+
+        .orb-1 {
+            width: 400px;
+            height: 400px;
+            background: radial-gradient(circle, rgba(79, 110, 247, 0.5), transparent);
+            top: -100px;
+            left: -100px;
+            animation-delay: 0s;
+        }
+
+        .orb-2 {
+            width: 350px;
+            height: 350px;
+            background: radial-gradient(circle, rgba(124, 58, 237, 0.5), transparent);
+            bottom: -80px;
+            right: -80px;
+            animation-delay: 2s;
+        }
+
+        .orb-3 {
+            width: 250px;
+            height: 250px;
+            background: radial-gradient(circle, rgba(245, 197, 24, 0.3), transparent);
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            animation-delay: 4s;
+        }
+
+        @keyframes orbFloat {
+
+            0%,
+            100% {
+                opacity: 0.3;
+                transform: scale(1);
+            }
+
+            50% {
+                opacity: 0.7;
+                transform: scale(1.3);
+            }
+        }
+
+        /* Grid overlay */
+        .grid-overlay {
+            position: absolute;
+            inset: 0;
+            background-image:
+                linear-gradient(rgba(79, 110, 247, 0.03) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(79, 110, 247, 0.03) 1px, transparent 1px);
+            background-size: 60px 60px;
+            z-index: 1;
+        }
+
+        /* Particle canvas */
+        #particles {
+            position: absolute;
+            inset: 0;
+            z-index: 2;
+        }
+
+        /* Slides */
+        .slide {
+            position: absolute;
+            inset: 0;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            z-index: 10;
+            opacity: 0;
+            transform: translateY(40px);
+            transition: opacity 0.8s ease, transform 0.8s ease;
+            padding: 40px;
+            text-align: center;
+        }
+
+        .slide.active {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .slide.exit {
+            opacity: 0;
+            transform: translateY(-40px);
+        }
+
+        /* Brand header */
+        .brand {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            margin-bottom: 30px;
+        }
+
+        .brand-logo {
+            width: 50px;
+            height: 50px;
+            border-radius: 12px;
+            background: linear-gradient(135deg, var(--accent), var(--accent2));
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 24px;
+            box-shadow: 0 8px 32px rgba(79, 110, 247, 0.4);
+        }
+
+        .brand-name {
+            font-family: 'Outfit', sans-serif;
+            font-size: 2rem;
+            font-weight: 800;
+            letter-spacing: -0.5px;
+        }
+
+        .brand-name span {
+            color: var(--accent);
+        }
+
+        /* Headlines */
+        .headline {
+            font-family: 'Outfit', sans-serif;
+            font-size: clamp(2.5rem, 6vw, 4.5rem);
+            font-weight: 900;
+            line-height: 1.1;
+            margin-bottom: 20px;
+            max-width: 900px;
+        }
+
+        .gradient-text {
+            background: linear-gradient(135deg, var(--accent), var(--accent2), var(--gold));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .gold-text {
+            background: linear-gradient(135deg, var(--gold), #fbbf24, #f59e0b);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .subtitle {
+            font-size: clamp(1.1rem, 2.5vw, 1.5rem);
+            color: var(--text-muted);
+            max-width: 700px;
+            margin-bottom: 30px;
+            line-height: 1.6;
+        }
+
+        /* Stars */
+        .stars {
+            font-size: 2.5rem;
+            color: var(--gold);
+            margin-bottom: 20px;
+            letter-spacing: 4px;
+            text-shadow: 0 0 20px rgba(245, 197, 24, 0.4);
+        }
+
+        /* Stats row */
+        .stats-row {
+            display: flex;
+            gap: 40px;
+            margin: 30px 0;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+
+        .stat {
+            text-align: center;
+        }
+
+        .stat-num {
+            font-family: 'Outfit', sans-serif;
+            font-size: clamp(2rem, 5vw, 3.5rem);
+            font-weight: 900;
+            background: linear-gradient(135deg, var(--accent), var(--accent2));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .stat-num.gold {
+            background: linear-gradient(135deg, var(--gold), #fbbf24);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .stat-label {
+            font-size: 0.9rem;
+            color: var(--text-muted);
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            margin-top: 4px;
+        }
+
+        /* Platform logos */
+        .platforms {
+            display: flex;
+            gap: 20px;
+            align-items: center;
+            margin: 20px 0;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+
+        .platform-pill {
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 50px;
+            padding: 10px 24px;
+            font-size: 1rem;
+            font-weight: 600;
+            color: var(--text);
+            backdrop-filter: blur(10px);
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .platform-pill .dot {
+            width: 10px;
+            height: 10px;
+            border-radius: 50%;
+            display: inline-block;
+        }
+
+        .dot-g2 {
+            background: #ff492c;
+        }
+
+        .dot-capterra {
+            background: #ff9d28;
+        }
+
+        .dot-gartner {
+            background: #004e92;
+        }
+
+        .dot-trustpilot {
+            background: #00b67a;
+        }
+
+        .dot-trustradius {
+            background: #00adef;
+        }
+
+        /* Glass cards */
+        .glass-card {
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            border-radius: 20px;
+            padding: 40px;
+            backdrop-filter: blur(20px);
+            max-width: 800px;
+            width: 100%;
+        }
+
+        /* Service cards row */
+        .services-row {
+            display: flex;
+            gap: 24px;
+            margin: 30px 0;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+
+        .svc-card {
+            background: rgba(255, 255, 255, 0.04);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            border-radius: 16px;
+            padding: 24px 32px;
+            text-align: center;
+            min-width: 200px;
+            flex: 1;
+            max-width: 280px;
+            backdrop-filter: blur(10px);
+        }
+
+        .svc-emoji {
+            font-size: 2.5rem;
+            margin-bottom: 12px;
+        }
+
+        .svc-card h3 {
+            font-family: 'Outfit', sans-serif;
+            font-size: 1.2rem;
+            font-weight: 700;
+            margin-bottom: 8px;
+        }
+
+        .svc-card p {
+            font-size: 0.85rem;
+            color: var(--text-muted);
+            line-height: 1.5;
+        }
+
+        /* CTA button */
+        .cta-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            padding: 16px 36px;
+            border-radius: 14px;
+            font-family: 'Outfit', sans-serif;
+            font-size: 1.2rem;
+            font-weight: 700;
+            text-decoration: none;
+            background: linear-gradient(135deg, var(--accent), var(--accent2));
+            color: white;
+            box-shadow: 0 8px 32px rgba(79, 110, 247, 0.4);
+            margin-top: 20px;
+            animation: ctaPulse 2s ease-in-out infinite;
+        }
+
+        @keyframes ctaPulse {
+
+            0%,
+            100% {
+                box-shadow: 0 8px 32px rgba(79, 110, 247, 0.4);
+            }
+
+            50% {
+                box-shadow: 0 8px 48px rgba(79, 110, 247, 0.7);
+            }
+        }
+
+        .cta-btn.gold {
+            background: linear-gradient(135deg, var(--gold), #f59e0b);
+            color: #1a1a2e;
+            box-shadow: 0 8px 32px rgba(245, 197, 24, 0.4);
+        }
+
+        /* Testimonial */
+        .testimonial {
+            font-size: 1.3rem;
+            font-style: italic;
+            color: var(--text);
+            max-width: 600px;
+            line-height: 1.6;
+            margin: 20px 0;
+        }
+
+        .testimonial-author {
+            font-size: 1rem;
+            color: var(--text-muted);
+            margin-top: 12px;
+        }
+
+        /* Progress bar */
+        .progress-bar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            height: 4px;
+            background: linear-gradient(90deg, var(--accent), var(--accent2), var(--gold));
+            z-index: 100;
+            transition: width 0.3s linear;
+            box-shadow: 0 0 10px var(--accent);
+        }
+
+        /* Slide counter */
+        .slide-counter {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            z-index: 100;
+            font-family: 'Outfit', sans-serif;
+            font-size: 1rem;
+            color: var(--text-muted);
+            display: flex;
+            gap: 8px;
+            align-items: center;
+        }
+
+        .slide-dot {
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.2);
+            transition: all 0.3s;
+        }
+
+        .slide-dot.active {
+            background: var(--accent);
+            width: 24px;
+            border-radius: 4px;
+        }
+
+        /* Jewelry mockup */
+        .jewelry-mockup {
+            width: 300px;
+            height: 200px;
+            background: linear-gradient(135deg, #1a0f30, #2a1040);
+            border-radius: 16px;
+            border: 2px solid rgba(245, 197, 24, 0.3);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 4rem;
+            margin: 20px 0;
+            box-shadow: 0 20px 60px rgba(245, 197, 24, 0.15);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .jewelry-mockup::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(135deg, transparent 40%, rgba(245, 197, 24, 0.1));
+        }
+
+        /* Animated check marks */
+        .check-list {
+            text-align: left;
+            max-width: 500px;
+            margin: 20px 0;
+        }
+
+        .check-item {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding: 12px 0;
+            font-size: 1.1rem;
+            opacity: 0;
+            transform: translateX(-20px);
+            animation: checkIn 0.5s ease forwards;
+        }
+
+        .check-item:nth-child(1) {
+            animation-delay: 0.3s;
+        }
+
+        .check-item:nth-child(2) {
+            animation-delay: 0.6s;
+        }
+
+        .check-item:nth-child(3) {
+            animation-delay: 0.9s;
+        }
+
+        .check-item:nth-child(4) {
+            animation-delay: 1.2s;
+        }
+
+        .check-icon {
+            width: 28px;
+            height: 28px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, var(--accent), var(--accent2));
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.8rem;
+            flex-shrink: 0;
+        }
+
+        @keyframes checkIn {
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+
+        /* Typing effect for tagline */
+        .tagline-type {
+            font-size: 1.2rem;
+            color: var(--accent);
+            font-weight: 600;
+            border-right: 2px solid var(--accent);
+            padding-right: 4px;
+            white-space: nowrap;
+            overflow: hidden;
+            animation: typing 3s steps(40, end), blink 0.75s step-end infinite;
+            max-width: fit-content;
+            margin: 0 auto 20px;
+        }
+
+        @keyframes typing {
+            from {
+                width: 0;
+            }
+
+            to {
+                width: 100%;
+            }
+        }
+
+        @keyframes blink {
+            50% {
+                border-color: transparent;
+            }
+        }
+
+        /* Replay button */
+        .replay-btn {
+            position: fixed;
+            bottom: 30px;
+            left: 30px;
+            z-index: 100;
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            color: var(--text-muted);
+            padding: 10px 20px;
+            border-radius: 10px;
+            cursor: pointer;
+            font-family: 'Inter', sans-serif;
+            font-size: 0.9rem;
+            backdrop-filter: blur(10px);
+            transition: all 0.3s;
+            display: none;
+        }
+
+        .replay-btn:hover {
+            background: rgba(255, 255, 255, 0.1);
+            color: var(--text);
+        }
+
+        .replay-btn.visible {
+            display: block;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .stats-row {
+                gap: 20px;
+            }
+
+            .services-row {
+                flex-direction: column;
+                align-items: center;
+            }
+
+            .svc-card {
+                max-width: 100%;
+            }
+
+            .slide {
+                padding: 20px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="ad-container">
+        <!-- Background -->
+        <div class="orb orb-1"></div>
+        <div class="orb orb-2"></div>
+        <div class="orb orb-3"></div>
+        <div class="grid-overlay"></div>
+        <canvas id="particles"></canvas>
+
+        <!-- Progress bar -->
+        <div class="progress-bar" id="progressBar"></div>
+
+        <!-- Slide counter -->
+        <div class="slide-counter" id="slideCounter"></div>
+
+        <!-- Replay button -->
+        <button class="replay-btn" id="replayBtn" onclick="restartAd()">↻ Replay</button>
+
+        <!-- ===== SLIDE 1: INTRO ===== -->
+        <div class="slide" id="slide-0">
+            <div class="brand">
+                <div class="brand-logo">🚀</div>
+                <div class="brand-name"><span>Nai</span>Growth</div>
+            </div>
+            <div class="headline">
+                Scale Your <span class="gradient-text">Reputation</span> With Authentic Reviews
+            </div>
+            <p class="subtitle">
+                The #1 agency for B2B software reviews on G2, Capterra, and Gartner — plus premium jewelry e-commerce
+                websites.
+            </p>
+            <div class="platforms">
+                <div class="platform-pill"><span class="dot dot-g2"></span> G2</div>
+                <div class="platform-pill"><span class="dot dot-capterra"></span> Capterra</div>
+                <div class="platform-pill"><span class="dot dot-gartner"></span> Gartner</div>
+                <div class="platform-pill"><span class="dot dot-trustpilot"></span> TrustPilot</div>
+                <div class="platform-pill"><span class="dot dot-trustradius"></span> TrustRadius</div>
+            </div>
+        </div>
+
+        <!-- ===== SLIDE 2: REVIEWS STATS ===== -->
+        <div class="slide" id="slide-1">
+            <div class="stars">★ ★ ★ ★ ★</div>
+            <div class="headline">
+                <span class="gradient-text">10,000+</span> Reviews Generated
+            </div>
+            <p class="subtitle">Real reviews from real users. No fakes. No shortcuts. Just results.</p>
+            <div class="stats-row">
+                <div class="stat">
+                    <div class="stat-num">50+</div>
+                    <div class="stat-label">Happy Clients</div>
+                </div>
+                <div class="stat">
+                    <div class="stat-num gold">10,000+</div>
+                    <div class="stat-label">Reviews</div>
+                </div>
+                <div class="stat">
+                    <div class="stat-num">7</div>
+                    <div class="stat-label">Platforms</div>
+                </div>
+                <div class="stat">
+                    <div class="stat-num">98%</div>
+                    <div class="stat-label">Satisfaction</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- ===== SLIDE 3: HOW IT WORKS ===== -->
+        <div class="slide" id="slide-2">
+            <div class="brand">
+                <div class="brand-logo">⚡</div>
+                <div class="brand-name">How It <span>Works</span></div>
+            </div>
+            <div class="headline" style="font-size:clamp(2rem,4vw,3rem);">
+                Our <span class="gradient-text">Proven Process</span>
+            </div>
+            <div class="check-list">
+                <div class="check-item">
+                    <div class="check-icon">✓</div> We identify your real, happy customers
+                </div>
+                <div class="check-item">
+                    <div class="check-icon">✓</div> AI-powered personalized outreach campaigns
+                </div>
+                <div class="check-item">
+                    <div class="check-icon">✓</div> Reviews posted on G2, Capterra & more
+                </div>
+                <div class="check-item">
+                    <div class="check-icon">✓</div> Real-time monitoring & optimization dashboard
+                </div>
+            </div>
+        </div>
+
+        <!-- ===== SLIDE 4: JEWELRY WEBSITES ===== -->
+        <div class="slide" id="slide-3">
+            <div class="headline">
+                Stunning <span class="gold-text">Jewelry Websites</span> That Convert
+            </div>
+            <p class="subtitle">
+                High-performance, luxury e-commerce built specifically for the jewelry & gems industry.
+            </p>
+            <div class="jewelry-mockup">💎 ✨ 💍</div>
+            <div class="stats-row">
+                <div class="stat">
+                    <div class="stat-num gold">300%</div>
+                    <div class="stat-label">Traffic Growth</div>
+                </div>
+                <div class="stat">
+                    <div class="stat-num">High</div>
+                    <div class="stat-label">Converting UX</div>
+                </div>
+                <div class="stat">
+                    <div class="stat-num gold">SEO</div>
+                    <div class="stat-label">Optimized</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- ===== SLIDE 5: TESTIMONIAL ===== -->
+        <div class="slide" id="slide-4">
+            <div class="stars">★ ★ ★ ★ ★</div>
+            <div class="glass-card" style="text-align:center;">
+                <div class="testimonial">
+                    "NaiGrowth transformed our G2 & Capterra presence. 200+ genuine reviews in 3 months, conversion
+                    jumped 40%."
+                </div>
+                <div class="testimonial-author">
+                    <strong>Rajesh K.</strong> — CEO, SaaS Company
+                </div>
+                <br>
+                <div class="testimonial" style="font-size:1.1rem;">
+                    "Built a stunning jewelry e-commerce site. 300% more organic traffic. Incredible ROI."
+                </div>
+                <div class="testimonial-author">
+                    <strong>Amir M.</strong> — Owner, Gems & Jewelry
+                </div>
+            </div>
+        </div>
+
+        <!-- ===== SLIDE 6: SERVICES ===== -->
+        <div class="slide" id="slide-5">
+            <div class="headline" style="font-size:clamp(2rem,4vw,3rem);">
+                Everything You Need to <span class="gradient-text">Grow</span>
+            </div>
+            <div class="services-row">
+                <div class="svc-card">
+                    <div class="svc-emoji">⭐</div>
+                    <h3>Reviews & Reputation</h3>
+                    <p>G2, Capterra, Gartner, TrustPilot & more</p>
+                </div>
+                <div class="svc-card">
+                    <div class="svc-emoji">💎</div>
+                    <h3>Jewelry Websites</h3>
+                    <p>Luxury e-commerce for gems industry</p>
+                </div>
+                <div class="svc-card">
+                    <div class="svc-emoji">🤖</div>
+                    <h3>AI & Automation</h3>
+                    <p>Smart campaigns & chatbots</p>
+                </div>
+            </div>
+            <div class="services-row">
+                <div class="svc-card">
+                    <div class="svc-emoji">☁️</div>
+                    <h3>Salesforce</h3>
+                    <p>Certified CRM experts</p>
+                </div>
+                <div class="svc-card">
+                    <div class="svc-emoji">🔍</div>
+                    <h3>SEO & Marketing</h3>
+                    <p>Organic traffic growth</p>
+                </div>
+                <div class="svc-card">
+                    <div class="svc-emoji">📊</div>
+                    <h3>Analytics</h3>
+                    <p>Data-driven strategy</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- ===== SLIDE 7: CTA ===== -->
+        <div class="slide" id="slide-6">
+            <div class="brand">
+                <div class="brand-logo">🚀</div>
+                <div class="brand-name"><span>Nai</span>Growth</div>
+            </div>
+            <div class="headline">
+                Ready to Build Your <span class="gradient-text">Reputation?</span>
+            </div>
+            <p class="subtitle">
+                Join 50+ businesses that trust NaiGrowth for genuine reviews & premium web development.
+            </p>
+            <a href="mailto:admin@naigrowth.com" class="cta-btn">
+                ✉ Email Us — admin@naigrowth.com
+            </a>
+            <br>
+            <a href="https://wa.me/918890819966" class="cta-btn gold" style="margin-top:16px;">
+                💬 WhatsApp — +91 88908 19966
+            </a>
+            <div style="margin-top:30px; color:var(--text-muted); font-size:0.9rem;">
+                🌐 naigrowth.com &nbsp;|&nbsp; Serving Clients Globally
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Particle animation
+        const canvas = document.getElementById('particles');
+        const ctx = canvas.getContext('2d');
+        let particles = [];
+
+        function resizeCanvas() {
+            canvas.width = window.innerWidth;
+            canvas.height = window.innerHeight;
+        }
+        resizeCanvas();
+        window.addEventListener('resize', resizeCanvas);
+
+        class Particle {
+            constructor() {
+                this.reset();
+            }
+            reset() {
+                this.x = Math.random() * canvas.width;
+                this.y = Math.random() * canvas.height;
+                this.size = Math.random() * 2 + 0.5;
+                this.speedX = (Math.random() - 0.5) * 0.5;
+                this.speedY = (Math.random() - 0.5) * 0.5;
+                this.opacity = Math.random() * 0.5 + 0.1;
+            }
+            update() {
+                this.x += this.speedX;
+                this.y += this.speedY;
+                if (this.x < 0 || this.x > canvas.width || this.y < 0 || this.y > canvas.height) {
+                    this.reset();
+                }
+            }
+            draw() {
+                ctx.beginPath();
+                ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
+                ctx.fillStyle = `rgba(79, 110, 247, ${this.opacity})`;
+                ctx.fill();
+            }
+        }
+
+        for (let i = 0; i < 80; i++) {
+            particles.push(new Particle());
+        }
+
+        function animateParticles() {
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            particles.forEach(p => {
+                p.update();
+                p.draw();
+            });
+            requestAnimationFrame(animateParticles);
+        }
+        animateParticles();
+
+        // Slide show
+        const totalSlides = 7;
+        const slideDuration = 5000; // 5 seconds per slide
+        let currentSlide = 0;
+        let slideTimer;
+
+        const progressBar = document.getElementById('progressBar');
+        const slideCounter = document.getElementById('slideCounter');
+        const replayBtn = document.getElementById('replayBtn');
+
+        // Create dots
+        for (let i = 0; i < totalSlides; i++) {
+            const dot = document.createElement('div');
+            dot.className = 'slide-dot';
+            slideCounter.appendChild(dot);
+        }
+
+        function showSlide(index) {
+            // Hide all slides
+            document.querySelectorAll('.slide').forEach((s, i) => {
+                if (i === index) {
+                    s.classList.add('active');
+                    s.classList.remove('exit');
+                } else {
+                    s.classList.remove('active');
+                    if (i < index) s.classList.add('exit');
+                    else s.classList.remove('exit');
+                }
+            });
+
+            // Update dots
+            document.querySelectorAll('.slide-dot').forEach((d, i) => {
+                d.classList.toggle('active', i === index);
+            });
+
+            // Reset check animations for slide 2
+            if (index === 2) {
+                const checks = document.querySelectorAll('#slide-2 .check-item');
+                checks.forEach(c => {
+                    c.style.animation = 'none';
+                    c.offsetHeight; // trigger reflow
+                    c.style.animation = '';
+                });
+            }
+        }
+
+        function nextSlide() {
+            if (currentSlide < totalSlides - 1) {
+                currentSlide++;
+                showSlide(currentSlide);
+                startSlideTimer();
+            } else {
+                // Show replay
+                replayBtn.classList.add('visible');
+            }
+        }
+
+        function startSlideTimer() {
+            clearInterval(slideTimer);
+            let elapsed = 0;
+            const interval = 50;
+
+            slideTimer = setInterval(() => {
+                elapsed += interval;
+                const totalElapsed = currentSlide * slideDuration + elapsed;
+                const totalDuration = totalSlides * slideDuration;
+                progressBar.style.width = (totalElapsed / totalDuration * 100) + '%';
+
+                if (elapsed >= slideDuration) {
+                    clearInterval(slideTimer);
+                    nextSlide();
+                }
+            }, interval);
+        }
+
+        function restartAd() {
+            currentSlide = 0;
+            replayBtn.classList.remove('visible');
+            showSlide(0);
+            startSlideTimer();
+        }
+
+        // Start
+        showSlide(0);
+        startSlideTimer();
+    </script>
+
+</body>
+
+</html>
