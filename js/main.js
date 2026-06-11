@@ -1,9 +1,11 @@
 /* ============================================
-   NexaEdge Digital — Main JavaScript
+   NaiGrowth — Main JavaScript
    ============================================ */
 
 document.addEventListener('DOMContentLoaded', () => {
     initNavbar();
+    initScrollProgress();
+    initBackToTop();
     initScrollReveal();
     initCounterAnimation();
     initSmoothScroll();
@@ -92,9 +94,35 @@ function initNavbar() {
     });
 }
 
+/* --- Scroll Progress Bar --- */
+function initScrollProgress() {
+    const bar = document.getElementById('scrollProgress');
+    if (!bar) return;
+    window.addEventListener('scroll', () => {
+        const scrollable = document.documentElement.scrollHeight - window.innerHeight;
+        const progress = scrollable > 0 ? (window.scrollY / scrollable) * 100 : 0;
+        bar.style.width = progress + '%';
+    }, { passive: true });
+}
+
+/* --- Back to Top --- */
+function initBackToTop() {
+    const btn = document.getElementById('backToTop');
+    if (!btn) return;
+    window.addEventListener('scroll', () => {
+        btn.classList.toggle('visible', window.scrollY > 600);
+    }, { passive: true });
+    btn.addEventListener('click', () => {
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+    });
+}
+
 /* --- Scroll Reveal --- */
 function initScrollReveal() {
     const reveals = document.querySelectorAll('.reveal');
+    // Without IntersectionObserver content simply stays visible (SEO/no-JS safe)
+    if (!('IntersectionObserver' in window)) return;
+    document.documentElement.classList.add('reveal-ready');
     const observer = new IntersectionObserver((entries) => {
         entries.forEach(entry => {
             if (entry.isIntersecting) {
@@ -161,15 +189,30 @@ function initSmoothScroll() {
     });
 }
 
-/* --- Contact Form --- */
+/* --- Contact Form (with anti-bot timestamp + accessible status) --- */
 function initContactForm() {
     const form = document.getElementById('contactFormEl');
     if (!form) return;
+
+    // Time-trap: server rejects submissions faster than a human could type
+    const ts = document.getElementById('formTimestamp');
+    if (ts) ts.value = Date.now();
+
+    const status = document.getElementById('formStatus');
+
+    function showStatus(message, type) {
+        if (!status) return;
+        status.textContent = message;
+        status.className = 'form-status ' + type;
+    }
+
     form.addEventListener('submit', (e) => {
         e.preventDefault();
         const btn = form.querySelector('.form-submit');
         const originalText = btn.innerHTML;
         btn.innerHTML = 'Sending...';
+        btn.disabled = true;
+        showStatus('', '');
 
         const formData = new FormData(form);
         const jsonData = Object.fromEntries(formData.entries());
@@ -181,31 +224,30 @@ function initContactForm() {
                 'Content-Type': 'application/json',
                 'Accept': 'application/json'
             }
-        }).then(response => {
-            if (response.ok) {
-                btn.innerHTML = '<span style="display:inline-flex;align-items:center;gap:8px;">✓ Consultation Booked!</span>';
-                btn.style.background = 'linear-gradient(135deg, #10b981, #06b6d4)';
-                setTimeout(() => {
+        }).then(response => response.json().then(data => ({ ok: response.ok, data })))
+            .then(({ ok, data }) => {
+                if (ok) {
+                    btn.innerHTML = '✓ Consultation Booked!';
+                    btn.style.background = 'linear-gradient(135deg, #10b981, #06b6d4)';
+                    showStatus('Thank you! We\'ll get back to you within 24 hours.', 'success');
+                    setTimeout(() => {
+                        btn.innerHTML = originalText;
+                        btn.style.background = '';
+                        btn.disabled = false;
+                        form.reset();
+                        if (ts) ts.value = Date.now();
+                    }, 3000);
+                } else {
                     btn.innerHTML = originalText;
-                    btn.style.background = '';
-                    form.reset();
-                }, 3000);
-            } else {
-                btn.innerHTML = 'Error Sending';
-                btn.style.background = '#ef4444';
-                setTimeout(() => {
-                    btn.innerHTML = originalText;
-                    btn.style.background = '';
-                }, 3000);
-            }
-        }).catch(error => {
-            btn.innerHTML = 'Error Sending';
-            btn.style.background = '#ef4444';
-            setTimeout(() => {
+                    btn.disabled = false;
+                    showStatus(data.message || 'Something went wrong. Please try WhatsApp instead.', 'error');
+                }
+            })
+            .catch(() => {
                 btn.innerHTML = originalText;
-                btn.style.background = '';
-            }, 3000);
-        });
+                btn.disabled = false;
+                showStatus('Network error — please try again or WhatsApp us directly.', 'error');
+            });
     });
 }
 
@@ -316,16 +358,20 @@ function initVideoPlaceholders() {
         <h4 style="font-family:'Outfit',sans-serif;font-size:1.2rem;font-weight:700;color:#fff">${titles[videoType] || 'Product Video'}</h4>
         <p style="font-size:.85rem;color:#94a3b8;max-width:280px;line-height:1.6">Full explainer video coming soon.<br>Book a free consultation!</p>
         <a href="https://wa.me/918890819966" class="btn btn-primary" style="padding:10px 24px;font-size:.85rem;margin-top:8px" target="_blank" rel="noopener">WhatsApp Us</a>
-        <button style="position:absolute;top:12px;right:12px;background:rgba(255,255,255,0.1);border:none;color:#fff;width:32px;height:32px;border-radius:50%;cursor:pointer;font-size:1rem;display:flex;align-items:center;justify-content:center" onclick="this.parentElement.remove()">✕</button>`;
+        <button type="button" class="overlay-close" aria-label="Close" style="position:absolute;top:12px;right:12px;background:rgba(255,255,255,0.1);border:none;color:#fff;width:32px;height:32px;border-radius:50%;cursor:pointer;font-size:1rem;display:flex;align-items:center;justify-content:center">✕</button>`;
+            // addEventListener instead of inline onclick — inline handlers are blocked by the strict CSP
+            overlay.querySelector('.overlay-close').addEventListener('click', () => overlay.remove());
             wrapper.style.position = 'relative';
             wrapper.appendChild(overlay);
         });
     });
 }
 
-/* --- Tilt Effect on Service Cards --- */
+/* --- 3D Tilt Effect on Cards (hover-capable devices only) --- */
 function initTiltEffect() {
-    document.querySelectorAll('.service-card').forEach(card => {
+    if (!window.matchMedia('(hover: hover)').matches) return;
+    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+    document.querySelectorAll('.service-card, .portfolio-card, .platform-card, .roadmap-card').forEach(card => {
         card.addEventListener('mousemove', (e) => {
             const rect = card.getBoundingClientRect();
             const x = e.clientX - rect.left, y = e.clientY - rect.top;

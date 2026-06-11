@@ -8,38 +8,43 @@
   <!-- Performance -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link rel="dns-prefetch" href="https://www.google.com">
-  <!-- Preload critical fonts -->
+  <!-- Fonts loaded as a non-render-blocking stylesheet (was an @import inside CSS) -->
   <link rel="preload"
     href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Outfit:wght@500;600;700;800;900&display=swap"
     as="style">
+  <link rel="stylesheet"
+    href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Outfit:wght@500;600;700;800;900&display=swap">
 
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="theme-color" content="#050816">
 
   <!-- SEO -->
-  <title>NaiGrowth | B2B Software Reviews, G2 & Capterra Reputation for Tech, Jewelry & Gems</title>
+  <title>NaiGrowth | Web Design & Development Agency + G2 & Capterra Review Growth</title>
   <meta name="description"
-    content="NaiGrowth drives authentic reputation reviews for software and e-commerce. Specializing in G2, Capterra, and Gartner software reviews, plus high-converting SaaS marketing websites for the jewelry and gems industry.">
+    content="Full-service digital agency: high-converting website & e-commerce development (jewelry & gems specialists) plus authentic G2, Capterra, Gartner & TrustPilot software review growth.">
   <meta name="keywords"
-    content="reputation reviews, G2 reviews, Capterra reviews, software reviews, buy G2 reviews, jewelry e-commerce, gems industry websites, B2B software reputation, Gartner reviews, TrustPilot, genuine customer reviews, SaaS marketing, B2B lead generation, Capterra reputation agency">
+    content="website development agency, web design services, custom website design, e-commerce website development, Shopify development, Next.js development, jewelry website design, gems industry websites, SaaS landing pages, reputation reviews, G2 reviews, Capterra reviews, software reviews, B2B software reputation, Gartner reviews, TrustPilot, genuine customer reviews, B2B lead generation, review generation agency, AI review automation, Salesforce consulting, 90 day growth roadmap">
   <meta name="author" content="NaiGrowth">
   <link rel="canonical" href="https://naigrowth.com">
 
   <!-- Open Graph -->
-  <meta property="og:title" content="NaiGrowth | Reputation Reviews & Tech/Jewelry Web Dev">
+  <meta property="og:title" content="NaiGrowth | Web Development & Review Growth Agency">
   <meta property="og:description"
-    content="Dominate G2 and Capterra software reviews, or build stunning e-commerce experiences for jewelry and gems.">
+    content="We build high-converting websites & e-commerce platforms, and scale authentic software reviews on G2, Capterra & TrustPilot.">
   <meta property="og:type" content="website">
   <meta property="og:url" content="https://naigrowth.com">
   <meta property="og:site_name" content="NaiGrowth">
+  <meta property="og:locale" content="en_US">
   <meta property="og:image" content="https://naigrowth.com/assets/logos/naitik_logo.png">
+  <meta property="og:image:width" content="512">
+  <meta property="og:image:height" content="512">
+  <meta property="og:image:alt" content="NaiGrowth logo">
 
   <!-- Twitter Cards -->
   <meta name="twitter:card" content="summary_large_image">
-  <meta name="twitter:title" content="NaiGrowth | B2B Software Reviews & E-commerce">
+  <meta name="twitter:title" content="NaiGrowth | Web Development & Review Growth Agency">
   <meta name="twitter:description"
-    content="Scale your brand's reputation with genuine G2 and Capterra software reviews. Premium jewelry e-commerce development.">
+    content="High-converting website & e-commerce development plus genuine G2, Capterra & TrustPilot software review growth.">
   <meta name="twitter:image" content="https://naigrowth.com/assets/logos/naitik_logo.png">
 
   <!-- Schema -->
@@ -49,8 +54,18 @@
     "@type": "Organization",
     "name": "NaiGrowth",
     "url": "https://naigrowth.com",
+    "logo": "https://naigrowth.com/assets/logos/naitik_logo.png",
     "email": "admin@naigrowth.com",
-    "description": "Leading agency for B2B software reviews on G2 and Capterra, reputation reviews, and premium e-commerce development for the jewelry and gems sectors."
+    "description": "Full-service digital agency for website design & development, e-commerce platforms (jewelry & gems specialists), and B2B software review growth on G2, Capterra, Gartner and TrustPilot.",
+    "knowsAbout": ["Website Design", "Web Development", "E-Commerce Development", "Shopify", "Next.js", "G2 Reviews", "Capterra Reviews", "Reputation Management", "Salesforce Consulting", "SEO"],
+    "contactPoint": {
+      "@type": "ContactPoint",
+      "contactType": "sales",
+      "email": "admin@naigrowth.com",
+      "telephone": "+91-88908-19966",
+      "availableLanguage": ["English", "Hindi"]
+    },
+    "areaServed": "Worldwide"
   }
   </script>
 
@@ -63,7 +78,7 @@
   <a href="#main-content" class="skip-link">Skip to main content</a>
 
   <!-- FLOATING WHATSAPP BUTTON -->
-  <div class="floating-cta" role="complementary" aria-label="Quick contact">
+  <aside class="floating-cta" aria-label="Quick contact">
     <a href="https://wa.me/918890819966?text=Hi%20NaiGrowth%2C%20I%27m%20interested%20in%20your%20services"
       target="_blank" rel="noopener" aria-label="Contact NaiGrowth on WhatsApp">
       <svg width="22" height="22" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true">
@@ -72,10 +87,11 @@
       </svg>
       WhatsApp Us
     </a>
-  </div>
+  </aside>
 
   <!-- NAVBAR -->
   <nav class="navbar" id="navbar" aria-label="Main navigation">
+    <div class="scroll-progress" id="scrollProgress" aria-hidden="true"></div>
     <div class="container">
       <a href="#hero" class="nav-logo" aria-label="NaiGrowth — Back to top">
         <img src="assets/logos/naitik_logo.png" alt="NaiGrowth Logo" width="40" height="40"
@@ -83,10 +99,12 @@
         <span class="nav-logo-text"><span>Nai</span>Growth</span>
       </a>
       <div class="nav-links" id="navLinks" role="menubar">
-        <a href="#platforms" role="menuitem">Platforms</a>
         <a href="#services" role="menuitem">Services</a>
-        <a href="#process" role="menuitem">Process</a>
+        <a href="#webdev" role="menuitem">Web Dev</a>
+        <a href="#platforms" role="menuitem">Reviews</a>
+        <a href="#roadmap" role="menuitem">Roadmap</a>
         <a href="#about" role="menuitem">About</a>
+        <a href="#faq" role="menuitem">FAQ</a>
         <a href="#contact" role="menuitem">Contact</a>
         <a href="mailto:admin@naigrowth.com" class="btn btn-primary btn-sm" role="menuitem">✉ Email Us</a>
       </div>
@@ -103,20 +121,33 @@
     </div>
     <div class="container">
       <div class="hero-content">
-        <div class="hero-badge">🚀 Trusted by 50+ Businesses Worldwide</div>
+        <div class="hero-badge">🚀 Web Development × Review Growth — 50+ Brands Worldwide</div>
         <h1 class="hero-title">
-          Scale <span class="gradient-text">Reputation Reviews</span> for Software & E-Commerce
+          Websites That <span class="gradient-text">Convert</span>.<br>
+          Reviews That <span class="gradient-text">Rank</span>.
         </h1>
         <p class="hero-desc">
-          We generate authentic, high-converting <strong>software reviews</strong> on <strong>G2, Capterra, and
-            Gartner</strong>. We also build stunning, high-ROI <strong>jewelry and gems websites</strong>. Elevate your
-          brand with AI-powered reputation strategies.
+          NaiGrowth is a full-service digital agency. We <strong>design &amp; develop high-performance
+            websites</strong> — from luxury <strong>jewelry e-commerce</strong> to SaaS platforms — and scale
+          authentic <strong>software reviews</strong> on <strong>G2, Capterra, and Gartner</strong>.
         </p>
+        <div class="hero-pillars" aria-label="Our two core services">
+          <a href="#webdev" class="pillar-chip pillar-web">💻 Website Development <span>50%</span></a>
+          <a href="#platforms" class="pillar-chip pillar-rev">⭐ Review Growth <span>50%</span></a>
+        </div>
         <div class="hero-ctas">
           <a href="https://wa.me/918890819966?text=Hi%20NaiGrowth%2C%20I%27m%20interested%20in%20your%20services"
             target="_blank" rel="noopener" class="btn btn-primary btn-lg" id="hero-cta-whatsapp">💬 WhatsApp Us Now
             <span class="btn-arrow">→</span></a>
           <a href="#contact" class="btn btn-outline btn-lg" id="hero-cta-consultation">Book Free Consultation</a>
+        </div>
+
+        <!-- Trust badges -->
+        <div class="trust-strip" aria-label="Trust and security guarantees">
+          <span class="trust-badge">🔒 SSL Secured</span>
+          <span class="trust-badge">🛡️ Spam-Protected</span>
+          <span class="trust-badge">✅ 100% Genuine Reviews</span>
+          <span class="trust-badge">⚡ 24h Response</span>
         </div>
 
         <!-- Platform logos row -->
@@ -140,6 +171,19 @@
       </div>
 
       <div class="hero-visual">
+        <!-- 3D rotating platform cube -->
+        <div class="cube-scene" aria-hidden="true">
+          <div class="cube">
+            <div class="cube-face cube-front"><img src="assets/logos/g2.png" alt="" width="64" height="64"></div>
+            <div class="cube-face cube-back"><img src="assets/logos/capterra.png" alt="" width="64" height="64"></div>
+            <div class="cube-face cube-right"><img src="assets/logos/gartner.png" alt="" width="64" height="64"></div>
+            <div class="cube-face cube-left"><img src="assets/logos/trustpilot.png" alt="" width="64" height="64"></div>
+            <div class="cube-face cube-top"><img src="assets/logos/trustradius.png" alt="" width="64" height="64">
+            </div>
+            <div class="cube-face cube-bottom"><span class="cube-star">⭐</span></div>
+          </div>
+          <div class="cube-glow"></div>
+        </div>
         <div class="hero-stats-grid">
           <div class="hero-stat-card">
             <div class="stat-number" data-target="50" data-suffix="+">0</div>
@@ -150,12 +194,41 @@
             <div class="stat-label">Reviews Generated</div>
           </div>
           <div class="hero-stat-card">
-            <div class="stat-number" data-target="7" data-suffix="">0</div>
-            <div class="stat-label">Platforms</div>
+            <div class="stat-number" data-target="40" data-suffix="+">0</div>
+            <div class="stat-label">Websites Built</div>
           </div>
           <div class="hero-stat-card">
             <div class="stat-number" data-target="98" data-suffix="%">0</div>
             <div class="stat-label">Satisfaction</div>
+          </div>
+        </div>
+
+        <!-- Review growth chart card -->
+        <div class="hero-visual-card">
+          <div class="hvc-head">
+            <span class="hvc-title">📈 Avg. Client Review Growth</span>
+            <span class="hvc-badge">+312%</span>
+          </div>
+          <div class="hvc-row">
+            <span class="hvc-label">G2</span>
+            <div class="bar-track">
+              <div class="bar-fill bar-g2" style="width:92%"></div>
+            </div>
+            <span class="hvc-val">92%</span>
+          </div>
+          <div class="hvc-row">
+            <span class="hvc-label">Capterra</span>
+            <div class="bar-track">
+              <div class="bar-fill bar-cap" style="width:84%"></div>
+            </div>
+            <span class="hvc-val">84%</span>
+          </div>
+          <div class="hvc-row">
+            <span class="hvc-label">TrustPilot</span>
+            <div class="bar-track">
+              <div class="bar-fill bar-tp" style="width:76%"></div>
+            </div>
+            <span class="hvc-val">76%</span>
           </div>
         </div>
       </div>
@@ -167,61 +240,75 @@
     <section class="section-light section-padding" id="platforms">
       <div class="container">
         <div class="section-header reveal">
-          <p class="section-label">Platforms We Cover</p>
-          <h2 class="section-title">Real Logos, Real <span class="highlight">Platforms</span></h2>
-          <p class="section-sub">We generate genuine, verified reviews on every major software review platform.</p>
+          <p class="section-label">Reviews Pillar · 7 Platforms</p>
+          <h2 class="section-title">Get Reviewed Where <span class="highlight">Buyers Actually Look</span></h2>
+          <p class="section-sub">Millions of buyers check these platforms before every purchase. We put genuine,
+            verified reviews of your product right in front of them.</p>
         </div>
 
         <div class="platforms-grid">
-          <a href="https://www.g2.com" target="_blank" rel="noopener" class="platform-card reveal"
-            aria-label="G2 SEO Services">
-            <img src="assets/logos/g2.png" alt="G2 software reviews reputation management service for SaaS" width="56"
-              height="56" loading="lazy" class="platform-logo">
+          <a href="https://www.g2.com" target="_blank" rel="noopener" class="platform-card p-g2 reveal"
+            aria-label="G2 review growth services">
+            <div class="pc-tile"><img src="assets/logos/g2.png"
+                alt="G2 software reviews reputation management service for SaaS" width="44" height="44"
+                loading="lazy"></div>
             <h3>G2</h3>
-            <p>World's largest B2B software review marketplace</p>
+            <p>90M+ software buyers research here every year</p>
+            <span class="pc-cta">Get G2 Reviews →</span>
           </a>
-          <a href="https://www.capterra.com" target="_blank" rel="noopener" class="platform-card reveal reveal-delay-1"
-            aria-label="Capterra SEO Services">
-            <img src="assets/logos/capterra.png" alt="Capterra B2B software reviews and custom reputation generation"
-              width="56" height="56" loading="lazy" class="platform-logo">
+          <a href="https://www.capterra.com" target="_blank" rel="noopener"
+            class="platform-card p-cap reveal reveal-delay-1" aria-label="Capterra review growth services">
+            <div class="pc-tile"><img src="assets/logos/capterra.png"
+                alt="Capterra B2B software reviews and custom reputation generation" width="44" height="44"
+                loading="lazy"></div>
             <h3>Capterra</h3>
-            <p>Leading software comparison and review site</p>
+            <p>The #1 stop for software comparison shoppers</p>
+            <span class="pc-cta">Get Capterra Reviews →</span>
           </a>
-          <a href="https://www.gartner.com" target="_blank" rel="noopener" class="platform-card reveal reveal-delay-2"
-            aria-label="Gartner SEO Services">
-            <img src="assets/logos/gartner.png" alt="Gartner enterprise B2B tech software reviews strategy" width="56"
-              height="56" loading="lazy" class="platform-logo">
+          <a href="https://www.gartner.com" target="_blank" rel="noopener"
+            class="platform-card p-gar reveal reveal-delay-2" aria-label="Gartner peer review strategy">
+            <div class="pc-tile"><img src="assets/logos/gartner.png"
+                alt="Gartner enterprise B2B tech software reviews strategy" width="44" height="44" loading="lazy">
+            </div>
             <h3>Gartner</h3>
-            <p>Enterprise technology research & peer reviews</p>
+            <p>Where enterprise decision-makers shortlist vendors</p>
+            <span class="pc-cta">Gartner Strategy →</span>
           </a>
-          <a href="https://www.trustpilot.com" target="_blank" rel="noopener" class="platform-card reveal"
-            aria-label="TrustPilot SEO Services">
-            <img src="assets/logos/trustpilot.png" alt="TrustPilot authentic reputation building and consumer reviews"
-              width="56" height="56" loading="lazy" class="platform-logo">
+          <a href="https://www.trustpilot.com" target="_blank" rel="noopener"
+            class="platform-card p-tp reveal reveal-delay-3" aria-label="TrustPilot reputation growth">
+            <div class="pc-tile"><img src="assets/logos/trustpilot.png"
+                alt="TrustPilot authentic reputation building and consumer reviews" width="44" height="44"
+                loading="lazy"></div>
             <h3>TrustPilot</h3>
-            <p>World's most trusted consumer review platform</p>
+            <p>The trust signal consumers check first</p>
+            <span class="pc-cta">TrustPilot Growth →</span>
           </a>
-          <a href="https://www.trustradius.com" target="_blank" rel="noopener"
-            class="platform-card reveal reveal-delay-1" aria-label="TrustRadius SEO Services">
-            <img src="assets/logos/trustradius.png" alt="TrustRadius genuine user verified B2B software reviews"
-              width="56" height="56" loading="lazy" class="platform-logo">
+          <a href="https://www.trustradius.com" target="_blank" rel="noopener" class="platform-card p-tr reveal"
+            aria-label="TrustRadius review growth">
+            <div class="pc-tile"><img src="assets/logos/trustradius.png"
+                alt="TrustRadius genuine user verified B2B software reviews" width="44" height="44" loading="lazy">
+            </div>
             <h3>TrustRadius</h3>
-            <p>In-depth, verified technology reviews</p>
+            <p>100% verified, in-depth B2B tech reviews</p>
+            <span class="pc-cta">TrustRadius Reviews →</span>
           </a>
-          <a href="https://apps.apple.com" target="_blank" rel="noopener" class="platform-card reveal reveal-delay-2"
-            aria-label="App Store SEO Services">
-            <img src="assets/logos/appstore.png"
-              alt="Apple App Store mobile app ratings scale and reputation management" width="56" height="56"
-              loading="lazy" class="platform-logo">
+          <a href="https://apps.apple.com" target="_blank" rel="noopener"
+            class="platform-card p-as reveal reveal-delay-1" aria-label="App Store ratings growth">
+            <div class="pc-tile"><img src="assets/logos/appstore.png"
+                alt="Apple App Store mobile app ratings scale and reputation management" width="44" height="44"
+                loading="lazy"></div>
             <h3>App Store</h3>
-            <p>iOS app ratings & reviews</p>
+            <p>Ratings that move you up iOS search results</p>
+            <span class="pc-cta">App Store Ratings →</span>
           </a>
-          <a href="https://play.google.com" target="_blank" rel="noopener" class="platform-card reveal"
-            aria-label="Google Play SEO Services">
-            <img src="assets/logos/playstore.png" alt="Google Play Store Android app ranking and reputation reviews"
-              width="56" height="56" loading="lazy" class="platform-logo">
+          <a href="https://play.google.com" target="_blank" rel="noopener"
+            class="platform-card p-ps reveal reveal-delay-2" aria-label="Google Play ratings growth">
+            <div class="pc-tile"><img src="assets/logos/playstore.png"
+                alt="Google Play Store Android app ranking and reputation reviews" width="44" height="44"
+                loading="lazy"></div>
             <h3>Play Store</h3>
-            <p>Android app reviews & ratings</p>
+            <p>Win more Android installs with 5★ momentum</p>
+            <span class="pc-cta">Play Store Ratings →</span>
           </a>
         </div>
       </div>
@@ -236,32 +323,28 @@
         </div>
         <div class="services-grid">
           <div class="service-card featured reveal">
-            <div class="service-badge">Most Popular</div>
+            <div class="service-badge">Core Service</div>
+            <div class="service-emoji">💻</div>
+            <h3>Website Design & Development</h3>
+            <p>Custom, conversion-first <strong>website design and development</strong> — marketing sites, SaaS
+              platforms, and full e-commerce builds engineered for speed, SEO, and sales.</p>
+            <div class="tags">
+              <span>Custom Websites</span><span>Next.js</span><span>Shopify</span><span>UI/UX</span><span>SEO-Ready</span><span>E-Commerce</span>
+            </div>
+          </div>
+          <div class="service-card featured reveal reveal-delay-1">
+            <div class="service-badge badge-alt">Most Popular</div>
             <div class="service-emoji">⭐</div>
             <h3>Software Reviews & Reputation Management</h3>
             <p>Drive authentic, verified <strong>software reviews</strong> from real users on <strong>G2, Capterra,
-                Gartner</strong>, TrustPilot, and App Stores to dominate your category.</p>
+                Gartner</strong>, TrustPilot, and App Stores — plus analytics, benchmarking, and ROI tracking.</p>
             <div class="tags">
               <span>G2</span><span>Capterra</span><span>Gartner</span><span>TrustPilot</span><span>TrustRadius</span><span>App
                 Store</span><span>Play Store</span>
             </div>
           </div>
-          <div class="service-card reveal reveal-delay-1">
-            <div class="service-emoji">🤖</div>
-            <h3>AI & Automation</h3>
-            <p>AI-driven review campaigns, customer outreach automation, chatbots, and intelligent workflows.</p>
-            <div class="tags"><span>AI Campaigns</span><span>Automation</span><span>Chatbots</span><span>Outreach</span>
-            </div>
-          </div>
           <div class="service-card reveal reveal-delay-2">
-            <div class="service-emoji">☁️</div>
-            <h3>Salesforce Consulting</h3>
-            <p>Certified Platform Developers & Agentforce Specialists. CRM setup, customization & automation.</p>
-            <div class="tags"><span>Salesforce</span><span>Agentforce</span><span>CRM</span><span>Automation</span>
-            </div>
-          </div>
-          <div class="service-card reveal">
-            <div class="service-emoji">💻</div>
+            <div class="service-emoji">💎</div>
             <h3>Jewelry & Gems E-Commerce</h3>
             <p>High-performance, luxury e-commerce websites built specifically for the <strong>jewelry and gems
                 industry</strong> to maximize lead generation.</p>
@@ -270,18 +353,130 @@
                 Dev</span>
             </div>
           </div>
+          <div class="service-card reveal">
+            <div class="service-emoji">🤖</div>
+            <h3>AI & Automation</h3>
+            <p>AI-driven review campaigns, customer outreach automation, chatbots, and intelligent workflows.</p>
+            <div class="tags"><span>AI Campaigns</span><span>Automation</span><span>Chatbots</span><span>Outreach</span>
+            </div>
+          </div>
           <div class="service-card reveal reveal-delay-1">
+            <div class="service-emoji">☁️</div>
+            <h3>Salesforce Consulting</h3>
+            <p>Certified Platform Developers & Agentforce Specialists. CRM setup, customization & automation.</p>
+            <div class="tags"><span>Salesforce</span><span>Agentforce</span><span>CRM</span><span>Automation</span>
+            </div>
+          </div>
+          <div class="service-card reveal reveal-delay-2">
             <div class="service-emoji">🔍</div>
             <h3>SEO & Digital Marketing</h3>
             <p>Data-driven SEO, content strategy, and digital campaigns that drive organic traffic.</p>
             <div class="tags"><span>SEO</span><span>Content</span><span>Analytics</span><span>Link Building</span></div>
           </div>
-          <div class="service-card reveal reveal-delay-2">
-            <div class="service-emoji">📊</div>
-            <h3>Review Analytics & Strategy</h3>
-            <p>Sentiment analysis, competitor benchmarking, response management, and ROI tracking.</p>
-            <div class="tags"><span>Analytics</span><span>Benchmarking</span><span>Monitoring</span><span>ROI</span>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===== WEB DEVELOPMENT STUDIO (LIGHT-2, blueprint) ===== -->
+    <section class="section-light-2 section-padding webdev-section" id="webdev">
+      <div class="container">
+        <div class="section-header reveal">
+          <p class="section-label">Web Development Studio</p>
+          <h2 class="section-title">We Architect <span class="highlight">Websites That Sell</span></h2>
+          <p class="section-sub">From luxury <strong>jewelry e-commerce</strong> to SaaS platforms — every site is
+            designed, engineered, and launched with conversion, speed, and SEO built in.</p>
+        </div>
+
+        <div class="webdev-layout">
+          <div class="webdev-content reveal">
+            <div class="webdev-feats">
+              <div class="webdev-feat">
+                <span class="wd-dot wd-pink"></span>
+                <div><strong>🎨 UI / UX Design</strong>
+                  <p>Wireframes, design systems, and conversion-first layouts your customers love.</p>
+                </div>
+              </div>
+              <div class="webdev-feat">
+                <span class="wd-dot wd-cyan"></span>
+                <div><strong>⚡ Frontend Engineering</strong>
+                  <p>Blazing-fast, responsive, pixel-perfect interfaces on modern frameworks.</p>
+                </div>
+              </div>
+              <div class="webdev-feat">
+                <span class="wd-dot wd-purple"></span>
+                <div><strong>🛠️ Backend & APIs</strong>
+                  <p>Robust integrations, payments, CRMs, and content systems that scale.</p>
+                </div>
+              </div>
+              <div class="webdev-feat">
+                <span class="wd-dot wd-green"></span>
+                <div><strong>🔒 Security & Hosting</strong>
+                  <p>SSL, hardened headers, spam protection, and rock-solid cloud hosting.</p>
+                </div>
+              </div>
             </div>
+
+            <div class="tech-chips" aria-label="Technologies we build with">
+              <span class="tech-chip">React</span>
+              <span class="tech-chip">Next.js</span>
+              <span class="tech-chip">Shopify</span>
+              <span class="tech-chip">WordPress</span>
+              <span class="tech-chip">Node.js</span>
+              <span class="tech-chip">Vercel</span>
+              <span class="tech-chip">Salesforce</span>
+            </div>
+
+            <a href="#contact" class="btn btn-primary">🚀 Start Your Project <span class="btn-arrow">→</span></a>
+          </div>
+
+          <!-- 3D website architecture stack -->
+          <div class="arch-scene reveal reveal-delay-1" aria-hidden="true">
+            <div class="arch-stack">
+              <div class="arch-layer arch-l1"><span>🔒 Security</span></div>
+              <div class="arch-layer arch-l2"><span>🛠️ Backend</span></div>
+              <div class="arch-layer arch-l3"><span>⚡ Frontend</span></div>
+              <div class="arch-layer arch-l4"><span>🎨 UI / UX</span></div>
+            </div>
+            <div class="arch-glow"></div>
+          </div>
+        </div>
+
+        <!-- The Website Design Map -->
+        <div class="devmap-head reveal">
+          <h3>🗺️ The Website Design Map — From Idea to Launch</h3>
+          <p>Six stations. Zero guesswork. You see exactly where your project is at every step.</p>
+        </div>
+        <div class="devmap reveal reveal-delay-1">
+          <div class="devmap-line" aria-hidden="true"></div>
+          <div class="devmap-stop">
+            <div class="devmap-num dm-1">01</div>
+            <h4>Discovery</h4>
+            <p>Goals, audience & competitor strategy</p>
+          </div>
+          <div class="devmap-stop">
+            <div class="devmap-num dm-2">02</div>
+            <h4>Wireframes</h4>
+            <p>Site architecture & user-flow mapping</p>
+          </div>
+          <div class="devmap-stop">
+            <div class="devmap-num dm-3">03</div>
+            <h4>UI Design</h4>
+            <p>Stunning, on-brand visual design</p>
+          </div>
+          <div class="devmap-stop">
+            <div class="devmap-num dm-4">04</div>
+            <h4>Development</h4>
+            <p>Clean, fast, scalable code</p>
+          </div>
+          <div class="devmap-stop">
+            <div class="devmap-num dm-5">05</div>
+            <h4>QA & SEO</h4>
+            <p>Testing, speed & search optimization</p>
+          </div>
+          <div class="devmap-stop">
+            <div class="devmap-num dm-6">06</div>
+            <h4>Launch & Grow</h4>
+            <p>Go live, monitor & iterate</p>
           </div>
         </div>
       </div>
@@ -291,7 +486,7 @@
     <section class="section-light section-padding" id="process">
       <div class="container">
         <div class="section-header reveal">
-          <p class="section-label">Our Proven Process</p>
+          <p class="section-label">Reviews Pillar · Proven Process</p>
           <h2 class="section-title">How We Generate <span class="highlight">Software Reviews</span></h2>
           <p class="section-sub">Ethical, AI-powered systems to scale your <strong>reputation reviews</strong> — no fake
             reviews, ever.</p>
@@ -317,6 +512,75 @@
             <div class="process-num">04</div>
             <h3>Monitor & Optimize</h3>
             <p>Real-time dashboards track review velocity, sentiment, and ratings continuously.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===== GROWTH ROADMAP (LIGHT-2) ===== -->
+    <section class="section-light-2 section-padding" id="roadmap">
+      <div class="container">
+        <div class="section-header reveal">
+          <p class="section-label">Reviews Growth Roadmap</p>
+          <h2 class="section-title">From Zero to <span class="highlight">Category Leader</span> in 90 Days</h2>
+          <p class="section-sub">A transparent, milestone-driven <strong>review generation roadmap</strong> — you
+            always know exactly what happens next.</p>
+        </div>
+        <div class="roadmap">
+          <div class="roadmap-line" aria-hidden="true"></div>
+          <div class="roadmap-item reveal">
+            <div class="roadmap-dot" aria-hidden="true"></div>
+            <div class="roadmap-card">
+              <span class="roadmap-phase phase-p1">Days 0–7</span>
+              <h3>🔍 Foundation & Audit</h3>
+              <p>Deep audit of your current G2, Capterra & TrustPilot presence, competitor benchmarking, and customer
+                database analysis to find your happiest users.</p>
+              <div class="tags-light"><span>Profile Audit</span><span>Competitor Scan</span><span>User Mapping</span>
+              </div>
+            </div>
+          </div>
+          <div class="roadmap-item reveal reveal-delay-1">
+            <div class="roadmap-dot" aria-hidden="true"></div>
+            <div class="roadmap-card">
+              <span class="roadmap-phase phase-p2">Days 8–30</span>
+              <h3>🚀 Launch Campaigns</h3>
+              <p>AI-powered outreach goes live across email, SMS, and in-app prompts. First wave of authentic
+                <strong>software reviews</strong> starts landing on your profiles.</p>
+              <div class="tags-light"><span>AI Outreach</span><span>First Reviews</span><span>Profile
+                  Optimization</span></div>
+            </div>
+          </div>
+          <div class="roadmap-item reveal reveal-delay-2">
+            <div class="roadmap-dot" aria-hidden="true"></div>
+            <div class="roadmap-card">
+              <span class="roadmap-phase phase-p3">Days 31–60</span>
+              <h3>📈 Scale & Optimize</h3>
+              <p>Review velocity compounds. We A/B test outreach timing, respond to every review, and push your
+                category ranking upward week after week.</p>
+              <div class="tags-light"><span>Velocity Growth</span><span>A/B Testing</span><span>Rank Climbing</span>
+              </div>
+            </div>
+          </div>
+          <div class="roadmap-item reveal reveal-delay-3">
+            <div class="roadmap-dot" aria-hidden="true"></div>
+            <div class="roadmap-card">
+              <span class="roadmap-phase phase-p4">Days 61–90</span>
+              <h3>🏆 Dominate Your Category</h3>
+              <p>Target: Top 3 in your category with badges, leader grids, and a review profile that converts visitors
+                into demos on autopilot.</p>
+              <div class="tags-light"><span>Top 3 Ranking</span><span>Leader Badges</span><span>Conversion Lift</span>
+              </div>
+            </div>
+          </div>
+          <div class="roadmap-item reveal">
+            <div class="roadmap-dot roadmap-dot-final" aria-hidden="true"></div>
+            <div class="roadmap-card roadmap-card-final">
+              <span class="roadmap-phase phase-p5">Beyond Day 90</span>
+              <h3>♾️ Compounding Growth</h3>
+              <p>Always-on review engine, quarterly strategy reviews, and reputation monitoring — your moat keeps
+                widening while you focus on product.</p>
+              <a href="#contact" class="btn btn-primary btn-sm">Start Your Roadmap →</a>
+            </div>
           </div>
         </div>
       </div>
@@ -383,20 +647,19 @@
         <div class="about-layout">
           <div class="about-content reveal">
             <p class="section-label">About NaiGrowth</p>
-            <h2 class="section-title">A Team Obsessed With <span class="highlight">Reputation & Tech</span></h2>
-            <p class="section-sub" style="margin-bottom:32px">We specialize in B2B <strong>software reviews</strong>
-              (G2,
-              Capterra), <strong>reputation reviews</strong>, AI automation, and bespoke e-commerce for <strong>jewelry
-                and gems</strong>.</p>
+            <h2 class="section-title">A Dual-Engine Team: <span class="highlight">Web & Reputation</span></h2>
+            <p class="section-sub" style="margin-bottom:32px">Half our craft is <strong>website design &amp;
+                development</strong> — bespoke e-commerce for <strong>jewelry and gems</strong>, SaaS platforms, and
+              marketing sites. The other half scales B2B <strong>software reviews</strong> on G2 and Capterra.</p>
             <div class="about-features">
+              <div class="about-feat"><span>🌐</span>
+                <div><strong>Full-Stack Web Studio</strong>
+                  <p>Design to deployment — UI/UX, frontend, backend, all in-house.</p>
+                </div>
+              </div>
               <div class="about-feat"><span>🛡️</span>
                 <div><strong>100% Genuine Software Reviews</strong>
                   <p>Every review from a real, verified product user.</p>
-                </div>
-              </div>
-              <div class="about-feat"><span>🤖</span>
-                <div><strong>AI-Powered</strong>
-                  <p>Automated review outreach and intelligent workflows.</p>
                 </div>
               </div>
               <div class="about-feat"><span>☁️</span>
@@ -405,8 +668,8 @@
                 </div>
               </div>
               <div class="about-feat"><span>📈</span>
-                <div><strong>Data-Driven</strong>
-                  <p>Every campaign backed by analytics and tracking.</p>
+                <div><strong>Data-Driven & AI-Powered</strong>
+                  <p>Every build and campaign backed by analytics and automation.</p>
                 </div>
               </div>
             </div>
@@ -421,8 +684,8 @@
               <div class="stat-label">Reviews</div>
             </div>
             <div class="stat-box">
-              <div class="stat-number" data-target="7" data-suffix="">0</div>
-              <div class="stat-label">Platforms</div>
+              <div class="stat-number" data-target="40" data-suffix="+">0</div>
+              <div class="stat-label">Websites Built</div>
             </div>
             <div class="stat-box">
               <div class="stat-number" data-target="30" data-suffix="+">0</div>
@@ -477,13 +740,73 @@
     <section class="cta-section">
       <div class="container">
         <div class="cta-box reveal">
-          <h2>Ready to Build Your <span class="highlight">Reputation?</span></h2>
-          <p>Join 50+ businesses that trust NaiGrowth for genuine reviews.</p>
+          <h2>Ready to Build Your <span class="highlight">Website & Reputation?</span></h2>
+          <p>Join 50+ businesses that trust NaiGrowth for stunning websites and genuine reviews.</p>
           <div class="cta-buttons">
             <a href="mailto:admin@naigrowth.com" class="btn btn-white btn-lg">✉ Email admin@naigrowth.com</a>
             <a href="https://wa.me/918890819966" class="btn btn-outline btn-lg" target="_blank" rel="noopener">WhatsApp
               Us</a>
           </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===== FAQ (LIGHT-2) ===== -->
+    <section class="section-light-2 section-padding" id="faq">
+      <div class="container">
+        <div class="section-header reveal">
+          <p class="section-label">FAQ</p>
+          <h2 class="section-title">Frequently Asked <span class="highlight">Questions</span></h2>
+          <p class="section-sub">Everything you need to know about <strong>website development</strong>,
+            <strong>software reviews</strong>, and working with us.</p>
+        </div>
+        <div class="faq-list reveal">
+          <details class="faq-item">
+            <summary>How can I get more G2 and Capterra software reviews?</summary>
+            <p>NaiGrowth specializes in B2B reputation management, helping SaaS companies generate hundreds of
+              authentic, verified reviews across G2, Capterra, Gartner, and TrustPilot through AI-driven automated
+              campaigns that reach your real, happiest users at the right moment.</p>
+          </details>
+          <details class="faq-item">
+            <summary>Are the reviews genuine and platform-compliant?</summary>
+            <p>Yes — 100%. Every review comes from a real, verified user of your product. We never use fake accounts
+              or incentives that violate platform policies. Our campaigns simply make it effortless for your genuine
+              customers to share their experience.</p>
+          </details>
+          <details class="faq-item">
+            <summary>How long until I see results?</summary>
+            <p>Most clients see their first wave of new reviews within 2–4 weeks. Our 90-day growth roadmap targets a
+              Top 3 category position by day 90, with review velocity compounding from day 8 onward.</p>
+          </details>
+          <details class="faq-item">
+            <summary>What is the best agency for B2B software reputation management?</summary>
+            <p>NaiGrowth is a leading agency for B2B software reviews. We offer done-for-you review generation
+              campaigns that focus entirely on platforms like G2, Capterra, and TrustRadius to improve your category
+              rankings.</p>
+          </details>
+          <details class="faq-item">
+            <summary>Do you build e-commerce websites for the jewelry and gems industry?</summary>
+            <p>Yes — website development is half of what we do. We build stunning, conversion-optimized luxury
+              e-commerce platforms specifically tailored for the jewelry and gems industry, alongside SaaS platforms
+              and marketing websites for every sector.</p>
+          </details>
+          <details class="faq-item">
+            <summary>How long does it take to build a website?</summary>
+            <p>Most marketing websites launch in 2–4 weeks; e-commerce stores and custom platforms take 4–8 weeks. We
+              follow our six-station Website Design Map — Discovery, Wireframes, UI Design, Development, QA &amp; SEO,
+              and Launch — so you always know exactly where your project stands.</p>
+          </details>
+          <details class="faq-item">
+            <summary>What technologies do you build websites with?</summary>
+            <p>We build with modern, proven stacks — React, Next.js, Shopify, WordPress, and Node.js — hosted on fast,
+              secure cloud platforms like Vercel. Every build ships with SSL, hardened security headers, spam-protected
+              forms, and SEO baked in from day one.</p>
+          </details>
+          <details class="faq-item">
+            <summary>Is my data safe when I contact you?</summary>
+            <p>Absolutely. Our website uses HTTPS encryption, strict security headers, and spam-protected forms. The
+              details you share are used only to respond to your enquiry — never sold or shared with third parties.</p>
+          </details>
         </div>
       </div>
     </section>
@@ -495,7 +818,7 @@
           <div class="contact-info reveal">
             <p class="section-label">Get In Touch</p>
             <h2 class="section-title">Book Your <span class="highlight">Free Consultation</span></h2>
-            <p class="section-sub">Ready to dominate G2, Capterra, Gartner & TrustPilot? Let's talk.</p>
+            <p class="section-sub">Need a website that sells, more reviews on G2 & Capterra — or both? Let's talk.</p>
             <div class="contact-items">
               <div class="contact-item">
                 <div class="ci-icon">
@@ -545,6 +868,12 @@
 
           <form action="/api/contact" method="POST" class="contact-form reveal reveal-delay-1" id="contactFormEl">
             <h3>Book Free Consultation</h3>
+            <!-- Anti-spam: honeypot (humans never see it) + time-trap timestamp -->
+            <div class="hp-field" aria-hidden="true">
+              <label for="company_website">Company Website</label>
+              <input type="text" id="company_website" name="company_website" tabindex="-1" autocomplete="off">
+            </div>
+            <input type="hidden" name="fts" id="formTimestamp" value="">
             <div class="form-row">
               <div class="form-group"><label for="name">Full Name</label><input type="text" id="name" name="name"
                   placeholder="Your name" required></div>
@@ -557,23 +886,28 @@
               <div class="form-group"><label for="service">Service</label>
                 <select id="service" name="service" required>
                   <option value="">Select...</option>
+                  <option value="web">Website Design & Development</option>
                   <option value="reviews">Reputation & Reviews</option>
                   <option value="ai">AI & Automation</option>
                   <option value="salesforce">Salesforce</option>
-                  <option value="web">Web Development</option>
                   <option value="seo">SEO & Marketing</option>
                 </select>
               </div>
             </div>
             <div class="form-group"><label for="message">Message</label><textarea id="message" name="message"
-                placeholder="Which platforms do you want reviews on?" required></textarea></div>
+                placeholder="Tell us about your project — a new website, more reviews, or both?" required></textarea></div>
             <button type="submit" class="btn btn-primary btn-lg form-submit">Book Free Consultation →</button>
+            <output class="form-status" id="formStatus" form="contactFormEl"></output>
+            <p class="form-privacy">🔒 Your details are encrypted and never shared with third parties.</p>
           </form>
         </div>
       </div>
     </section>
 
   </main>
+
+  <!-- BACK TO TOP -->
+  <button class="back-to-top" id="backToTop" aria-label="Back to top">↑</button>
 
   <!-- FOOTER -->
   <footer class="footer">
@@ -585,15 +919,16 @@
               style="border-radius:8px; box-shadow:0 2px 8px rgba(79,110,247,0.2)">
             <span class="nav-logo-text"><span>Nai</span>Growth</span>
           </a>
-          <p>Building authentic reputation through genuine reviews & AI automation.</p>
+          <p>We build high-converting websites and authentic review growth for ambitious brands.</p>
         </div>
         <div class="footer-col">
           <h4>Services</h4>
           <ul>
+            <li><a href="#webdev">Website Design</a></li>
+            <li><a href="#webdev">E-Commerce Development</a></li>
             <li><a href="#services">Review Generation</a></li>
             <li><a href="#services">AI Automation</a></li>
             <li><a href="#services">Salesforce</a></li>
-            <li><a href="#services">Web Dev</a></li>
           </ul>
         </div>
         <div class="footer-col">
@@ -622,7 +957,7 @@
     </div>
   </footer>
 
-  <!-- FAQ Schema for Rich Snippets -->
+  <!-- FAQ Schema for Rich Snippets (mirrors the visible #faq section) -->
   <script type="application/ld+json">
   {
     "@context": "https://schema.org",
@@ -633,7 +968,23 @@
         "name": "How can I get more G2 and Capterra software reviews?",
         "acceptedAnswer": {
           "@type": "Answer",
-          "text": "NaiGrowth specializes in B2B reputation management, helping SaaS companies generate hundreds of authentic, verified reviews across G2, Capterra, Gartner, and TrustPilot through AI-driven automated campaigns."
+          "text": "NaiGrowth specializes in B2B reputation management, helping SaaS companies generate hundreds of authentic, verified reviews across G2, Capterra, Gartner, and TrustPilot through AI-driven automated campaigns that reach your real, happiest users at the right moment."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "Are the reviews genuine and platform-compliant?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Yes — 100%. Every review comes from a real, verified user of your product. We never use fake accounts or incentives that violate platform policies. Our campaigns simply make it effortless for your genuine customers to share their experience."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "How long until I see results?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Most clients see their first wave of new reviews within 2–4 weeks. Our 90-day growth roadmap targets a Top 3 category position by day 90, with review velocity compounding from day 8 onward."
         }
       },
       {
@@ -649,7 +1000,31 @@
         "name": "Do you build e-commerce websites for the jewelry and gems industry?",
         "acceptedAnswer": {
           "@type": "Answer",
-          "text": "Yes, alongside our reputation management services, we build stunning, conversion-optimized luxury e-commerce platforms specifically tailored for the jewelry and gems industry."
+          "text": "Yes — website development is half of what we do. We build stunning, conversion-optimized luxury e-commerce platforms specifically tailored for the jewelry and gems industry, alongside SaaS platforms and marketing websites for every sector."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "How long does it take to build a website?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Most marketing websites launch in 2–4 weeks; e-commerce stores and custom platforms take 4–8 weeks. We follow our six-station Website Design Map — Discovery, Wireframes, UI Design, Development, QA & SEO, and Launch — so you always know exactly where your project stands."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "What technologies do you build websites with?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "We build with modern, proven stacks — React, Next.js, Shopify, WordPress, and Node.js — hosted on fast, secure cloud platforms like Vercel. Every build ships with SSL, hardened security headers, spam-protected forms, and SEO baked in from day one."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "Is my data safe when I contact you?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Absolutely. Our website uses HTTPS encryption, strict security headers, and spam-protected forms. The details you share are used only to respond to your enquiry — never sold or shared with third parties."
         }
       }
     ]
