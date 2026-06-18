@@ -1,0 +1,164 @@
+html.lenis,
+html.lenis body {
+  height: auto;
+}
+
+.lenis.lenis-smooth {
+  scroll-behavior: auto !important;
+}
+
+.lenis.lenis-smooth [data-lenis-prevent] {
+  overscroll-behavior: contain;
+}
+
+.lenis.lenis-stopped {
+  overflow: clip;
+}
+
+html.lenis-enabled {
+  scroll-behavior: auto;
+}
+
+html.reveal-ready .reveal {
+  opacity: 0;
+  transform: translateY(36px) scale(0.985);
+  filter: blur(6px);
+  transition: opacity 0.8s cubic-bezier(0.16, 1, 0.3, 1), transform 0.8s cubic-bezier(0.16, 1, 0.3, 1), filter 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+  will-change: opacity, transform;
+}
+
+html.reveal-ready .reveal.active {
+  opacity: 1;
+  transform: none;
+  filter: none;
+  will-change: auto;
+}
+
+.icon {
+  width: 1.15em;
+  height: 1.15em;
+  stroke: currentColor;
+  stroke-width: 2;
+  fill: none;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  vertical-align: -0.16em;
+  flex: none;
+}
+
+.btn .icon {
+  width: 1.2em;
+  height: 1.2em;
+}
+
+.hero-badge .icon,
+.trust-badge .icon {
+  width: 16px;
+  height: 16px;
+  margin-right: 8px;
+}
+
+.pillar-chip .icon {
+  width: 18px;
+  height: 18px;
+  margin-right: 6px;
+}
+
+.service-emoji .icon {
+  width: 28px;
+  height: 28px;
+  color: #a5b4fc;
+  stroke-width: 1.8;
+}
+
+.ci-icon .icon {
+  width: 24px;
+  height: 24px;
+  color: var(--blue);
+}
+
+.webdev-feat strong .icon,
+.about-feat span .icon {
+  width: 22px;
+  height: 22px;
+}
+
+.about-feat span {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.arch-layer .icon {
+  width: 20px;
+  height: 20px;
+  margin-right: 8px;
+}
+
+.hvc-title .icon,
+.devmap-head h3 .icon,
+.roadmap-card h3 .icon {
+  width: 20px;
+  height: 20px;
+  margin-right: 8px;
+}
+
+.cube-star .icon {
+  width: 38px;
+  height: 38px;
+  color: var(--gold);
+}
+
+.btn-primary,
+.btn-lg {
+  transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.3s ease, background 0.3s ease;
+  will-change: transform;
+}
+
+.tilt {
+  position: relative;
+  transform-style: preserve-3d;
+  transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.4s ease;
+}
+
+.tilt::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  background: radial-gradient(circle at var(--glare-x, 50%) var(--glare-y, 50%), rgba(255, 255, 255, 0.16), transparent 42%);
+  opacity: 0;
+  transition: opacity 0.35s ease;
+  pointer-events: none;
+  z-index: 3;
+}
+
+.tilt:hover::after {
+  opacity: 1;
+}
+
+.hero .gradient-orb {
+  transition: transform 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+  will-change: transform;
+}
+
+.form-submit.is-success {
+  background: var(--gradient-green) !important;
+}
+
+@media (prefers-reduced-motion: reduce) {
+
+  html.reveal-ready .reveal {
+    opacity: 1 !important;
+    transform: none !important;
+    filter: none !important;
+    transition: none !important;
+  }
+
+  .tilt,
+  .btn-primary,
+  .btn-lg,
+  .hero .gradient-orb {
+    transition: none !important;
+  }
+}

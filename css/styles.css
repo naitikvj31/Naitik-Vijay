@@ -1,7 +1,4 @@
-/* ============================================
-   NaiGrowth — UX-First Professional Design
-   (fonts are loaded via <link> in index.html)
-   ============================================ */
+
 
 :root {
   --bg-dark: #050816;
@@ -80,7 +77,6 @@ img {
   width: 100%;
 }
 
-/* ===== SKIP LINK (Accessibility) ===== */
 .skip-link {
   position: absolute;
   top: -100%;
@@ -96,7 +92,6 @@ img {
   top: 0;
 }
 
-/* ===== BUTTONS (Bigger, more visible, min 48px touch target) ===== */
 .btn {
   display: inline-flex;
   align-items: center;
@@ -138,7 +133,6 @@ img {
   overflow: hidden;
 }
 
-/* Animated shine sweep on hover */
 .btn-primary::after {
   content: '';
   position: absolute;
@@ -207,7 +201,6 @@ img {
   transform: translateX(5px);
 }
 
-/* ===== SECTIONS (aurora-tinted backgrounds) ===== */
 .section-dark {
   background:
     radial-gradient(900px 480px at 88% -10%, rgba(99, 102, 241, 0.13), transparent 60%),
@@ -245,7 +238,6 @@ img {
   margin-bottom: 56px;
 }
 
-/* Pill-style section labels */
 .section-label {
   display: inline-flex;
   align-items: center;
@@ -307,7 +299,6 @@ img {
   margin: 0 auto;
 }
 
-/* ===== FLOATING CTA (WhatsApp — always visible, large touch target) ===== */
 .floating-cta {
   position: fixed;
   bottom: 24px;
@@ -339,7 +330,6 @@ img {
   flex-shrink: 0;
 }
 
-/* ===== NAVBAR (floating glass pill) ===== */
 .navbar {
   position: fixed;
   top: 12px;
@@ -431,7 +421,6 @@ img {
   transform: scaleX(1);
 }
 
-/* Hide underline on the CTA button link */
 .nav-links a.btn::after {
   display: none;
 }
@@ -470,7 +459,6 @@ img {
   transform: rotate(-45deg) translate(6px, -6px);
 }
 
-/* ===== HERO ===== */
 .hero {
   min-height: 100vh;
   display: flex;
@@ -489,7 +477,6 @@ img {
   inset: 0;
 }
 
-/* Futuristic tech grid floor */
 .hero-bg::after {
   content: '';
   position: absolute;
@@ -657,7 +644,6 @@ img {
   font-weight: 500;
 }
 
-/* ===== PLATFORMS ===== */
 .platforms-grid {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
@@ -706,7 +692,6 @@ img {
   line-height: 1.6;
 }
 
-/* ===== SERVICES ===== */
 .services-grid {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
@@ -790,7 +775,6 @@ img {
   color: var(--cyan);
 }
 
-/* ===== PROCESS ===== */
 .process-grid {
   display: grid;
   grid-template-columns: repeat(4, 1fr);
@@ -836,7 +820,6 @@ img {
   line-height: 1.7;
 }
 
-/* ===== PORTFOLIO ===== */
 .portfolio-grid {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
@@ -897,7 +880,6 @@ img {
   line-height: 1.7;
 }
 
-/* ===== ABOUT ===== */
 .about-layout {
   display: grid;
   grid-template-columns: 1fr 1fr;
@@ -991,7 +973,6 @@ img {
   font-weight: 500;
 }
 
-/* ===== TESTIMONIALS ===== */
 .testimonials-grid {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
@@ -1057,7 +1038,6 @@ img {
   color: var(--text-dark-muted);
 }
 
-/* ===== CTA ===== */
 .cta-section {
   padding: 100px 0;
   background: linear-gradient(135deg, #0f172a, #1e1b4b, #0f172a);
@@ -1090,7 +1070,6 @@ img {
   flex-wrap: wrap;
 }
 
-/* ===== CONTACT (Improved form UX) ===== */
 .contact-layout {
   display: grid;
   grid-template-columns: 1fr 1.1fr;
@@ -1181,7 +1160,6 @@ img {
   transform: scale(1.15);
 }
 
-/* === Contact Form (bigger inputs, clearer labels) === */
 .contact-form {
   background: #fff;
   border: 1px solid #e2e8f0;
@@ -1258,7 +1236,6 @@ img {
   min-height: 56px;
 }
 
-/* ===== FOOTER (modern, gradient hairline + aurora) ===== */
 .footer {
   padding: 64px 0 28px;
   background:
@@ -1345,10 +1322,6 @@ img {
   color: var(--cyan);
 }
 
-/* ===== ANIMATIONS (faster, less delay) =====
-   Content is visible by default (SEO + no-JS safe); the
-   .reveal-ready class is added by JS only when
-   IntersectionObserver is available to drive the animation. */
 .reveal {
   transition: opacity 0.4s ease, transform 0.4s ease;
 }
@@ -1392,7 +1365,6 @@ html.reveal-ready .reveal.active {
   }
 }
 
-/* ===== RESPONSIVE ===== */
 @media(max-width:1024px) {
   .hero .container {
     grid-template-columns: 1fr;
@@ -1448,7 +1420,6 @@ html.reveal-ready .reveal.active {
     padding: 70px 0;
   }
 
-  /* Full-width slide-down mobile nav */
   .nav-links {
     position: fixed;
     top: 0;
@@ -1629,7 +1600,6 @@ html.reveal-ready .reveal.active {
   }
 }
 
-/* ===== FOCUS STATES (Accessibility) ===== */
 *:focus-visible {
   outline: 3px solid var(--blue);
   outline-offset: 3px;
@@ -1645,7 +1615,6 @@ textarea:focus-visible {
   outline-offset: 3px;
 }
 
-/* ===== REDUCED MOTION ===== */
 @media (prefers-reduced-motion: reduce) {
 
   *,
@@ -1666,11 +1635,7 @@ textarea:focus-visible {
     scroll-behavior: auto;
   }
 }
-/* ============================================
-   NEW COMPONENTS — security, 3D & marketing
-   ============================================ */
 
-/* ===== SCROLL PROGRESS BAR ===== */
 .scroll-progress {
   position: fixed;
   top: 0;
@@ -1683,7 +1648,6 @@ textarea:focus-visible {
   transition: width 0.1s linear;
 }
 
-/* ===== TRUST BADGES (hero) ===== */
 .trust-strip {
   display: flex;
   flex-wrap: wrap;
@@ -1708,7 +1672,6 @@ textarea:focus-visible {
   transform: translateY(-2px);
 }
 
-/* ===== 3D ROTATING PLATFORM CUBE ===== */
 .cube-scene {
   perspective: 900px;
   width: 140px;
@@ -1785,7 +1748,6 @@ textarea:focus-visible {
   to   { transform: rotateX(-14deg) rotateY(360deg); }
 }
 
-/* ===== GROWTH ROADMAP TIMELINE ===== */
 .roadmap {
   position: relative;
   max-width: 920px;
@@ -1810,7 +1772,6 @@ textarea:focus-visible {
   padding: 0 44px 44px 0;
 }
 
-/* nth-of-type counts .roadmap-line too: even = items 1/3/5 (left), odd = items 2/4 (right) */
 .roadmap-item:nth-of-type(even) {
   text-align: left;
 }
@@ -1911,7 +1872,6 @@ textarea:focus-visible {
   font-weight: 600;
 }
 
-/* ===== FAQ ACCORDION ===== */
 .faq-list {
   max-width: 800px;
   margin: 0 auto;
@@ -1972,7 +1932,6 @@ textarea:focus-visible {
   line-height: 1.8;
 }
 
-/* ===== HONEYPOT (invisible to humans, visible to bots) ===== */
 .hp-field {
   position: absolute !important;
   left: -9999px !important;
@@ -1982,7 +1941,6 @@ textarea:focus-visible {
   opacity: 0;
 }
 
-/* ===== FORM STATUS & PRIVACY NOTE ===== */
 .form-status {
   display: block;
   margin-top: 14px;
@@ -2007,7 +1965,6 @@ textarea:focus-visible {
   text-align: center;
 }
 
-/* ===== BACK TO TOP ===== */
 .back-to-top {
   position: fixed;
   bottom: 94px;
@@ -2040,7 +1997,6 @@ textarea:focus-visible {
   box-shadow: 0 12px 32px rgba(79, 110, 247, 0.5);
 }
 
-/* ===== ACTIVE NAV LINK ===== */
 .nav-links a.active {
   color: #fff;
 }
@@ -2049,7 +2005,6 @@ textarea:focus-visible {
   transform: scaleX(1);
 }
 
-/* ===== RESPONSIVE (new components) ===== */
 @media(max-width:1024px) {
   .trust-strip {
     justify-content: center;
@@ -2115,11 +2070,6 @@ textarea:focus-visible {
   }
 }
 
-/* ============================================
-   WOW PASS — modern UI polish
-   ============================================ */
-
-/* ===== TYPOGRAPHY & READABILITY (comfortable line lengths) ===== */
 h1, h2, h3, h4 {
   text-wrap: balance;
 }
@@ -2140,7 +2090,6 @@ p {
   max-width: 72ch;
 }
 
-/* ===== SELECTION & SCROLLBAR THEME ===== */
 ::selection {
   background: rgba(99, 102, 241, 0.35);
 }
@@ -2163,7 +2112,6 @@ p {
   background: linear-gradient(180deg, #818cf8, #a78bfa);
 }
 
-/* ===== HERO REVIEW GROWTH CHART CARD ===== */
 .hero-visual-card {
   margin-top: 18px;
   background: var(--bg-dark-card);
@@ -2241,12 +2189,10 @@ p {
   transition: width 1.2s cubic-bezier(0.22, 1, 0.36, 1);
 }
 
-/* Platform brand colors (chart legend) */
 .bar-g2  { background: linear-gradient(90deg, #ff492c, #f97316); }
 .bar-cap { background: linear-gradient(90deg, #2d6be4, #22d3ee); }
 .bar-tp  { background: linear-gradient(90deg, #00b67a, #34d399); }
 
-/* ===== HERO STAT CARDS — gradient hairline ===== */
 .hero-stat-card {
   position: relative;
   overflow: hidden;
@@ -2264,14 +2210,12 @@ p {
   border-radius: 2px;
 }
 
-/* ===== ROADMAP PHASE LEGEND COLORS ===== */
 .roadmap-phase.phase-p1 { background: linear-gradient(135deg, #6366f1, #818cf8); }
 .roadmap-phase.phase-p2 { background: linear-gradient(135deg, #8b5cf6, #d946ef); }
 .roadmap-phase.phase-p3 { background: linear-gradient(135deg, #0ea5e9, #22d3ee); }
 .roadmap-phase.phase-p4 { background: linear-gradient(135deg, #f59e0b, #f97316); }
 .roadmap-phase.phase-p5 { background: linear-gradient(135deg, #10b981, #06b6d4); }
 
-/* Dots match their phase (nth-of-type counts the .roadmap-line div first) */
 .roadmap-item:nth-of-type(2) .roadmap-dot {
   background: linear-gradient(135deg, #6366f1, #818cf8);
   box-shadow: 0 0 0 5px rgba(99, 102, 241, 0.15), 0 0 18px rgba(99, 102, 241, 0.5);
@@ -2292,7 +2236,6 @@ p {
   box-shadow: 0 0 0 5px rgba(245, 158, 11, 0.18), 0 0 18px rgba(245, 158, 11, 0.55);
 }
 
-/* ===== SERVICE EMOJI TILES ===== */
 .service-emoji {
   width: 58px;
   height: 58px;
@@ -2306,7 +2249,6 @@ p {
   margin-bottom: 18px;
 }
 
-/* ===== CONTACT ICON TILES ===== */
 .ci-icon {
   width: 48px;
   height: 48px;
@@ -2319,7 +2261,6 @@ p {
   font-size: 1.3rem;
 }
 
-/* ===== PROCESS NUMBERS — gradient coins ===== */
 .process-num {
   width: 64px;
   height: 64px;
@@ -2337,7 +2278,6 @@ p {
   box-shadow: 0 8px 22px rgba(99, 102, 241, 0.35);
 }
 
-/* ===== CTA — glass box ===== */
 .cta-section {
   background:
     radial-gradient(800px 400px at 50% 0%, rgba(99, 102, 241, 0.18), transparent 60%),
@@ -2365,7 +2305,6 @@ p {
   background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.5), transparent);
 }
 
-/* ===== TESTIMONIAL AVATARS — colorful variety ===== */
 .testimonial-card:nth-child(2) .avatar {
   background: var(--gradient-warm);
 }
@@ -2374,7 +2313,6 @@ p {
   background: var(--gradient-green);
 }
 
-/* ===== RESPONSIVE (wow pass) ===== */
 @media(max-width:768px) {
   .navbar {
     top: 8px;
@@ -2395,12 +2333,6 @@ p {
   }
 }
 
-/* ============================================
-   DUAL-PILLAR REVAMP — web dev studio,
-   3D architecture stack & website design map
-   ============================================ */
-
-/* ===== HERO PILLAR CHIPS ===== */
 .hero-pillars {
   display: flex;
   gap: 12px;
@@ -2451,12 +2383,10 @@ p {
   box-shadow: 0 8px 24px rgba(245, 158, 11, 0.25);
 }
 
-/* ===== SECOND FEATURED BADGE ===== */
 .service-badge.badge-alt {
   background: var(--gradient-warm);
 }
 
-/* ===== WEB DEV SECTION (blueprint grid backdrop) ===== */
 .webdev-section {
   position: relative;
 }
@@ -2535,7 +2465,6 @@ p {
 .wd-purple { background: #8b5cf6; box-shadow: 0 0 12px rgba(139, 92, 246, 0.6); }
 .wd-green  { background: #10b981; box-shadow: 0 0 12px rgba(16, 185, 129, 0.6); }
 
-/* ===== TECH CHIPS ===== */
 .tech-chips {
   display: flex;
   flex-wrap: wrap;
@@ -2561,7 +2490,6 @@ p {
   box-shadow: 0 6px 16px rgba(99, 102, 241, 0.18);
 }
 
-/* ===== 3D WEBSITE ARCHITECTURE STACK ===== */
 .arch-scene {
   perspective: 1100px;
   height: 440px;
@@ -2596,7 +2524,6 @@ p {
   transition: transform 0.4s cubic-bezier(0.22, 1, 0.36, 1);
 }
 
-/* Labels counter-rotated to face the viewer */
 .arch-layer span {
   transform: rotateZ(42deg) rotateX(-55deg);
   background: #fff;
@@ -2638,7 +2565,6 @@ p {
   box-shadow: 0 24px 60px rgba(236, 72, 153, 0.2);
 }
 
-/* Hover: explode the stack apart */
 .arch-scene:hover .arch-l2 { transform: translateZ(88px); }
 .arch-scene:hover .arch-l3 { transform: translateZ(176px); }
 .arch-scene:hover .arch-l4 { transform: translateZ(264px); }
@@ -2655,7 +2581,6 @@ p {
   pointer-events: none;
 }
 
-/* ===== WEBSITE DESIGN MAP ===== */
 .devmap-head {
   text-align: center;
   margin: 76px 0 44px;
@@ -2739,7 +2664,6 @@ p {
   line-height: 1.5;
 }
 
-/* ===== RESPONSIVE (dual-pillar revamp) ===== */
 @media(max-width:1024px) {
   .webdev-layout {
     grid-template-columns: 1fr;
@@ -2801,10 +2725,6 @@ p {
   }
 }
 
-/* ============================================
-   PLATFORMS 2.0 — 3D brand-colored cards
-   ============================================ */
-
 .platforms-grid {
   display: flex;
   flex-wrap: wrap;
@@ -2826,7 +2746,7 @@ p {
   overflow: hidden;
   transition: all 0.3s ease;
   box-shadow: var(--shadow);
-  /* per-platform accents (overridden below) */
+
   --pc-grad: var(--gradient);
   --pc-tint: rgba(99, 102, 241, 0.1);
   --pc-border: rgba(99, 102, 241, 0.35);
@@ -2834,7 +2754,6 @@ p {
   --pc-text: #4338ca;
 }
 
-/* Brand gradient hairline slides in on hover */
 .platform-card::before {
   content: '';
   position: absolute;
@@ -2857,7 +2776,6 @@ p {
   opacity: 1;
 }
 
-/* Glowing 3D logo tile */
 .pc-tile {
   width: 72px;
   height: 72px;
@@ -2896,7 +2814,6 @@ p {
   line-height: 1.55;
 }
 
-/* Action line appears on hover */
 .pc-cta {
   display: inline-block;
   margin-top: 12px;
@@ -2913,7 +2830,6 @@ p {
   transform: translateY(0);
 }
 
-/* Brand palettes */
 .p-g2 {
   --pc-grad: linear-gradient(90deg, #ff492c, #f97316);
   --pc-tint: rgba(255, 73, 44, 0.1);
@@ -2970,7 +2886,6 @@ p {
   --pc-text: #1e8e3e;
 }
 
-/* Responsive */
 @media(max-width:768px) {
   .platforms-grid {
     gap: 14px;
@@ -2992,7 +2907,6 @@ p {
     height: 36px;
   }
 
-  /* CTA always visible on touch (no hover) */
   .pc-cta {
     opacity: 1;
     transform: none;
