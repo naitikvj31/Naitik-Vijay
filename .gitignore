@@ -3,3 +3,8 @@ node_modules/
 .env.*
 .vercel/
 *.docx
+
+# Local agent state
+.claude/
+.DS_Store
+**/.DS_Store

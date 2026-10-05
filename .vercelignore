@@ -1,0 +1,33 @@
+# ==========================================================================
+# Kept out of the public deployment.
+#
+# robots.txt is advisory: a Disallow line does not stop anyone fetching a URL
+# they can guess or that leaks in a referrer. Anything confidential has to be
+# absent from the build, which is what this file does.
+#
+# ads/ itself still deploys (video-ad.html is a live page), but invoices and
+# quotations inside it do not.
+# ==========================================================================
+
+# Client billing — never public
+invoices/
+ads/*invoice*
+ads/*Quotation*
+ads/*quotation*
+*.docx
+
+# Internal drafts and social assets
+hiring/
+ad-library/
+event-post/
+meme-posts/
+pro-posts/
+premium-posts/
+visiting-card/
+
+# Local tooling and tests
+node_modules/
+test/
+.claude/
+.DS_Store
+**/.DS_Store

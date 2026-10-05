@@ -1,0 +1,358 @@
+/* ==========================================================================
+   NaiGrowth — Design Tokens
+   Single source of truth for colour, type, space, motion and elevation.
+   Every other stylesheet consumes these; no raw hex values live downstream.
+
+   THEMES
+   The page ships LIGHT by default and carries a complete DARK scheme that the
+   visitor can switch to from the navigation (stored in localStorage, applied
+   before first paint by js/theme.js).
+
+   The dark values live in one block shared by two selectors:
+     [data-theme="dark"]  — the whole page, when the visitor chooses dark
+     .on-dark             — a single band that is dark in *either* theme
+
+   The hero is `.on-dark`: its WebGL scene is a glowing body in space and only
+   exists against a black ground. A dark cinematic stage above a light page is
+   a deliberate composition, not an inconsistency.
+   ========================================================================== */
+
+:root {
+  /* --- Hues -------------------------------------------------------------
+     Theme-independent. Two hues carry the identity: electric blue -> violet.
+     Ember is a third, used at most twice per screen. */
+  --blue: #4c7dff;
+  --blue-bright: #76a5ff;
+  --blue-deep: #2b4fd4;
+  --violet: #8b5cf6;
+  --violet-bright: #a989ff;
+  --purple: #a855f7;
+  --ember: #ff8a3d;
+
+  /* Decorative gradient — hairlines, icon beds, tints. Never behind text. */
+  --accent-grad: linear-gradient(115deg, var(--blue) 0%, var(--violet) 72%, var(--purple) 100%);
+  /* The same identity, pitched deep enough to carry white text at AA. Every
+     stop of the decorative gradient above measures 3.7-4.2:1 against white,
+     which fails for anything that is not large text — so buttons, avatars and
+     badges use this one instead. Darkest stop 6.6:1, lightest 5.7:1. */
+  --accent-grad-solid: linear-gradient(115deg, #2f54d9 0%, #6d28d9 68%, #7c3aed 100%);
+  --accent-grad-solid-alt: linear-gradient(115deg, #6d28d9 0%, #7c3aed 52%, #2f54d9 100%);
+
+  /* --- Type ------------------------------------------------------------
+     Instrument Sans carries display and body: a tight modern grotesk that
+     holds up at 5rem and at 0.8rem. JetBrains Mono sets every label, eyebrow
+     and tag — the technical counterpoint that keeps the page from reading as
+     one undifferentiated sans. */
+  --font-display: "Instrument Sans", "Helvetica Neue", Helvetica, Arial, sans-serif;
+  --font-body: "Instrument Sans", "Helvetica Neue", Helvetica, Arial, sans-serif;
+  --font-mono: "JetBrains Mono", ui-monospace, "SF Mono", Menlo, Consolas, monospace;
+
+  /* Fluid ramp — clamp() keeps headlines large without breaking small screens. */
+  --t-hero: clamp(2.1rem, 4.9vw, 4.3rem);
+  --t-h2: clamp(1.72rem, 3.9vw, 3.35rem);
+  --t-h3: clamp(1.18rem, 1.7vw, 1.5rem);
+  --t-h4: clamp(1rem, 1.3vw, 1.14rem);
+  --t-lead: clamp(1rem, 1.3vw, 1.16rem);
+  --t-body: 1rem;
+  --t-sm: 0.9rem;
+  --t-xs: 0.78rem;
+  --t-eyebrow: 0.7rem;
+
+  /* Display tracking is negative and gets tighter as size grows — the single
+     biggest difference between current and dated large type. */
+  --track-hero: -0.042em;
+  --track-h2: -0.032em;
+  --track-h3: -0.02em;
+  --track-label: 0.16em;
+
+  --lh-tight: 1.04;
+  --lh-snug: 1.16;
+  --lh-body: 1.64;
+
+  /* --- Space ------------------------------------------------------------ */
+  --s-1: 0.25rem;
+  --s-2: 0.5rem;
+  --s-3: 0.75rem;
+  --s-4: 1rem;
+  --s-5: 1.5rem;
+  --s-6: 2rem;
+  --s-7: 3rem;
+  --s-8: 4rem;
+  --s-9: 6rem;
+  --s-10: 8rem;
+
+  --section-y: clamp(4rem, 10vw, 9rem);
+  --gutter: clamp(1.15rem, 4vw, 2.5rem);
+  --maxw: 1240px;
+  --maxw-prose: 65ch;
+
+  /* --- Form ------------------------------------------------------------- */
+  --r-sm: 10px;
+  --r-md: 16px;
+  --r-lg: 22px;
+  --r-xl: 30px;
+  --r-pill: 999px;
+
+  /* --- Motion ----------------------------------------------------------- */
+  --ease-out: cubic-bezier(0.22, 1, 0.36, 1);
+  --ease-in-out: cubic-bezier(0.65, 0, 0.35, 1);
+  --ease-spring: cubic-bezier(0.34, 1.56, 0.64, 1);
+  --t-fast: 0.18s;
+  --t-med: 0.35s;
+  --t-slow: 0.7s;
+
+  --z-canvas: 0;
+  --z-content: 2;
+  --z-nav: 60;
+  --z-cursor: 9999;
+
+  /* The hero stage is the same near-black in both themes. */
+  --hero-bg: #04050c;
+}
+
+/* ==========================================================================
+   LIGHT — the default scheme
+   Ink is a deep navy rather than pure black, so the accents stay the only
+   saturated thing on the page. Every text token below clears WCAG AA against
+   --bg at the size it is actually used.
+   ========================================================================== */
+
+:root {
+  color-scheme: light;
+
+  --bg: #f6f7fc;
+  --bg-raise: #ffffff;
+  --bg-deep: #eceff8;
+
+  /* Cards are near-white over the tinted ground: enough separation to read as
+     a surface, not so much that the page turns into a field of boxes. */
+  --surface: rgba(255, 255, 255, 0.78);
+  --surface-strong: #ffffff;
+  --surface-hover: rgba(18, 24, 52, 0.055);
+  --hairline: rgba(18, 24, 52, 0.1);
+  --hairline-strong: rgba(18, 24, 52, 0.17);
+
+  --text-strong: #070b1a;
+  --text: #121833;
+  --text-dim: #434e6e;
+  --text-muted: #5c6683;
+  /* Measured against --footer-bg, the lightest ground it sits on, not --bg. */
+  --text-faint: #5f6885;
+
+  /* On a light ground the bright tints are unreadable, so the accent inks are
+     the deep ends of the same two hues: 5.2:1 and 6.7:1 against --bg. */
+  --accent-ink: #3b5ddb;
+  --accent-ink-2: #6d28d9;
+  --accent-text-grad: linear-gradient(100deg, var(--accent-ink) 0%, var(--accent-ink-2) 100%);
+  --text-grad: linear-gradient(104deg, #0b1026 0%, #1b2345 58%, #2c3765 100%);
+  --accent-grad-soft: linear-gradient(115deg, rgba(76, 125, 255, 0.14), rgba(168, 85, 247, 0.1));
+
+  --nav-bg: rgba(246, 247, 252, 0.82);
+  --drawer-bg: rgba(252, 253, 255, 0.98);
+  --band-bg: rgba(255, 255, 255, 0.62);
+  --stat-bg: #ffffff;
+  --footer-bg: #eef1f8;
+  --input-bg: #ffffff;
+  --option-bg: #ffffff;
+  /* Form controls get their own, stronger edge. A field has to read as a
+     thing you can type into before it reads as tasteful. */
+  --field-border: rgba(18, 24, 52, 0.22);
+  /* Error red, picked for 4.6:1 against the light form panel. */
+  --field-error: #b3261e;
+  --ok-text: #0f6b3f;
+  --ok-bg: rgba(16, 122, 71, 0.07);
+  --ok-border: rgba(16, 122, 71, 0.4);
+  --field-error-bg: rgba(179, 38, 30, 0.05);
+  --field-error-ring: rgba(179, 38, 30, 0.16);
+  --field-border-hover: rgba(18, 24, 52, 0.38);
+  --panel-bg: rgba(255, 255, 255, 0.72);
+  --panel-border: rgba(18, 24, 52, 0.12);
+  --chip-bg: rgba(18, 24, 52, 0.035);
+  --flagship-bg: linear-gradient(150deg, rgba(76, 125, 255, 0.1), rgba(139, 92, 246, 0.07) 55%, transparent);
+  --cta-bg: linear-gradient(152deg, rgba(76, 125, 255, 0.13), rgba(139, 92, 246, 0.09) 48%, rgba(168, 85, 247, 0.06));
+  /* No specular line on a light card — glass sheen reads as a smudge. */
+  --sheen: transparent;
+  --vignette: radial-gradient(130% 95% at 50% 0%, transparent 46%, rgba(18, 24, 52, 0.055) 100%);
+  --grain-opacity: 0.03;
+  --grain-blend: multiply;
+
+  --shadow-sm: 0 1px 2px rgba(18, 24, 52, 0.06), 0 2px 8px rgba(18, 24, 52, 0.05);
+  --shadow-md: 0 10px 30px rgba(18, 24, 52, 0.09), 0 2px 6px rgba(18, 24, 52, 0.05);
+  --shadow-lg: 0 26px 64px rgba(18, 24, 52, 0.12);
+  /* Negative spread cancels the horizontal reach of the blur, so a hovered
+     card's glow lands UNDER itself instead of bleeding across the 21px grid
+     gap and lighting up its neighbour. */
+  --glow-card: 0 22px 46px -22px rgba(59, 93, 219, 0.5);
+
+  /* Custom cursor inks — dark cursor on a light page. */
+  --cursor-fg: #121833;
+  --cursor-halo: rgba(255, 255, 255, 0.75);
+  --cursor-ring: rgba(18, 24, 52, 0.34);
+  --cursor-ring-hover: rgba(109, 40, 217, 0.65);
+  --cursor-ring-label: rgba(59, 93, 219, 0.7);
+  --cursor-fill-hover: rgba(139, 92, 246, 0.05);
+  --cursor-fill-label: rgba(76, 125, 255, 0.12);
+}
+
+/* ==========================================================================
+   DARK — the chosen scheme, and the permanent scheme of `.on-dark` bands
+   ========================================================================== */
+
+[data-theme="dark"],
+.on-dark {
+  color-scheme: dark;
+
+  --bg: #04050c;
+  --bg-raise: #080b1a;
+  --bg-deep: #020307;
+
+  /* Surfaces are translucent so the WebGL layer and page glow read through. */
+  /* Raised across the board. At 0.032/0.09 every card, band and divider was
+     technically present and visually absent — the page read as unrelated
+     elements floating on black rather than as a laid-out document. */
+  --surface: rgba(255, 255, 255, 0.05);
+  --surface-strong: rgba(255, 255, 255, 0.08);
+  --surface-hover: rgba(255, 255, 255, 0.11);
+  --hairline: rgba(255, 255, 255, 0.14);
+  --hairline-strong: rgba(255, 255, 255, 0.26);
+
+  --text-strong: #ffffff;
+  --text: #edf1fb;
+  --text-dim: #aeb9d4;
+  --text-muted: #8b97b5;
+  /* Raised from #58637f, which measured 3.4:1 on the page ground — under AA
+     for the small text it is actually used on (tags, form hints, footer line). */
+  --text-faint: #6f7c99;
+
+  --accent-ink: var(--blue-bright);
+  --accent-ink-2: var(--violet-bright);
+  --accent-text-grad: linear-gradient(100deg, var(--blue-bright) 0%, var(--violet-bright) 100%);
+  /* Headlines read as near-white with a cool cast, not as a rainbow sweep —
+     a multi-hue gradient across every heading is what dates a dark page. */
+  --text-grad: linear-gradient(104deg, #ffffff 0%, #e8edfb 58%, #cfd9f5 100%);
+  --accent-grad-soft: linear-gradient(115deg, rgba(76, 125, 255, 0.22), rgba(168, 85, 247, 0.16));
+
+  --nav-bg: rgba(4, 5, 12, 0.72);
+  --drawer-bg: rgba(4, 5, 12, 0.96);
+  --band-bg: rgba(8, 11, 26, 0.45);
+  --stat-bg: rgba(14, 18, 38, 0.86);
+  --footer-bg: rgba(2, 3, 7, 0.7);
+  --input-bg: rgba(255, 255, 255, 0.055);
+  --option-bg: #0b0f1f;
+  --field-border: rgba(255, 255, 255, 0.28);
+  --field-error: #ffa39b;
+  --ok-text: #9ff0c4;
+  --ok-bg: rgba(52, 199, 123, 0.1);
+  --ok-border: rgba(52, 199, 123, 0.5);
+  --field-error-bg: rgba(255, 99, 85, 0.08);
+  --field-error-ring: rgba(255, 99, 85, 0.22);
+  --field-border-hover: rgba(255, 255, 255, 0.44);
+  --panel-bg: rgba(255, 255, 255, 0.035);
+  --panel-border: rgba(255, 255, 255, 0.14);
+  --chip-bg: rgba(255, 255, 255, 0.025);
+  --flagship-bg: linear-gradient(150deg, rgba(76, 125, 255, 0.11), rgba(139, 92, 246, 0.07) 55%, transparent);
+  --cta-bg: linear-gradient(152deg, rgba(76, 125, 255, 0.16), rgba(139, 92, 246, 0.1) 48%, rgba(168, 85, 247, 0.07));
+  --sheen: rgba(255, 255, 255, 0.38);
+  --vignette: radial-gradient(130% 95% at 50% 0%, transparent 42%, rgba(2, 3, 7, 0.72) 100%);
+  --grain-opacity: 0.045;
+  --grain-blend: overlay;
+
+  --shadow-sm: 0 2px 10px rgba(0, 0, 0, 0.35);
+  --shadow-md: 0 18px 44px rgba(0, 0, 0, 0.45);
+  --shadow-lg: 0 36px 90px rgba(0, 0, 0, 0.55);
+  --glow-card: 0 22px 46px -22px rgba(139, 92, 246, 0.75);
+
+  --cursor-fg: #ffffff;
+  --cursor-halo: rgba(4, 5, 12, 0.45);
+  --cursor-ring: rgba(255, 255, 255, 0.46);
+  --cursor-ring-hover: rgba(169, 137, 255, 0.76);
+  --cursor-ring-label: rgba(118, 165, 255, 0.8);
+  --cursor-fill-hover: rgba(139, 92, 246, 0.07);
+  --cursor-fill-label: rgba(76, 125, 255, 0.22);
+}
+
+/* ==========================================================================
+   GOLD — a third scheme
+   Obsidian ground with champagne and brass, the same direction as the
+   NaiGrowth visiting card. Gold on light reads as mustard, so this scheme is
+   dark-grounded by design; it is a palette swap, not a different layout.
+   Every text token below clears WCAG AA against --bg at its used size.
+   ========================================================================== */
+
+[data-theme="gold"] {
+  color-scheme: dark;
+
+  --bg: #0b0906;
+  --bg-raise: #141009;
+  --bg-deep: #060503;
+
+  --surface: rgba(255, 228, 170, 0.05);
+  --surface-strong: rgba(255, 228, 170, 0.085);
+  --surface-hover: rgba(255, 228, 170, 0.12);
+  --hairline: rgba(226, 190, 120, 0.17);
+  --hairline-strong: rgba(226, 190, 120, 0.34);
+
+  --text-strong: #fffaf0;
+  --text: #f3ead9;
+  --text-dim: #c9b48d;
+  --text-muted: #a89270;
+  --text-faint: #8e7a5c;
+
+  /* Champagne, not yellow. The deeper brass is reserved for fills. */
+  --accent-ink: #e3c179;
+  --accent-ink-2: #d4a955;
+  --accent-text-grad: linear-gradient(100deg, #f0d79b 0%, #c99a42 100%);
+  --text-grad: linear-gradient(104deg, #fffaf0 0%, #f5e7cb 58%, #e0cba4 100%);
+  --accent-grad: linear-gradient(115deg, #c99a42 0%, #e3c179 60%, #f0d79b 100%);
+  --accent-grad-soft: linear-gradient(115deg, rgba(227, 193, 121, 0.18), rgba(201, 154, 66, 0.1));
+  /* White on brass fails AA, so filled controls run dark ink on gold instead. */
+  --accent-grad-solid: linear-gradient(115deg, #e8c983 0%, #d4a955 68%, #c08f3c 100%);
+  --accent-grad-solid-alt: linear-gradient(115deg, #c08f3c 0%, #d4a955 52%, #e8c983 100%);
+  --btn-primary-ink: #14100a;
+
+  --nav-bg: rgba(11, 9, 6, 0.78);
+  --drawer-bg: rgba(11, 9, 6, 0.97);
+  --band-bg: rgba(255, 228, 170, 0.035);
+  --stat-bg: #141009;
+  --footer-bg: #080704;
+  --input-bg: rgba(255, 228, 170, 0.06);
+  --option-bg: #141009;
+  --field-border: rgba(226, 190, 120, 0.38);
+  --field-error: #ffab9e;
+  --ok-text: #b9e8cd;
+  --ok-bg: rgba(52, 199, 123, 0.09);
+  --ok-border: rgba(52, 199, 123, 0.42);
+  --field-error-bg: rgba(255, 110, 85, 0.08);
+  --field-error-ring: rgba(255, 110, 85, 0.22);
+  --field-border-hover: rgba(226, 190, 120, 0.58);
+  --panel-bg: rgba(255, 228, 170, 0.04);
+  --panel-border: rgba(226, 190, 120, 0.2);
+  --chip-bg: rgba(255, 228, 170, 0.04);
+  --flagship-bg: linear-gradient(150deg, rgba(227, 193, 121, 0.12), rgba(201, 154, 66, 0.06) 55%, transparent);
+  --cta-bg: linear-gradient(152deg, rgba(227, 193, 121, 0.14), rgba(201, 154, 66, 0.08) 48%, rgba(140, 102, 40, 0.05));
+  --sheen: rgba(255, 235, 190, 0.4);
+  --vignette: radial-gradient(130% 95% at 50% 0%, transparent 42%, rgba(4, 3, 2, 0.74) 100%);
+  --grain-opacity: 0.05;
+  --grain-blend: overlay;
+
+  --shadow-sm: 0 2px 10px rgba(0, 0, 0, 0.45);
+  --shadow-md: 0 18px 44px rgba(0, 0, 0, 0.55);
+  --shadow-lg: 0 36px 90px rgba(0, 0, 0, 0.62);
+  --glow-card: 0 22px 46px -22px rgba(227, 193, 121, 0.55);
+
+  --cursor-fg: #f0d79b;
+  --cursor-halo: rgba(11, 9, 6, 0.5);
+  --cursor-ring: rgba(226, 190, 120, 0.5);
+  --cursor-ring-hover: rgba(240, 215, 155, 0.8);
+  --cursor-ring-label: rgba(227, 193, 121, 0.85);
+  --cursor-fill-hover: rgba(227, 193, 121, 0.07);
+  --cursor-fill-label: rgba(227, 193, 121, 0.14);
+
+  --hero-bg: #0b0906;
+}
+
+/* The hero stage follows the scheme in gold: a blue-violet supernova over a
+   warm obsidian page would read as two unrelated designs. */
+[data-theme="gold"] .on-dark {
+  --hero-bg: #0b0906;
+}

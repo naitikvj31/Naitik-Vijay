@@ -1,0 +1,15 @@
+{
+  "name": "NaiGrowth — Online Reputation Management",
+  "short_name": "NaiGrowth",
+  "description": "Online reputation management company delivering ORM, paid PR, paid reviews and reputation consultancy.",
+  "start_url": "/",
+  "scope": "/",
+  "display": "standalone",
+  "background_color": "#04050c",
+  "theme_color": "#04050c",
+  "icons": [
+    { "src": "/assets/favicon-48.png", "sizes": "48x48", "type": "image/png" },
+    { "src": "/assets/apple-touch-icon.png", "sizes": "180x180", "type": "image/png" },
+    { "src": "/assets/icon-512.png", "sizes": "512x512", "type": "image/png", "purpose": "any" }
+  ]
+}

@@ -1,63 +1,180 @@
 {
-    "headers": [
+  "functions": {
+    "api/contact.js": {
+      "includeFiles": "js/modules/validate.js"
+    }
+  },
+  "cleanUrls": false,
+  "trailingSlash": false,
+  "headers": [
+    {
+      "source": "/(.*)",
+      "headers": [
         {
-            "source": "/(.*)",
-            "headers": [
-                {
-                    "key": "X-Content-Type-Options",
-                    "value": "nosniff"
-                },
-                {
-                    "key": "X-Frame-Options",
-                    "value": "DENY"
-                },
-                {
-                    "key": "X-XSS-Protection",
-                    "value": "1; mode=block"
-                },
-                {
-                    "key": "Strict-Transport-Security",
-                    "value": "max-age=31536000; includeSubDomains; preload"
-                },
-                {
-                    "key": "Referrer-Policy",
-                    "value": "strict-origin-when-cross-origin"
-                },
-                {
-                    "key": "Content-Security-Policy",
-                    "value": "default-src 'self'; script-src 'self'; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com; img-src 'self' data: https:; connect-src 'self'; form-action 'self'; base-uri 'self'; object-src 'none'; frame-ancestors 'none'; upgrade-insecure-requests;"
-                },
-                {
-                    "key": "Permissions-Policy",
-                    "value": "camera=(), microphone=(), geolocation=(), browsing-topics=()"
-                },
-                {
-                    "key": "Cross-Origin-Opener-Policy",
-                    "value": "same-origin"
-                }
-            ]
+          "key": "X-Content-Type-Options",
+          "value": "nosniff"
         },
         {
-            "source": "/ads/(.*)",
-            "headers": [
-                {
-                    "key": "Content-Security-Policy",
-                    "value": "default-src 'self'; script-src 'self' 'unsafe-inline'; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com; img-src 'self' data: https:; form-action 'self'; base-uri 'self'; object-src 'none'; frame-ancestors 'none'; upgrade-insecure-requests;"
-                },
-                {
-                    "key": "X-Robots-Tag",
-                    "value": "noindex"
-                }
-            ]
+          "key": "X-Frame-Options",
+          "value": "DENY"
         },
         {
-            "source": "/assets/(.*)",
-            "headers": [
-                {
-                    "key": "Cache-Control",
-                    "value": "public, max-age=31536000, immutable"
-                }
-            ]
+          "key": "Strict-Transport-Security",
+          "value": "max-age=63072000; includeSubDomains; preload"
+        },
+        {
+          "key": "Referrer-Policy",
+          "value": "strict-origin-when-cross-origin"
+        },
+        {
+          "key": "Content-Security-Policy",
+          "value": "default-src 'self'; script-src 'self'; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com; img-src 'self' data:; connect-src 'self'; manifest-src 'self'; media-src 'none'; object-src 'none'; frame-src 'none'; worker-src 'none'; form-action 'self'; base-uri 'self'; frame-ancestors 'none'; upgrade-insecure-requests"
+        },
+        {
+          "key": "Permissions-Policy",
+          "value": "accelerometer=(), autoplay=(), camera=(), display-capture=(), encrypted-media=(), geolocation=(), gyroscope=(), magnetometer=(), microphone=(), midi=(), payment=(), usb=(), browsing-topics=(), interest-cohort=()"
+        },
+        {
+          "key": "Cross-Origin-Opener-Policy",
+          "value": "same-origin"
+        },
+        {
+          "key": "Cross-Origin-Resource-Policy",
+          "value": "same-origin"
+        },
+        {
+          "key": "X-Permitted-Cross-Domain-Policies",
+          "value": "none"
+        },
+        {
+          "key": "X-DNS-Prefetch-Control",
+          "value": "off"
         }
-    ]
+      ]
+    },
+    {
+      "source": "/api/(.*)",
+      "headers": [
+        {
+          "key": "Cache-Control",
+          "value": "no-store, max-age=0"
+        },
+        {
+          "key": "X-Robots-Tag",
+          "value": "noindex, nofollow"
+        }
+      ]
+    },
+    {
+      "source": "/(.*).html",
+      "headers": [
+        {
+          "key": "Cache-Control",
+          "value": "public, max-age=0, must-revalidate"
+        }
+      ]
+    },
+    {
+      "source": "/assets/(.*)",
+      "headers": [
+        {
+          "key": "Cache-Control",
+          "value": "public, max-age=31536000, immutable"
+        }
+      ]
+    },
+    {
+      "source": "/css/(.*)",
+      "headers": [
+        {
+          "key": "Cache-Control",
+          "value": "public, max-age=604800, must-revalidate"
+        }
+      ]
+    },
+    {
+      "source": "/js/(.*)",
+      "headers": [
+        {
+          "key": "Cache-Control",
+          "value": "public, max-age=604800, must-revalidate"
+        }
+      ]
+    },
+    {
+      "source": "/(ads|invoices|hiring|ad-library)/(.*)",
+      "headers": [
+        {
+          "key": "X-Robots-Tag",
+          "value": "noindex, nofollow, noarchive"
+        },
+        {
+          "key": "Cache-Control",
+          "value": "no-store"
+        }
+      ]
+    }
+  ],
+  "redirects": [
+    {
+      "source": "/services",
+      "destination": "/#services",
+      "permanent": false
+    },
+    {
+      "source": "/platforms",
+      "destination": "/#platforms",
+      "permanent": false
+    },
+    {
+      "source": "/contact",
+      "destination": "/#contact",
+      "permanent": false
+    },
+    {
+      "source": "/orm",
+      "destination": "/services/online-reputation-management.html",
+      "permanent": true
+    },
+    {
+      "source": "/paid-media",
+      "destination": "/services/paid-media.html",
+      "permanent": true
+    },
+    {
+      "source": "/paid-pr",
+      "destination": "/services/paid-pr.html",
+      "permanent": true
+    },
+    {
+      "source": "/paid-reviews",
+      "destination": "/services/paid-reviews.html",
+      "permanent": true
+    },
+    {
+      "source": "/seo",
+      "destination": "/services/seo.html",
+      "permanent": true
+    },
+    {
+      "source": "/g2",
+      "destination": "/platforms/g2.html",
+      "permanent": true
+    },
+    {
+      "source": "/capterra",
+      "destination": "/platforms/capterra.html",
+      "permanent": true
+    },
+    {
+      "source": "/gartner",
+      "destination": "/platforms/gartner-peer-insights.html",
+      "permanent": true
+    },
+    {
+      "source": "/trustpilot",
+      "destination": "/platforms/trustpilot.html",
+      "permanent": true
+    }
+  ]
 }

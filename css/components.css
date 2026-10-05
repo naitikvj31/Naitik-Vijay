@@ -1,0 +1,2619 @@
+/* ==========================================================================
+   NaiGrowth — Components
+   Nav, buttons, cursor, hero layer, cards, stats, FAQ, footer, reveals.
+   ========================================================================== */
+
+/* ==========================================================================
+   1. Custom cursor
+   A dot that tracks the pointer 1:1 and a ring that lags behind it. Each is a
+   positioned wrapper (JS owns its transform) holding a shape that CSS scales,
+   so hover states animate on the compositor and never touch layout.
+
+   The native pointer is hidden ONLY once the custom one is live, so a JS
+   failure can never leave the page with no cursor at all.
+   ========================================================================== */
+
+.cursor-dot,
+.cursor-ring {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 0;
+  height: 0;
+  pointer-events: none;
+  z-index: var(--z-cursor);
+  opacity: 0;
+  will-change: transform;
+  transition: opacity var(--t-med) var(--ease-out);
+}
+
+.cursor-dot__shape,
+.cursor-ring__shape,
+.cursor-ring__label {
+  position: absolute;
+  top: 0;
+  left: 0;
+  transform-origin: 50% 50%;
+}
+
+.cursor-dot__shape {
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: var(--cursor-fg, #fff);
+  /* A hairline of the page ground keeps the dot legible on white headlines
+     as well as on the dark ground. */
+  box-shadow: 0 0 0 1px var(--cursor-halo, rgba(4, 5, 12, 0.45));
+  transform: translate(-50%, -50%) scale(1);
+  transition: transform var(--t-fast) var(--ease-out);
+}
+
+.cursor-ring__shape {
+  width: 38px;
+  height: 38px;
+  border: 1.5px solid var(--cursor-ring, rgba(255, 255, 255, 0.46));
+  border-radius: 50%;
+  transform: translate(-50%, -50%) scale(1);
+  transition: transform var(--t-med) var(--ease-spring),
+    background-color var(--t-med) var(--ease-out), border-color var(--t-med) var(--ease-out);
+}
+
+.cursor-ring__label {
+  font-family: var(--font-body);
+  font-size: 0.66rem;
+  font-weight: 600;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--cursor-fg, #fff);
+  white-space: nowrap;
+  opacity: 0;
+  transform: translate(-50%, -50%) scale(0.6);
+  transition: opacity var(--t-fast) var(--ease-out), transform var(--t-med) var(--ease-spring);
+}
+
+body.cursor-ready .cursor-dot,
+body.cursor-ready .cursor-ring {
+  opacity: 1;
+}
+
+/* Only now is it safe to take the native pointer away. */
+body.cursor-ready,
+body.cursor-ready * {
+  cursor: none;
+}
+
+/* Text entry is the one place precision beats polish: the custom cursor steps
+   aside and the native caret comes back. */
+body.cursor-ready.cursor-text .cursor-dot,
+body.cursor-ready.cursor-text .cursor-ring {
+  opacity: 0;
+}
+
+body.cursor-ready.cursor-text,
+body.cursor-ready.cursor-text * {
+  cursor: auto;
+}
+
+/* Hovering anything interactive: ring swells, dot recedes. */
+/* 1.62 put a 62px ring on top of a 44px button and tinted it violet, which
+   read as the control changing rather than the cursor reacting. */
+body.cursor-hover .cursor-ring__shape {
+  transform: translate(-50%, -50%) scale(1.34);
+  background: var(--cursor-fill-hover, rgba(139, 92, 246, 0.16));
+  border-color: var(--cursor-ring-hover, rgba(169, 137, 255, 0.76));
+}
+
+body.cursor-hover .cursor-dot__shape {
+  transform: translate(-50%, -50%) scale(0);
+}
+
+/* Ring carries a word ("View", "Drag") over specific targets. */
+body.cursor-label .cursor-ring__shape {
+  transform: translate(-50%, -50%) scale(2.16);
+  background: var(--cursor-fill-label, rgba(76, 125, 255, 0.22));
+  border-color: var(--cursor-ring-label, rgba(118, 165, 255, 0.8));
+}
+
+body.cursor-label .cursor-dot__shape {
+  transform: translate(-50%, -50%) scale(0);
+}
+
+body.cursor-label .cursor-ring__label {
+  opacity: 1;
+  transform: translate(-50%, -50%) scale(1);
+}
+
+/* Press feedback — the ring dips, so a click reads even without the arrow. */
+body.cursor-press .cursor-ring__shape {
+  transform: translate(-50%, -50%) scale(0.82);
+}
+
+body.cursor-press.cursor-hover .cursor-ring__shape {
+  transform: translate(-50%, -50%) scale(1.12);
+}
+
+body.cursor-press.cursor-label .cursor-ring__shape {
+  transform: translate(-50%, -50%) scale(1.92);
+}
+
+/* Pointer-precision and motion preference both gate the whole feature. */
+@media (hover: none), (pointer: coarse), (prefers-reduced-motion: reduce) {
+  .cursor-dot,
+  .cursor-ring {
+    display: none !important;
+  }
+  body.cursor-ready,
+  body.cursor-ready * {
+    cursor: auto;
+  }
+  body.cursor-ready a,
+  body.cursor-ready button {
+    cursor: pointer;
+  }
+}
+
+/* ==========================================================================
+   2. Buttons
+   ========================================================================== */
+
+.btn {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--s-3);
+  padding: 0.95rem 1.8rem;
+  border-radius: var(--r-pill);
+  font-family: var(--font-body);
+  font-size: var(--t-sm);
+  font-weight: 600;
+  letter-spacing: 0.005em;
+  white-space: nowrap;
+  isolation: isolate;
+  overflow: hidden;
+  transition: transform var(--t-med) var(--ease-out), box-shadow var(--t-med) var(--ease-out),
+    border-color var(--t-med) var(--ease-out), background-color var(--t-med) var(--ease-out);
+}
+
+.btn svg {
+  width: 17px;
+  height: 17px;
+  flex: none;
+  transition: transform var(--t-med) var(--ease-out);
+}
+
+.btn:hover svg {
+  transform: translateX(3px);
+}
+
+.btn--primary {
+  background: var(--accent-grad-solid);
+  /* Gold overrides this to dark ink: white on brass measures ~2:1. */
+  color: var(--btn-primary-ink, #fff);
+  box-shadow: 0 10px 30px rgba(76, 125, 255, 0.3), inset 0 1px 0 rgba(255, 255, 255, 0.22);
+}
+
+/* A second gradient layer cross-fades in on hover — smoother than animating
+   the gradient itself, which browsers cannot interpolate. */
+.btn--primary::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  background: var(--accent-grad-solid-alt);
+  opacity: 0;
+  transition: opacity var(--t-med) var(--ease-out);
+}
+
+.btn--primary:hover {
+  box-shadow: 0 18px 46px rgba(139, 92, 246, 0.44), inset 0 1px 0 rgba(255, 255, 255, 0.28);
+}
+
+.btn--primary:hover::after {
+  opacity: 1;
+}
+
+.btn--ghost {
+  background: var(--surface);
+  color: var(--text);
+  border: 1px solid var(--hairline-strong);
+  backdrop-filter: blur(14px);
+}
+
+.btn--ghost:hover {
+  background: var(--surface-hover);
+  border-color: var(--accent-ink-2);
+}
+
+.btn--lg {
+  padding: 1.12rem 2.3rem;
+  font-size: var(--t-body);
+}
+
+.btn--block {
+  width: 100%;
+}
+
+/* Magnetic buttons are translated by JS; the wrapper keeps layout stable so
+   the pull never reflows neighbouring content.
+
+   `flex: none` is load-bearing. As a flex item the wrapper shrinks by default,
+   but the .btn inside it is `white-space: nowrap`, so the button overflowed
+   its own wrapper and sat on top of its neighbour. That is the button overlap
+   seen on every CTA row. */
+.magnetic {
+  display: inline-flex;
+  flex: none;
+  max-width: 100%;
+  will-change: transform;
+}
+
+/* Same reason: a bare .btn used directly as a flex item must not be squeezed
+   below its text. */
+.hero__cta > .btn,
+.cta__actions > .btn,
+.page-head__cta > .btn {
+  flex: none;
+}
+
+/* ==========================================================================
+   3. Navigation
+   ========================================================================== */
+
+.nav {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: var(--z-nav);
+  transition: transform var(--t-med) var(--ease-out), background-color var(--t-med) var(--ease-out),
+    border-color var(--t-med) var(--ease-out), backdrop-filter var(--t-med) var(--ease-out);
+  border-bottom: 1px solid transparent;
+}
+
+.nav--scrolled,
+/* An open drawer needs a solid bar above it even at scroll position 0. */
+.nav:has([data-nav-drawer][data-open="true"]) {
+  background: var(--nav-bg);
+  backdrop-filter: blur(22px) saturate(1.3);
+  border-bottom-color: var(--hairline);
+}
+
+/* While the bar floats over the hero it sits on the dark stage, so its own
+   text tokens are the dark-scheme ones in BOTH themes. Scoped to the bar
+   itself — the drawer below it belongs to the page, not the hero. */
+.nav:not(.nav--scrolled) .nav__inner {
+  --text: #ffffff;
+  --text-strong: #ffffff;
+  --text-dim: rgba(255, 255, 255, 0.82);
+  --text-muted: rgba(255, 255, 255, 0.64);
+  --surface: rgba(255, 255, 255, 0.07);
+  --surface-hover: rgba(255, 255, 255, 0.12);
+  --hairline: rgba(255, 255, 255, 0.14);
+  --hairline-strong: rgba(255, 255, 255, 0.24);
+  color: #fff;
+}
+
+/* Drawer open at the top of the page: the bar is solid, so hand the tokens
+   back to the theme. `inherit` on a custom property restores the ancestor's
+   value, which is the root/theme one. */
+.nav:has([data-nav-drawer][data-open="true"]):not(.nav--scrolled) .nav__inner {
+  --text: inherit;
+  --text-strong: inherit;
+  --text-dim: inherit;
+  --text-muted: inherit;
+  --surface: inherit;
+  --surface-hover: inherit;
+  --hairline: inherit;
+  --hairline-strong: inherit;
+  color: inherit;
+}
+
+/* Hide on scroll-down, reveal on scroll-up — more screen for the 3D scene. */
+.nav--hidden {
+  transform: translateY(-104%);
+}
+
+.nav__inner {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--s-5);
+  height: 74px;
+}
+
+.nav__brand {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.7rem;
+  flex: none;
+  /* Keeps the hit area at 44px even where the logo shrinks to 32. */
+  padding-block: 0.3rem;
+}
+
+.nav__brand img {
+  width: 38px;
+  height: 38px;
+  border-radius: 10px;
+  border: 1px solid var(--hairline);
+}
+
+.nav__brand-name {
+  font-family: var(--font-display);
+  font-size: 1.16rem;
+  font-weight: 700;
+  letter-spacing: -0.028em;
+}
+
+.nav__brand-name span {
+  font-weight: 300;
+  color: var(--text-dim);
+}
+
+.nav__links {
+  display: flex;
+  align-items: center;
+  gap: var(--s-2);
+}
+
+.nav__link {
+  position: relative;
+  padding: 0.5rem 0.95rem;
+  border-radius: var(--r-pill);
+  font-size: var(--t-sm);
+  font-weight: 500;
+  color: var(--text-dim);
+  transition: color var(--t-fast) var(--ease-out), background-color var(--t-fast) var(--ease-out);
+}
+
+.nav__link:hover,
+.nav__link[aria-current="true"] {
+  color: var(--text);
+  background: var(--surface-hover);
+}
+
+.nav__actions {
+  display: flex;
+  align-items: center;
+  /* s-3 left the switch inside the primary button's 30px glow, so it looked
+     lit from the side. */
+  gap: var(--s-4);
+  flex: none;
+}
+
+/* --- Theme switch -------------------------------------------------------
+   Two icons stacked in one 44px control; only the one for the scheme you
+   would switch TO is shown, so the button always reads as an action. */
+.nav__theme {
+  position: relative;
+  z-index: 1;
+  display: grid;
+  place-items: center;
+  width: 44px;
+  height: 44px;
+  flex: none;
+  border-radius: var(--r-pill);
+  border: 1px solid var(--hairline-strong);
+  background: var(--surface-hover);
+  color: var(--text-dim);
+  transition: color var(--t-fast) var(--ease-out), border-color var(--t-fast) var(--ease-out),
+    background-color var(--t-fast) var(--ease-out);
+}
+
+.nav__theme:hover {
+  color: var(--text);
+  border-color: var(--accent-ink);
+}
+
+.nav__theme svg {
+  position: absolute;
+  width: 19px;
+  height: 19px;
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 1.7;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  transition: opacity var(--t-fast) var(--ease-out), transform var(--t-med) var(--ease-spring);
+}
+
+/* Three schemes cycle light -> dark -> gold, and the icon shown is the one
+   you are switching TO, so the control always reads as an action. All three
+   icons are stacked; only the next one is visible. */
+.nav__theme svg {
+  opacity: 0;
+  transform: rotate(-60deg) scale(0.6);
+}
+
+/* On light, the next press gives you dark. */
+.nav__theme .icon-moon {
+  opacity: 1;
+  transform: rotate(0deg) scale(1);
+}
+
+[data-theme="dark"] .nav__theme .icon-moon {
+  opacity: 0;
+  transform: rotate(60deg) scale(0.6);
+}
+
+/* On dark, the next press gives you gold. */
+[data-theme="dark"] .nav__theme .icon-gold {
+  opacity: 1;
+  transform: rotate(0deg) scale(1);
+}
+
+/* On gold, the next press brings you back to light. */
+[data-theme="gold"] .nav__theme .icon-sun {
+  opacity: 1;
+  transform: rotate(0deg) scale(1);
+}
+
+.nav__toggle {
+  display: none;
+  width: 44px;
+  height: 44px;
+  border-radius: var(--r-sm);
+  border: 1px solid var(--hairline-strong);
+  background: var(--surface-hover);
+  place-items: center;
+}
+
+.nav__toggle span {
+  display: block;
+  width: 18px;
+  height: 1.5px;
+  background: var(--text);
+  border-radius: 2px;
+  transition: transform var(--t-med) var(--ease-out), opacity var(--t-fast) var(--ease-out);
+}
+
+.nav__toggle span + span {
+  margin-top: 5px;
+}
+
+.nav__toggle[aria-expanded="true"] span:nth-child(1) {
+  transform: translateY(6.5px) rotate(45deg);
+}
+.nav__toggle[aria-expanded="true"] span:nth-child(2) {
+  opacity: 0;
+}
+.nav__toggle[aria-expanded="true"] span:nth-child(3) {
+  transform: translateY(-6.5px) rotate(-45deg);
+}
+
+@media (max-width: 960px) {
+  .nav__links,
+  .nav__actions .btn {
+    display: none;
+  }
+
+  .nav__toggle {
+    display: grid;
+  }
+
+  /* Mobile sheet. Collapsed via max-height so it animates without JS measuring. */
+  .nav__drawer {
+    position: absolute;
+    top: 74px;
+    left: 0;
+    right: 0;
+    background: var(--drawer-bg);
+    backdrop-filter: blur(24px);
+    border-bottom: 1px solid var(--hairline);
+    display: grid;
+    gap: var(--s-1);
+    padding: 0 var(--gutter);
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height var(--t-med) var(--ease-out), padding var(--t-med) var(--ease-out);
+  }
+
+  .nav__drawer[data-open="true"] {
+    max-height: 72vh;
+    overflow-y: auto;
+    padding: var(--s-4) var(--gutter) var(--s-6);
+  }
+
+  .nav__drawer a {
+    padding: 0.85rem 0.25rem;
+    font-size: 1.05rem;
+    font-weight: 500;
+    border-bottom: 1px solid var(--hairline);
+  }
+
+  .nav__drawer .btn {
+    margin-top: var(--s-4);
+  }
+}
+
+@media (min-width: 961px) {
+  .nav__drawer {
+    display: none;
+  }
+}
+
+/* ==========================================================================
+   4. Hero — canvas layer + semantic overlay
+   The canvas is purely decorative and sits behind everything. The overlay is
+   real HTML text so crawlers and screen readers get the full message.
+   ========================================================================== */
+
+.hero {
+  position: relative;
+  /* svh keeps the first screen whole when a mobile URL bar is showing; the
+     min() floor stops a short landscape phone from cropping the headline. */
+  min-height: min(100svh, 46rem);
+  display: flex;
+  align-items: center;
+  padding-block: 7rem 4rem;
+  overflow: hidden;
+  /* `.on-dark` in the markup supplies the near-black ground and the dark text
+     tokens, so the stage reads the same in either theme. */
+}
+
+@media (min-width: 861px) {
+  .hero {
+    min-height: 100svh;
+  }
+}
+
+/* Contrast bed. The scene is bright on the right where the sphere sits, so the
+   copy side is darkened to keep the headline legible over it. Without this the
+   gradient headline sits on mid-lavender and the contrast collapses. */
+.hero::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  pointer-events: none;
+  background: linear-gradient(
+    100deg,
+    rgba(4, 5, 12, 0.94) 0%,
+    rgba(4, 5, 12, 0.86) 28%,
+    rgba(4, 5, 12, 0.5) 52%,
+    rgba(4, 5, 12, 0.12) 72%,
+    transparent 88%
+  );
+}
+
+/* On narrow screens the copy runs full width and the sphere sits above it, so
+   the bed becomes vertical instead. */
+@media (max-width: 860px) {
+  .hero::before {
+    background: linear-gradient(
+      180deg,
+      rgba(4, 5, 12, 0.62) 0%,
+      rgba(4, 5, 12, 0.34) 18%,
+      rgba(4, 5, 12, 0.68) 40%,
+      rgba(4, 5, 12, 0.93) 60%,
+      rgba(4, 5, 12, 0.97) 100%
+    );
+  }
+}
+
+.scene {
+  position: absolute;
+  inset: 0;
+  z-index: var(--z-canvas);
+  pointer-events: none;
+}
+
+.scene canvas {
+  width: 100%;
+  height: 100%;
+  display: block;
+}
+
+/* Painted immediately so the hero never flashes flat black while WebGL boots,
+   and so the section still reads as designed if WebGL is unavailable. */
+.scene__fallback {
+  position: absolute;
+  inset: 0;
+  background:
+    radial-gradient(42% 46% at 68% 42%, rgba(139, 92, 246, 0.4) 0%, transparent 68%),
+    radial-gradient(34% 38% at 62% 36%, rgba(76, 125, 255, 0.42) 0%, transparent 70%),
+    radial-gradient(60% 70% at 18% 88%, rgba(168, 85, 247, 0.16) 0%, transparent 72%);
+  transition: opacity 1.1s var(--ease-out);
+}
+
+.scene--live .scene__fallback {
+  opacity: 0;
+}
+
+.hero__overlay {
+  position: relative;
+  z-index: var(--z-content);
+  width: 100%;
+  /* The overlay must not eat pointer events meant for the scene; individual
+     controls opt back in below. */
+  pointer-events: none;
+}
+
+.hero__overlay a,
+.hero__overlay button,
+.hero__overlay .magnetic {
+  pointer-events: auto;
+}
+
+.hero__inner {
+  display: grid;
+  gap: var(--s-6);
+  max-width: 60rem;
+}
+
+/* Keep the copy out of the sphere's half of the frame on wide screens. */
+@media (min-width: 861px) {
+  .hero__inner {
+    max-width: 46rem;
+  }
+}
+
+.hero h1 {
+  margin-top: var(--s-2);
+}
+
+.hero__lead {
+  font-size: var(--t-lead);
+  color: var(--text-dim);
+  max-width: 44rem;
+}
+
+.hero__cta {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--s-5);
+  margin-top: var(--s-2);
+}
+
+.hero__proof {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--s-3) var(--s-6);
+  margin-top: var(--s-5);
+  padding-top: var(--s-5);
+  border-top: 1px solid var(--hairline);
+  max-width: 46rem;
+}
+
+.hero__proof-item {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.hero__proof-num {
+  font-family: var(--font-display);
+  font-size: 1.6rem;
+  font-weight: 600;
+  letter-spacing: -0.035em;
+  font-variant-numeric: tabular-nums;
+}
+
+.hero__proof-label {
+  font-family: var(--font-mono);
+  font-size: 0.68rem;
+  font-weight: 400;
+  color: var(--text-muted);
+  letter-spacing: 0.11em;
+  text-transform: uppercase;
+}
+
+/* Orbit toggle — lets a curious visitor grab the scene, off by default so
+   scrolling is never hijacked. */
+.scene__toggle {
+  position: absolute;
+  right: var(--gutter);
+  bottom: 2.2rem;
+  z-index: var(--z-content);
+  pointer-events: auto;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.55rem;
+  padding: 0.6rem 1.05rem;
+  border-radius: var(--r-pill);
+  border: 1px solid var(--hairline-strong);
+  background: rgba(8, 11, 26, 0.6);
+  backdrop-filter: blur(14px);
+  font-family: var(--font-mono);
+  font-size: 0.7rem;
+  font-weight: 500;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--text-dim);
+  transition: color var(--t-fast) var(--ease-out), border-color var(--t-fast) var(--ease-out),
+    background-color var(--t-fast) var(--ease-out);
+}
+
+.scene__toggle:hover,
+.scene__toggle[aria-pressed="true"] {
+  color: #fff;
+  border-color: rgba(169, 137, 255, 0.6);
+  background: rgba(139, 92, 246, 0.18);
+}
+
+.scene__toggle-dot {
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: var(--text-faint);
+  transition: background-color var(--t-fast) var(--ease-out), box-shadow var(--t-fast) var(--ease-out);
+}
+
+.scene__toggle[aria-pressed="true"] .scene__toggle-dot {
+  background: var(--blue-bright);
+  box-shadow: 0 0 10px var(--blue-bright);
+}
+
+@media (max-width: 720px) {
+  .scene__toggle {
+    display: none;
+  }
+}
+
+/* ==========================================================================
+   5. Trust strip
+   ========================================================================== */
+
+.trust {
+  position: relative;
+  z-index: var(--z-content);
+  padding-block: var(--s-7);
+  border-block: 1px solid var(--hairline);
+  background: var(--band-bg);
+  backdrop-filter: blur(10px);
+}
+
+.trust__label {
+  text-align: center;
+  font-family: var(--font-mono);
+  font-size: 0.7rem;
+  font-weight: 400;
+  letter-spacing: 0.13em;
+  text-transform: uppercase;
+  color: var(--text-muted);
+  margin-bottom: var(--s-5);
+}
+
+.trust__logos {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: center;
+  gap: clamp(1.5rem, 5vw, 3.6rem);
+}
+
+.trust__logos li {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  font-family: var(--font-display);
+  font-size: 1.02rem;
+  font-weight: 600;
+  letter-spacing: 0.01em;
+  color: var(--text-dim);
+  opacity: 0.74;
+  transition: opacity var(--t-med) var(--ease-out), color var(--t-med) var(--ease-out);
+}
+
+.trust__logos li:hover {
+  opacity: 1;
+  color: var(--text-strong);
+}
+
+.trust__logos img {
+  width: 26px;
+  height: 26px;
+  border-radius: 6px;
+}
+
+/* ==========================================================================
+   6. Glass card + service grid
+   ========================================================================== */
+
+.glass {
+  position: relative;
+  background: var(--surface);
+  border: 1px solid var(--hairline);
+  border-radius: var(--r-lg);
+  backdrop-filter: blur(18px) saturate(1.2);
+  overflow: hidden;
+  /* Establishes the stacking context the hover state raises itself out of. */
+  z-index: 0;
+  transition: transform var(--t-med) var(--ease-out), border-color var(--t-med) var(--ease-out),
+    background-color var(--t-med) var(--ease-out), box-shadow var(--t-med) var(--ease-out);
+}
+
+/* Specular sheen along the top edge — the single detail that sells "glass". */
+.glass::before {
+  content: "";
+  position: absolute;
+  inset: 0 0 auto;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, var(--sheen) 48%, transparent);
+}
+
+/* A hovered card has to paint ABOVE its neighbours, or its own glow shows
+   through their translucent backgrounds and reads as the shadow jumping to
+   the wrong box. */
+.glass:hover {
+  transform: translateY(-4px);
+  background: var(--surface-strong);
+  border-color: color-mix(in srgb, var(--accent-ink-2) 38%, transparent);
+  box-shadow: var(--glow-card);
+  z-index: 2;
+}
+
+.services__grid {
+  display: grid;
+  grid-template-columns: repeat(6, minmax(0, 1fr));
+  gap: clamp(0.9rem, 1.6vw, 1.35rem);
+}
+
+/* An asymmetric, deliberately non-template rhythm: two flagship tiles, then
+   four, then two. Each card declares its own span. */
+.service {
+  grid-column: span 2;
+  display: flex;
+  flex-direction: column;
+  gap: var(--s-4);
+  padding: clamp(1.5rem, 2.4vw, 2.1rem);
+  min-height: 15rem;
+}
+
+.service--flagship {
+  grid-column: span 3;
+  min-height: 19.5rem;
+  background: var(--flagship-bg);
+}
+
+.service--wide {
+  grid-column: span 3;
+  min-height: 12rem;
+}
+
+.service__icon {
+  width: 46px;
+  height: 46px;
+  display: grid;
+  place-items: center;
+  border-radius: 13px;
+  background: var(--accent-grad-soft);
+  border: 1px solid var(--hairline-strong);
+  flex: none;
+}
+
+.service__icon svg {
+  width: 22px;
+  height: 22px;
+  stroke: var(--accent-ink);
+  fill: none;
+  stroke-width: 1.6;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+.service--flagship .service__icon {
+  width: 54px;
+  height: 54px;
+}
+
+.service--flagship .service__icon svg {
+  width: 26px;
+  height: 26px;
+  stroke: var(--accent-ink-2);
+}
+
+.service h3 {
+  letter-spacing: -0.024em;
+}
+
+.service p {
+  color: var(--text-muted);
+  font-size: var(--t-sm);
+  flex-grow: 1;
+}
+
+.service__tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.4rem;
+  margin-top: auto;
+  padding-top: var(--s-2);
+}
+
+.service__tags li {
+  padding: 0.32rem 0.7rem;
+  border-radius: var(--r-pill);
+  border: 1px solid var(--hairline);
+  background: var(--chip-bg);
+  font-family: var(--font-mono);
+  font-size: 0.68rem;
+  font-weight: 400;
+  letter-spacing: 0.01em;
+  color: var(--text-muted);
+}
+
+.service--flagship .service__tags li {
+  border-color: color-mix(in srgb, var(--accent-ink-2) 30%, transparent);
+  color: var(--text-dim);
+}
+
+@media (max-width: 1000px) {
+  .services__grid {
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+  }
+  .service,
+  .service--wide {
+    grid-column: span 2;
+  }
+  .service--flagship {
+    grid-column: span 4;
+    min-height: 16rem;
+  }
+}
+
+@media (max-width: 620px) {
+  .services__grid {
+    grid-template-columns: minmax(0, 1fr);
+  }
+  .service,
+  .service--flagship,
+  .service--wide {
+    grid-column: span 1;
+    min-height: 0;
+  }
+}
+
+/* ==========================================================================
+   7. Showcase / work grid
+   ========================================================================== */
+
+.showcase__grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 19rem), 1fr));
+  gap: clamp(0.9rem, 1.6vw, 1.35rem);
+}
+
+.work {
+  display: flex;
+  flex-direction: column;
+  gap: var(--s-4);
+  padding: clamp(1.5rem, 2.4vw, 2rem);
+}
+
+.work__head {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: var(--s-4);
+}
+
+.work__sector {
+  font-family: var(--font-mono);
+  font-size: 0.68rem;
+  font-weight: 400;
+  letter-spacing: 0.11em;
+  text-transform: uppercase;
+  color: var(--text-muted);
+}
+
+.work__metric {
+  font-family: var(--font-display);
+  font-size: clamp(2rem, 3.5vw, 2.7rem);
+  font-weight: 600;
+  letter-spacing: -0.045em;
+  line-height: 1;
+  font-variant-numeric: tabular-nums;
+}
+
+.work__metric-label {
+  font-size: var(--t-sm);
+  color: var(--text-dim);
+}
+
+.work p {
+  color: var(--text-muted);
+  font-size: var(--t-sm);
+}
+
+.work__platforms {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.4rem;
+  margin-top: auto;
+  padding-top: var(--s-3);
+  border-top: 1px solid var(--hairline);
+}
+
+.work__platforms li {
+  font-family: var(--font-mono);
+  font-size: 0.66rem;
+  letter-spacing: 0.01em;
+  color: var(--text-faint);
+  padding: 0.24rem 0.62rem;
+  border-radius: var(--r-pill);
+  background: var(--chip-bg);
+}
+
+/* ==========================================================================
+   8. Benefits / feature list
+   ========================================================================== */
+
+.benefits {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 17rem), 1fr));
+  gap: clamp(1.4rem, 3vw, 2.6rem);
+}
+
+.benefit {
+  display: flex;
+  flex-direction: column;
+  gap: var(--s-3);
+  padding-top: var(--s-5);
+  border-top: 1px solid var(--hairline);
+}
+
+.benefit__num {
+  font-family: var(--font-mono);
+  font-size: 0.72rem;
+  font-weight: 500;
+  letter-spacing: 0.06em;
+  color: var(--accent-ink-2);
+}
+
+.benefit h3 {
+  font-size: var(--t-h4);
+  letter-spacing: -0.015em;
+}
+
+.benefit p {
+  color: var(--text-muted);
+  font-size: var(--t-sm);
+}
+
+/* ==========================================================================
+   9. Stats band
+   ========================================================================== */
+
+.stats {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 12rem), 1fr));
+  gap: 1px;
+  background: var(--hairline);
+  border: 1px solid var(--hairline);
+  border-radius: var(--r-lg);
+  overflow: hidden;
+}
+
+.stat {
+  background: var(--stat-bg);
+  padding: clamp(1.6rem, 3vw, 2.4rem) clamp(1.2rem, 2vw, 1.8rem);
+  display: flex;
+  flex-direction: column;
+  gap: var(--s-2);
+  transition: background-color var(--t-med) var(--ease-out);
+}
+
+.stat:hover {
+  background: rgba(139, 92, 246, 0.09);
+}
+
+.stat__num {
+  font-family: var(--font-display);
+  font-size: clamp(2.2rem, 4.2vw, 3.1rem);
+  font-weight: 600;
+  letter-spacing: -0.05em;
+  line-height: 1;
+  font-variant-numeric: tabular-nums;
+}
+
+.stat__label {
+  font-family: var(--font-mono);
+  font-size: 0.7rem;
+  font-weight: 400;
+  letter-spacing: 0.07em;
+  text-transform: uppercase;
+  color: var(--text-muted);
+}
+
+/* ==========================================================================
+   10. Testimonials
+   ========================================================================== */
+
+.quotes {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 20rem), 1fr));
+  gap: clamp(0.9rem, 1.6vw, 1.35rem);
+}
+
+.quote {
+  display: flex;
+  flex-direction: column;
+  gap: var(--s-4);
+  padding: clamp(1.6rem, 2.6vw, 2.2rem);
+}
+
+.quote blockquote {
+  font-size: var(--t-lead);
+  line-height: 1.52;
+  color: var(--text);
+  letter-spacing: -0.012em;
+  flex-grow: 1;
+}
+
+.quote figcaption {
+  display: flex;
+  align-items: center;
+  gap: var(--s-3);
+  padding-top: var(--s-4);
+  border-top: 1px solid var(--hairline);
+}
+
+.quote__avatar {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  display: grid;
+  place-items: center;
+  background: var(--accent-grad-solid);
+  font-family: var(--font-display);
+  font-weight: 650;
+  font-size: 0.92rem;
+  color: var(--btn-primary-ink, #fff);
+  flex: none;
+}
+
+.quote__who {
+  font-size: var(--t-sm);
+  font-weight: 600;
+}
+
+.quote__role {
+  font-family: var(--font-mono);
+  font-size: 0.7rem;
+  letter-spacing: 0.02em;
+  color: var(--text-muted);
+}
+
+/* ==========================================================================
+   11. FAQ accordion
+   ========================================================================== */
+
+.faq {
+  display: grid;
+  gap: 0;
+  border-top: 1px solid var(--hairline);
+}
+
+.faq__item {
+  border-bottom: 1px solid var(--hairline);
+}
+
+.faq__q {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--s-5);
+  padding: clamp(1.1rem, 2vw, 1.5rem) 0;
+  text-align: left;
+  font-family: var(--font-display);
+  font-size: var(--t-h4);
+  font-weight: 550;
+  letter-spacing: -0.015em;
+  color: var(--text);
+  transition: color var(--t-fast) var(--ease-out);
+}
+
+.faq__q:hover {
+  color: var(--accent-ink-2);
+}
+
+.faq__sign {
+  position: relative;
+  width: 20px;
+  height: 20px;
+  flex: none;
+}
+
+.faq__sign::before,
+.faq__sign::after {
+  content: "";
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 14px;
+  height: 1.5px;
+  background: currentColor;
+  border-radius: 2px;
+  transform: translate(-50%, -50%);
+  transition: transform var(--t-med) var(--ease-out), opacity var(--t-fast) var(--ease-out);
+}
+
+.faq__sign::after {
+  transform: translate(-50%, -50%) rotate(90deg);
+}
+
+.faq__q[aria-expanded="true"] .faq__sign::after {
+  transform: translate(-50%, -50%) rotate(0deg);
+  opacity: 0;
+}
+
+/* grid-template-rows 0fr -> 1fr animates to intrinsic height with no JS
+   measurement, so answers stay in the DOM for crawlers at all times. */
+.faq__a {
+  display: grid;
+  grid-template-rows: 0fr;
+  transition: grid-template-rows var(--t-med) var(--ease-out);
+}
+
+.faq__a > div {
+  overflow: hidden;
+}
+
+.faq__item[data-open="true"] .faq__a {
+  grid-template-rows: 1fr;
+}
+
+.faq__a p {
+  color: var(--text-muted);
+  font-size: var(--t-sm);
+  max-width: 62ch;
+  padding-bottom: clamp(1.1rem, 2vw, 1.5rem);
+}
+
+/* ==========================================================================
+   12. CTA band
+   ========================================================================== */
+
+.cta {
+  position: relative;
+  text-align: center;
+  padding: clamp(3rem, 7vw, 5.5rem) clamp(1.4rem, 5vw, 4rem);
+  border-radius: var(--r-xl);
+  border: 1px solid var(--hairline-strong);
+  background: var(--cta-bg);
+  box-shadow: var(--shadow-md);
+  overflow: hidden;
+}
+
+.cta::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(55% 80% at 50% 120%, rgba(255, 138, 61, 0.16), transparent 70%);
+  pointer-events: none;
+}
+
+.cta > * {
+  position: relative;
+}
+
+/* The band sits inside a section that already carries the <h2>, so its own
+   title is an <h3> and has to be styled up to display size explicitly. */
+.cta__title {
+  font-size: var(--t-h2);
+  line-height: 1.08;
+  letter-spacing: var(--track-h2);
+  max-width: 20ch;
+  margin-inline: auto;
+  margin-top: var(--s-4);
+}
+
+.cta__lead {
+  max-width: 48ch;
+  margin: var(--s-4) auto 0;
+  color: var(--text-dim);
+  font-size: var(--t-lead);
+}
+
+/* Formerly `.cta p`, which also matched every <p class="field"> inside the
+   form: the fields inherited `max-width: 48ch` and `margin-inline: auto`, so
+   each one shrank to its input's intrinsic width and floated to the middle of
+   its grid column. That is what made the contact block look like loose boxes
+   scattered around rather than a form. */
+
+.cta__actions {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  /* Wider than s-4: the magnetic pull moves each button up to ~14px toward the
+     pointer, and at a 16px gap the two pills met in the middle. */
+  gap: var(--s-5);
+  margin-top: var(--s-6);
+}
+
+/* ==========================================================================
+   12b. Contact form
+   ========================================================================== */
+
+/* The fields used to float in the middle of the CTA band with nothing holding
+   them together, which is what made the section read as boxes scattered about.
+   Giving the form its own bordered panel groups them into one object. */
+.cta__form {
+  max-width: 46rem;
+  margin: clamp(2rem, 4vw, 3rem) auto 0;
+  padding: clamp(1.5rem, 3vw, 2.4rem);
+  border-radius: var(--r-lg);
+  border: 1px solid var(--panel-border);
+  background: var(--panel-bg);
+  backdrop-filter: blur(16px);
+  box-shadow: var(--shadow-sm);
+  text-align: left;
+}
+
+.field-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  /* Wider row gap than column gap: an error message needs somewhere to sit
+     without crowding the label of the field below it. */
+  column-gap: var(--s-4);
+  row-gap: var(--s-5);
+}
+
+@media (max-width: 620px) {
+  .field-grid {
+    grid-template-columns: minmax(0, 1fr);
+  }
+}
+
+.field {
+  display: flex;
+  flex-direction: column;
+  gap: 0.45rem;
+  margin-bottom: var(--s-4);
+}
+
+.field-grid .field {
+  margin-bottom: 0;
+}
+
+.field label {
+  font-family: var(--font-mono);
+  font-size: 0.7rem;
+  font-weight: 500;
+  letter-spacing: 0.07em;
+  text-transform: uppercase;
+  color: var(--text-dim);
+}
+
+.field label span {
+  text-transform: none;
+  letter-spacing: 0;
+  font-weight: 400;
+  color: var(--text-faint);
+}
+
+.field input,
+.field select,
+.field textarea {
+  width: 100%;
+  padding: 0.85rem 1.05rem;
+  border-radius: var(--r-sm);
+  border: 1px solid var(--field-border);
+  background: var(--input-bg);
+  color: var(--text);
+  font-size: var(--t-sm);
+  transition: border-color var(--t-fast) var(--ease-out), background-color var(--t-fast) var(--ease-out),
+    box-shadow var(--t-fast) var(--ease-out);
+}
+
+.field input:hover,
+.field select:hover,
+.field textarea:hover {
+  border-color: var(--field-border-hover);
+}
+
+.field textarea {
+  resize: vertical;
+  min-height: 7rem;
+  line-height: 1.6;
+}
+
+/* The native arrow is invisible on a dark field, so draw one. */
+.field select {
+  appearance: none;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%237f8db0' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='m6 9 6 6 6-6'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: right 0.9rem center;
+  background-size: 17px;
+  padding-right: 2.6rem;
+  cursor: pointer;
+}
+
+/* Options render in the OS menu, which does not inherit the page's palette. */
+.field select option {
+  background: var(--option-bg);
+  color: var(--text);
+}
+
+.field input::placeholder,
+.field textarea::placeholder {
+  color: var(--text-faint);
+}
+
+.field input:focus,
+.field select:focus,
+.field textarea:focus {
+  outline: none;
+  border-color: var(--accent-ink);
+  background: var(--bg-raise);
+  box-shadow: 0 0 0 3px rgba(139, 92, 246, 0.2);
+}
+
+.form-actions {
+  display: flex;
+  justify-content: center;
+  margin-top: var(--s-5);
+}
+
+.form-status {
+  display: block;
+  margin-top: var(--s-4);
+  /* `display:block` on a class outranks the UA's [hidden] rule, which left an
+     empty bordered bar sitting under the button before any submit. */
+
+  padding: 0.8rem 1.05rem;
+  border-radius: var(--r-sm);
+  border: 1px solid var(--hairline-strong);
+  background: var(--surface);
+  font-size: var(--t-sm);
+  color: var(--text-dim);
+  text-align: center;
+}
+
+.form-status[hidden] {
+  display: none;
+}
+
+/* These were fixed light-on-dark values, so on the light scheme the status
+   line came out as pale orange on near-white. Both states are tokens now. */
+.form-status[data-state="ok"] {
+  border-color: var(--ok-border);
+  background: var(--ok-bg);
+  color: var(--ok-text);
+}
+
+.form-status[data-state="error"] {
+  border-color: var(--field-error);
+  background: var(--field-error-bg);
+  color: var(--field-error);
+  font-weight: 500;
+}
+
+.cta__direct {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: center;
+  gap: var(--s-2) var(--s-3);
+  margin-top: var(--s-6);
+  font-size: var(--t-sm);
+  color: var(--text-muted);
+}
+
+/* Pills rather than underlines: each one is its own 44px target and the row
+   wraps cleanly instead of leaving a stray separator on its own line. */
+.cta__direct a {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.45rem;
+  min-height: 2.75rem;
+  padding: 0.55rem 1.05rem;
+  border-radius: var(--r-pill);
+  border: 1px solid var(--hairline-strong);
+  background: var(--surface);
+  color: var(--text);
+  font-weight: 500;
+  transition: color var(--t-fast) var(--ease-out), border-color var(--t-fast) var(--ease-out),
+    background-color var(--t-fast) var(--ease-out);
+}
+
+.cta__direct a svg {
+  width: 15px;
+  height: 15px;
+  fill: none;
+  stroke: var(--accent-ink);
+  stroke-width: 1.8;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  flex: none;
+}
+
+.cta__direct a:hover {
+  color: var(--accent-ink-2);
+  border-color: var(--accent-ink-2);
+  background: var(--surface-hover);
+}
+
+/* ==========================================================================
+   13. Footer
+   ========================================================================== */
+
+.footer {
+  position: relative;
+  z-index: var(--z-content);
+  border-top: 1px solid var(--hairline);
+  background: var(--footer-bg);
+  padding-block: var(--s-8) var(--s-6);
+  margin-top: calc(var(--section-y) * 0.62);
+}
+
+.footer__grid {
+  display: grid;
+  grid-template-columns: minmax(0, 1.6fr) repeat(3, minmax(0, 1fr));
+  gap: clamp(1.8rem, 4vw, 3.2rem);
+}
+
+.footer__about p {
+  color: var(--text-muted);
+  font-size: var(--t-sm);
+  max-width: 34ch;
+  margin-top: var(--s-4);
+}
+
+.footer__col h3 {
+  font-family: var(--font-mono);
+  font-size: 0.7rem;
+  font-weight: 500;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--text-muted);
+  margin-bottom: var(--s-4);
+}
+
+.footer__col li + li {
+  margin-top: 0.1rem;
+}
+
+/* The wordmark is a link too, and at the smallest breakpoint its 32px logo
+   left it under the touch-target floor. */
+.footer__about .nav__brand {
+  padding-block: 0.6rem;
+}
+
+/* Inline-block with vertical padding gives each link a ~40px hit area without
+   changing how the list reads — at 18px tall these were well under the touch
+   target floor on a phone. */
+.footer__col a {
+  display: inline-block;
+  /* 44px floor on both axes — short labels like "G2" and "FAQ" were only
+     ~19px wide, under the WCAG 2.2 target-size minimum. */
+  min-width: 2.75rem;
+  padding-block: 0.8rem;
+  font-size: var(--t-sm);
+  line-height: 1.3;
+  color: var(--text-dim);
+  transition: color var(--t-fast) var(--ease-out);
+}
+
+.footer__col a:hover {
+  color: var(--accent-ink-2);
+}
+
+.footer__bottom {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--s-4);
+  margin-top: var(--s-8);
+  padding-top: var(--s-5);
+  border-top: 1px solid var(--hairline);
+  font-size: var(--t-xs);
+  color: var(--text-faint);
+}
+
+@media (max-width: 860px) {
+  .footer__grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+  .footer__about {
+    grid-column: span 2;
+  }
+}
+
+/* ==========================================================================
+   14. Scroll reveal
+   Opacity+transform only, so reveals never trigger layout.
+   ========================================================================== */
+
+/* Reveals are opt-in on scripting being available.
+   Hiding content with opacity:0 and relying on JS to clear it means that if
+   the script never runs — blocked, errored, a crawler on a tight render
+   budget — the page ships 49 invisible sections. Gating on `scripting:
+   enabled` makes "visible" the default and the animation the enhancement,
+   with no flash of hidden content and no extra request. Browsers without the
+   media feature simply render everything, which is the safe direction. */
+[data-reveal] {
+  opacity: 1;
+  transform: none;
+}
+
+@media (scripting: enabled) {
+  [data-reveal] {
+    opacity: 0;
+    transform: translateY(26px);
+    transition: opacity 0.8s var(--ease-out), transform 0.8s var(--ease-out);
+  }
+
+  [data-reveal].is-revealed {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  [data-reveal] {
+    opacity: 1 !important;
+    transform: none !important;
+  }
+}
+
+/* ==========================================================================
+   15. Section bands
+   On a light page an unbroken single ground reads as a long scroll with no
+   landmarks. Alternating bands give the eye somewhere to rest without adding
+   borders everywhere. In dark they are near-invisible by design.
+   ========================================================================== */
+
+.section--band {
+  background: var(--band-bg);
+  border-block: 1px solid var(--hairline);
+}
+
+/* ==========================================================================
+   16. Platform explainer
+   One card per review platform, written to be read by a client rather than by
+   a marketer: what it is, who reads it, what we actually do, how long it takes.
+   ========================================================================== */
+
+.platforms__grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 20.5rem), 1fr));
+  gap: clamp(0.9rem, 1.6vw, 1.35rem);
+}
+
+.platform {
+  display: flex;
+  flex-direction: column;
+  gap: var(--s-4);
+  padding: clamp(1.4rem, 2.4vw, 2rem);
+}
+
+/* Start-aligned: a two-line "Read by" caption would otherwise leave the logo
+   floating halfway down the block. */
+.platform__head {
+  display: flex;
+  align-items: flex-start;
+  gap: var(--s-3);
+}
+
+.platform__logo {
+  width: 42px;
+  height: 42px;
+  flex: none;
+  border-radius: 11px;
+  border: 1px solid var(--hairline);
+  background: var(--surface-strong);
+  object-fit: contain;
+  padding: 5px;
+  margin-top: 1px;
+}
+
+/* Platforms we work but whose mark we do not ship an asset for get a drawn
+   icon rather than an approximation of their logo. */
+.platform__logo--icon {
+  display: grid;
+  place-items: center;
+  padding: 0;
+  background: var(--accent-grad-soft);
+}
+
+.platform__logo--icon svg {
+  width: 21px;
+  height: 21px;
+  fill: none;
+  stroke: var(--accent-ink);
+  stroke-width: 1.6;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+.platform__head h3 {
+  font-size: var(--t-h3);
+  letter-spacing: -0.022em;
+  line-height: 1.1;
+}
+
+.platform__who {
+  display: block;
+  font-family: var(--font-mono);
+  font-size: 0.68rem;
+  letter-spacing: 0.04em;
+  color: var(--text-muted);
+  margin-top: 2px;
+}
+
+.platform__facts {
+  display: grid;
+  gap: var(--s-4);
+  margin: 0;
+}
+
+.platform__facts dt {
+  font-family: var(--font-mono);
+  font-size: 0.64rem;
+  font-weight: 500;
+  letter-spacing: 0.13em;
+  text-transform: uppercase;
+  color: var(--accent-ink);
+  margin-bottom: 0.3rem;
+}
+
+.platform__facts dd {
+  margin: 0;
+  font-size: var(--t-sm);
+  color: var(--text-dim);
+}
+
+.platform__meta {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--s-5);
+  margin-top: auto;
+  padding-top: var(--s-4);
+  border-top: 1px solid var(--hairline);
+}
+
+.platform__meta > li {
+  display: flex;
+  flex-direction: column;
+  gap: 1px;
+}
+
+.platform__meta span {
+  font-family: var(--font-mono);
+  font-size: 0.62rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--text-muted);
+}
+
+.platform__meta strong {
+  font-size: var(--t-sm);
+  font-weight: 600;
+  color: var(--text);
+}
+
+/* ==========================================================================
+   17. Phase timeline
+   A single vertical rail. Horizontal step-strips break badly on phones and
+   force the copy into unreadable columns; a rail reads identically at 320px
+   and at 2560px.
+   ========================================================================== */
+
+.phases {
+  position: relative;
+  display: grid;
+  gap: clamp(1.6rem, 3vw, 2.4rem);
+  max-width: 54rem;
+  padding-left: 0;
+}
+
+/* The rail stops short at both ends so it does not dangle past the first and
+   last markers. */
+.phases::before {
+  content: "";
+  position: absolute;
+  left: 1.22rem;
+  top: 1.4rem;
+  bottom: 1.4rem;
+  width: 2px;
+  border-radius: 2px;
+  background: linear-gradient(
+    180deg,
+    var(--blue) 0%,
+    var(--violet) 55%,
+    color-mix(in srgb, var(--violet) 15%, transparent) 100%
+  );
+  opacity: 0.55;
+}
+
+.phase {
+  position: relative;
+  padding-left: 4rem;
+}
+
+.phase__dot {
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 2.5rem;
+  height: 2.5rem;
+  display: grid;
+  place-items: center;
+  border-radius: 50%;
+  border: 1px solid var(--hairline-strong);
+  background: var(--bg-raise);
+  box-shadow: var(--shadow-sm);
+  font-family: var(--font-mono);
+  font-size: 0.72rem;
+  font-weight: 500;
+  color: var(--accent-ink);
+}
+
+.phase__when {
+  display: inline-block;
+  font-family: var(--font-mono);
+  font-size: 0.66rem;
+  font-weight: 500;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--accent-ink-2);
+  margin-bottom: 0.35rem;
+}
+
+.phase h3 {
+  font-size: var(--t-h3);
+  letter-spacing: -0.022em;
+  margin-bottom: var(--s-2);
+}
+
+.phase p {
+  color: var(--text-dim);
+  font-size: var(--t-sm);
+  max-width: 58ch;
+}
+
+.phase__out {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.4rem;
+  margin-top: var(--s-3);
+}
+
+.phase__out li {
+  padding: 0.3rem 0.7rem;
+  border-radius: var(--r-pill);
+  border: 1px solid var(--hairline);
+  background: var(--chip-bg);
+  font-family: var(--font-mono);
+  font-size: 0.66rem;
+  color: var(--text-muted);
+}
+
+@media (max-width: 480px) {
+  .phases::before {
+    left: 0.97rem;
+  }
+  .phase {
+    padding-left: 3.1rem;
+  }
+  .phase__dot {
+    width: 2rem;
+    height: 2rem;
+    font-size: 0.64rem;
+  }
+}
+
+/* ==========================================================================
+   18. Contact channels
+   Four ways in, each stating what it is good for and how fast it answers, so
+   nobody has to guess which one gets a reply.
+   ========================================================================== */
+
+.channels {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 14.5rem), 1fr));
+  gap: clamp(0.8rem, 1.5vw, 1.2rem);
+  margin-bottom: clamp(1.6rem, 3vw, 2.6rem);
+}
+
+.channel {
+  display: flex;
+  flex-direction: column;
+  gap: 0.55rem;
+  padding: clamp(1.1rem, 2vw, 1.4rem);
+  text-align: left;
+}
+
+.channel__icon {
+  width: 38px;
+  height: 38px;
+  display: grid;
+  place-items: center;
+  border-radius: 11px;
+  background: var(--accent-grad-soft);
+  border: 1px solid var(--hairline-strong);
+  margin-bottom: 0.2rem;
+}
+
+.channel__icon svg {
+  width: 18px;
+  height: 18px;
+  fill: none;
+  stroke: var(--accent-ink);
+  stroke-width: 1.7;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+.channel__name {
+  font-family: var(--font-mono);
+  font-size: 0.64rem;
+  font-weight: 500;
+  letter-spacing: 0.13em;
+  text-transform: uppercase;
+  color: var(--text-muted);
+}
+
+.channel__value {
+  font-size: var(--t-sm);
+  font-weight: 600;
+  color: var(--text);
+  /* Long addresses must wrap instead of pushing the card wide. */
+  overflow-wrap: anywhere;
+}
+
+.channel__note {
+  font-size: var(--t-xs);
+  color: var(--text-muted);
+  margin-top: auto;
+  padding-top: 0.35rem;
+}
+
+/* ==========================================================================
+   19. Light-scheme lift
+   Translucent surfaces read as cards on black because the ground is darker
+   than they are. On a light ground they need a real edge and a real shadow,
+   or the whole page flattens into one sheet of paper.
+   ========================================================================== */
+
+.glass {
+  box-shadow: var(--shadow-sm);
+}
+
+/* ==========================================================================
+   20. Small-screen corrections
+   Checked at 320 / 360 / 390 / 414 / 768 / 1024 / 1280 / 1440 / 2560.
+   ========================================================================== */
+
+/* The bar carries a wordmark, a theme switch and a menu button. Below ~400px
+   those three plus the gutters overrun the viewport, so the brand gives way
+   first — it is the one element that still reads at a smaller size. */
+@media (max-width: 400px) {
+  .nav__inner {
+    height: 64px;
+    gap: var(--s-3);
+  }
+
+  .nav__brand {
+    gap: 0.5rem;
+  }
+
+  .nav__brand img {
+    width: 32px;
+    height: 32px;
+    border-radius: 8px;
+  }
+
+  .nav__brand-name {
+    font-size: 1rem;
+  }
+
+  .nav__theme,
+  .nav__toggle {
+    width: 40px;
+    height: 40px;
+  }
+
+  .nav__drawer {
+    top: 64px;
+  }
+}
+
+@media (max-width: 560px) {
+  /* Three proof figures side by side at 320px leaves ~90px each; stacking two
+     per row keeps the numbers at a size worth reading. */
+  .hero__proof {
+    gap: var(--s-4) var(--s-5);
+  }
+
+  .hero__proof-num {
+    font-size: 1.38rem;
+  }
+
+  .btn,
+  .btn--lg {
+    /* Long labels ("Get a free reputation audit") must wrap rather than push
+       the page into a horizontal scroll. */
+    white-space: normal;
+    text-align: center;
+  }
+
+  .hero__cta .btn,
+  .cta__actions .btn,
+  .page-head__cta .btn,
+  .hero__cta .magnetic,
+  .cta__actions .magnetic,
+  .page-head__cta .magnetic {
+    width: 100%;
+  }
+
+  .platform__meta {
+    gap: var(--s-4);
+  }
+}
+
+@media (max-width: 520px) {
+  .footer__grid {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .footer__about {
+    grid-column: span 1;
+  }
+
+  .footer__bottom {
+    gap: var(--s-2);
+  }
+}
+
+/* Very wide displays: the shell is capped, but the hero overlay sitting hard
+   left against a 2560px sphere looks accidental. Nudge the content inward. */
+@media (min-width: 1700px) {
+  .hero__inner {
+    max-width: 48rem;
+  }
+}
+
+/* Wide screens: the rail stays, but the phase splits into a schedule — when
+   and what on the left, the detail on the right. Stacked, it left the right
+   half of a 1440px viewport empty and read as an unfinished section. */
+@media (min-width: 1060px) {
+  .phases {
+    max-width: none;
+  }
+
+  .phase {
+    display: grid;
+    grid-template-columns: 15rem minmax(0, 1fr);
+    grid-template-areas:
+      "when  desc"
+      "title desc"
+      ".     tags";
+    column-gap: clamp(2rem, 4vw, 3.5rem);
+    align-items: start;
+  }
+
+  .phase__when {
+    grid-area: when;
+    margin-bottom: 0.2rem;
+  }
+
+  .phase h3 {
+    grid-area: title;
+  }
+
+  .phase p {
+    grid-area: desc;
+    max-width: 64ch;
+  }
+
+  .phase__out {
+    grid-area: tags;
+    margin-top: var(--s-4);
+  }
+}
+
+.cta__direct-label {
+  color: var(--text-muted);
+}
+
+/* ==========================================================================
+   21. Service cards are links now
+   Each one opens its own page, so the card needs an explicit "this is
+   clickable" affordance rather than relying on the cursor alone.
+   ========================================================================== */
+
+.service {
+  text-decoration: none;
+}
+
+.service__more {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.45rem;
+  margin-top: var(--s-4);
+  padding-top: var(--s-4);
+  border-top: 1px solid var(--hairline);
+  font-family: var(--font-mono);
+  font-size: 0.68rem;
+  font-weight: 500;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--accent-ink);
+  transition: gap var(--t-fast) var(--ease-out);
+}
+
+.service__more svg {
+  width: 14px;
+  height: 14px;
+  flex: none;
+  transition: transform var(--t-med) var(--ease-out);
+}
+
+.service:hover .service__more svg {
+  transform: translateX(4px);
+}
+
+.service__tags {
+  margin-top: auto;
+}
+
+/* ==========================================================================
+   22. Service detail pages
+   Same component vocabulary as the home page, one extra layout: a compact
+   page header (no WebGL — these pages load from search and must be fast) and
+   a two-column body.
+   ========================================================================== */
+
+.page-head {
+  position: relative;
+  padding-block: clamp(7rem, 12vw, 9.5rem) clamp(2.5rem, 5vw, 4rem);
+  overflow: hidden;
+}
+
+.page-head::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background:
+    radial-gradient(46% 70% at 82% 10%, rgba(139, 92, 246, 0.3), transparent 70%),
+    radial-gradient(38% 60% at 94% 40%, rgba(76, 125, 255, 0.26), transparent 72%);
+}
+
+.page-head > * {
+  position: relative;
+}
+
+.crumbs {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.5rem;
+  font-family: var(--font-mono);
+  font-size: 0.68rem;
+  letter-spacing: 0.06em;
+  color: var(--text-muted);
+  margin-bottom: var(--s-5);
+}
+
+.crumbs a {
+  color: var(--text-dim);
+  padding-block: 0.4rem;
+}
+
+.crumbs a:hover {
+  color: var(--accent-ink);
+}
+
+.page-head h1 {
+  max-width: 20ch;
+}
+
+.page-head__lead {
+  margin-top: var(--s-5);
+  max-width: 54ch;
+  font-size: var(--t-lead);
+  color: var(--text-dim);
+}
+
+.page-head__cta {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--s-5);
+  margin-top: var(--s-6);
+}
+
+/* --- Body columns ------------------------------------------------------- */
+
+.svc-body {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  gap: clamp(2rem, 4vw, 3.5rem);
+}
+
+@media (min-width: 1000px) {
+  .svc-body {
+    grid-template-columns: minmax(0, 1.55fr) minmax(0, 1fr);
+    align-items: start;
+  }
+}
+
+.svc-prose h2 {
+  font-size: clamp(1.5rem, 2.6vw, 2.1rem);
+  margin-top: var(--s-7);
+  margin-bottom: var(--s-4);
+}
+
+.svc-prose h2:first-child {
+  margin-top: 0;
+}
+
+.svc-prose p {
+  color: var(--text-dim);
+  margin-bottom: var(--s-4);
+  max-width: 68ch;
+}
+
+.svc-list {
+  display: grid;
+  gap: var(--s-3);
+  margin: var(--s-5) 0 var(--s-6);
+}
+
+.svc-list li {
+  position: relative;
+  padding-left: 2rem;
+  color: var(--text-dim);
+}
+
+.svc-list li::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 0.55em;
+  width: 11px;
+  height: 11px;
+  border-radius: 3px;
+  background: var(--accent-grad-solid);
+}
+
+.svc-list strong {
+  display: block;
+  color: var(--text-strong);
+  font-weight: 600;
+}
+
+/* --- Sticky summary ----------------------------------------------------- */
+
+.svc-aside {
+  display: grid;
+  gap: var(--s-4);
+}
+
+@media (min-width: 1000px) {
+  .svc-aside {
+    position: sticky;
+    top: 6.5rem;
+  }
+}
+
+.svc-card {
+  padding: clamp(1.3rem, 2.4vw, 1.8rem);
+}
+
+.svc-card h3 {
+  font-size: var(--t-h4);
+  margin-bottom: var(--s-4);
+}
+
+.svc-facts {
+  display: grid;
+  gap: var(--s-3);
+  margin: 0;
+}
+
+.svc-facts div {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  gap: var(--s-4);
+  padding-bottom: var(--s-3);
+  border-bottom: 1px solid var(--hairline);
+}
+
+.svc-facts div:last-child {
+  border-bottom: 0;
+  padding-bottom: 0;
+}
+
+.svc-facts dt {
+  font-family: var(--font-mono);
+  font-size: 0.66rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--text-muted);
+}
+
+.svc-facts dd {
+  margin: 0;
+  font-size: var(--t-sm);
+  font-weight: 600;
+  text-align: right;
+}
+
+.svc-related {
+  display: grid;
+  gap: 0.15rem;
+}
+
+.svc-related a {
+  display: block;
+  padding: 0.7rem 0;
+  font-size: var(--t-sm);
+  color: var(--text-dim);
+  border-bottom: 1px solid var(--hairline);
+  transition: color var(--t-fast) var(--ease-out);
+}
+
+.svc-related a:last-child {
+  border-bottom: 0;
+}
+
+.svc-related a:hover {
+  color: var(--accent-ink);
+}
+
+/* The home-page platform cards are summaries now: the full explainer lives on
+   each platform's own page, so these only have to be scannable and equal in
+   height. Uneven walls of text are what made the grid look untidy. */
+.platform__summary {
+  color: var(--text-dim);
+  font-size: var(--t-sm);
+  flex-grow: 1;
+}
+
+.platform .service__more {
+  margin-top: var(--s-4);
+}
+
+.platform__meta {
+  margin-top: 0;
+}
+
+/* ==========================================================================
+   23. Clientele marquee
+   One continuous row rather than a grid. The track is duplicated and the
+   inner wrapper is translated by exactly 50%, so the loop wraps with no seam
+   and no JS. The copy is aria-hidden: a screen reader hears nine clients once.
+   ========================================================================== */
+
+.clients-band {
+  overflow: hidden;
+}
+
+/* A centred label with a rule running out to each side, which is what makes
+   the band read as a divider rather than as another section. */
+.clients__label {
+  display: flex;
+  align-items: center;
+  gap: var(--s-5);
+  margin-bottom: clamp(1.8rem, 3.5vw, 2.8rem);
+  font-family: var(--font-mono);
+  font-size: var(--t-eyebrow);
+  font-weight: 500;
+  letter-spacing: var(--track-label);
+  text-transform: uppercase;
+  color: var(--text-muted);
+}
+
+.clients__label::before,
+.clients__label::after {
+  content: "";
+  flex: 1;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, var(--hairline-strong), transparent);
+}
+
+.clients__label span {
+  flex: none;
+  text-align: center;
+}
+
+.marquee {
+  position: relative;
+  width: 100%;
+  /* `clip` rather than `hidden`: hidden still creates a scroll container, so
+     anything focused inside it shunts the whole track sideways and the logos
+     never line up again. clip cannot be scrolled at all. */
+  overflow: clip;
+  /* The band's paint is independent of the rest of the page, so the browser
+     does not re-rasterise neighbouring sections on every animation frame. */
+  contain: content;
+  /* Logos fade out at both edges instead of being cut off mid-glyph. */
+  -webkit-mask-image: linear-gradient(90deg, transparent, #000 7%, #000 93%, transparent);
+  mask-image: linear-gradient(90deg, transparent, #000 7%, #000 93%, transparent);
+}
+
+.marquee__inner {
+  display: flex;
+  width: max-content;
+  /* Promoted to its own compositor layer up front. Without this the first
+     frames of the loop stutter while the layer is created. */
+  will-change: transform;
+  transform: translate3d(-50%, 0, 0);
+  backface-visibility: hidden;
+  /* Starts at -50% and runs to 0, so the logos travel left to right. */
+  animation: marquee-ltr 60s linear infinite;
+}
+
+@keyframes marquee-ltr {
+  from {
+    transform: translate3d(-50%, 0, 0);
+  }
+  to {
+    transform: translate3d(0, 0, 0);
+  }
+}
+
+/* Hovering anywhere on the band holds it still so a name can be read, and
+   clicked if that client has a site. */
+.marquee:hover .marquee__inner,
+.marquee:focus-within .marquee__inner,
+.marquee:active .marquee__inner {
+  animation-play-state: paused;
+}
+
+/* Without a pointer there is no hover, so a moving logo can never be tapped
+   reliably. On touch the band becomes a swipeable row instead. */
+@media (hover: none) {
+  .marquee {
+    overflow-x: auto;
+    overflow-y: hidden;
+    scrollbar-width: none;
+    -webkit-overflow-scrolling: touch;
+  }
+
+  .marquee::-webkit-scrollbar {
+    display: none;
+  }
+
+  .marquee__inner {
+    animation: none;
+    transform: none;
+    will-change: auto;
+  }
+
+  .marquee__track[aria-hidden="true"] {
+    display: none;
+  }
+}
+
+.marquee__track {
+  display: flex;
+  align-items: center;
+  flex: none;
+  gap: clamp(2.2rem, 4.5vw, 4.5rem);
+  padding-right: clamp(2.2rem, 4.5vw, 4.5rem);
+}
+
+.client > a,
+.client > span {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.72rem;
+  /* Generous padding gives a moving target a hit area worth aiming at. */
+  padding: var(--s-3) var(--s-4);
+  margin-inline: calc(var(--s-4) * -1);
+  border-radius: var(--r-pill);
+  white-space: nowrap;
+  transition: background-color var(--t-fast) var(--ease-out);
+}
+
+.client > a:hover,
+.client > a:focus-visible {
+  background: var(--surface-hover);
+}
+
+.client img {
+  width: 40px;
+  height: 40px;
+  flex: none;
+  border-radius: 9px;
+  object-fit: contain;
+  /* A light desaturation only. Full grayscale made nine real logos read as
+     placeholders, which defeats the point of showing them. */
+  filter: grayscale(0.3);
+  opacity: 0.88;
+  /* Transform eases; filter and opacity snap. Easing a filter across 18 images
+     is the one thing in this band that actually costs frames. */
+  transition: transform var(--t-med) var(--ease-spring), filter var(--t-fast) linear,
+    opacity var(--t-fast) linear;
+}
+
+.client__name {
+  font-family: var(--font-display);
+  font-size: clamp(1rem, 1.4vw, 1.2rem);
+  font-weight: 600;
+  letter-spacing: -0.022em;
+  color: var(--text-dim);
+  transition: color var(--t-med) var(--ease-out);
+}
+
+.client__name span {
+  font-weight: 400;
+  color: var(--text-muted);
+}
+
+/* Hover lifts the individual logo, not the whole row. */
+.client:hover img {
+  filter: none;
+  opacity: 1;
+  transform: scale(1.1);
+}
+
+.client:hover .client__name {
+  color: var(--text-strong);
+}
+
+/* The Wondershare mark is a single-colour glyph on transparency, so on a dark
+   ground it disappears. Single-colour marks flip with the scheme; the logos
+   that carry their own coloured tile are left alone. */
+[data-theme="dark"] .client img[src$="wondershare.png"],
+[data-theme="gold"] .client img[src$="wondershare.png"] {
+  filter: grayscale(0.3) invert(1);
+}
+
+[data-theme="dark"] .client:hover img[src$="wondershare.png"],
+[data-theme="gold"] .client:hover img[src$="wondershare.png"] {
+  filter: invert(1);
+}
+
+/* Motion is the whole point of a marquee, so with reduced motion it becomes a
+   plain scrollable row rather than a frozen one with half a logo showing. */
+@media (prefers-reduced-motion: reduce) {
+  .marquee {
+    overflow-x: auto;
+    -webkit-mask-image: none;
+    mask-image: none;
+  }
+
+  .marquee__inner {
+    animation: none;
+  }
+
+  .marquee__track[aria-hidden="true"] {
+    display: none;
+  }
+}
+
+/* ==========================================================================
+   24. Field validation
+   The message sits under its own field rather than in the form-wide status
+   line, so there is never any doubt about which input is being complained
+   about. It is empty until a rule fails, and collapses to nothing when clear.
+   ========================================================================== */
+
+.field__error {
+  display: block;
+  min-height: 0;
+  font-size: var(--t-xs);
+  line-height: 1.4;
+  color: var(--field-error);
+  transition: min-height var(--t-fast) var(--ease-out);
+}
+
+.field__error:not(:empty) {
+  margin-top: 0.3rem;
+}
+
+.field input[aria-invalid="true"],
+.field select[aria-invalid="true"],
+.field textarea[aria-invalid="true"] {
+  border-color: var(--field-error);
+  background: var(--field-error-bg);
+}
+
+/* Colour alone must not be the only signal, so an invalid field also gets a
+   weight of ring that a valid one never has. */
+.field input[aria-invalid="true"]:focus,
+.field select[aria-invalid="true"]:focus,
+.field textarea[aria-invalid="true"]:focus {
+  border-color: var(--field-error);
+  box-shadow: 0 0 0 3px var(--field-error-ring);
+}

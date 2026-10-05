@@ -1,4 +1,12 @@
 User-agent: *
 Allow: /
 
+# Client deliverables and internal drafts. These are also excluded from the
+# deployment itself via .vercelignore — this block is belt and braces.
+Disallow: /ads/
+Disallow: /invoices/
+Disallow: /hiring/
+Disallow: /ad-library/
+Disallow: /api/
+
 Sitemap: https://naigrowth.com/sitemap.xml

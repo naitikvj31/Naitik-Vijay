@@ -1,1012 +1,1646 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
 
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-
-  <link rel="preload"
-    href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Outfit:wght@500;600;700;800;900&display=swap"
-    as="style">
-  <link rel="stylesheet"
-    href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Outfit:wght@500;600;700;800;900&display=swap">
-
-  <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <meta name="theme-color" content="#050816">
-
-  <title>NaiGrowth | Web Design & Development Agency + G2 & Capterra Review Growth</title>
+  <!-- ======================================================================
+       SEO metadata
+       Title 53 chars · Description 152 chars — both inside the limits where
+       Google truncates. Primary keyword leads each.
+       ====================================================================== -->
+  <title>ORM &amp; Online Reputation Management Company | NaiGrowth</title>
   <meta name="description"
-    content="Full-service digital agency: high-converting website & e-commerce development (jewelry & gems specialists) plus authentic G2, Capterra, Gartner & TrustPilot software review growth.">
+    content="NaiGrowth is an online reputation management company delivering ORM, paid PR, paid reviews and reputation consultancy. 10,000+ verified reviews delivered.">
   <meta name="keywords"
-    content="website development agency, web design services, custom website design, e-commerce website development, Shopify development, Next.js development, jewelry website design, gems industry websites, SaaS landing pages, reputation reviews, G2 reviews, Capterra reviews, software reviews, B2B software reputation, Gartner reviews, TrustPilot, genuine customer reviews, B2B lead generation, review generation agency, AI review automation, Salesforce consulting, 90 day growth roadmap">
+    content="best online reputation management company, online reputation management company, ORM company, ORM services India, paid PR services, paid reviews, reputation consultancy, reputation management services, review management company, paid media agency, brand reputation repair, remove negative reviews, G2 review management, Capterra reviews, Gartner Peer Insights, Trustpilot reputation management">
   <meta name="author" content="NaiGrowth">
-  <link rel="canonical" href="https://naigrowth.com">
+  <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1">
+  <link rel="canonical" href="https://naigrowth.com/">
+  <!-- Updated by js/theme.js when the visitor switches scheme. -->
+  <meta name="theme-color" content="#f6f7fc">
 
-  <meta property="og:title" content="NaiGrowth | Web Development & Review Growth Agency">
-  <meta property="og:description"
-    content="We build high-converting websites & e-commerce platforms, and scale authentic software reviews on G2, Capterra & TrustPilot.">
+  <!-- Open Graph -->
   <meta property="og:type" content="website">
-  <meta property="og:url" content="https://naigrowth.com">
   <meta property="og:site_name" content="NaiGrowth">
   <meta property="og:locale" content="en_US">
-  <meta property="og:image" content="https://naigrowth.com/assets/logos/naitik_logo.png">
-  <meta property="og:image:width" content="512">
-  <meta property="og:image:height" content="512">
-  <meta property="og:image:alt" content="NaiGrowth logo">
+  <meta property="og:url" content="https://naigrowth.com/">
+  <meta property="og:title" content="ORM &amp; Online Reputation Management Company | NaiGrowth">
+  <meta property="og:description"
+    content="Online reputation management, paid PR, paid reviews and reputation consultancy for brands that cannot afford a bad first page.">
+  <meta property="og:image" content="https://naigrowth.com/assets/og-image.png">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta property="og:image:alt"
+    content="NaiGrowth: online reputation management, ORM, paid PR, paid reviews and reputation consultancy">
 
+  <!-- Twitter -->
   <meta name="twitter:card" content="summary_large_image">
-  <meta name="twitter:title" content="NaiGrowth | Web Development & Review Growth Agency">
+  <meta name="twitter:title" content="ORM &amp; Online Reputation Management Company | NaiGrowth">
   <meta name="twitter:description"
-    content="High-converting website & e-commerce development plus genuine G2, Capterra & TrustPilot software review growth.">
-  <meta name="twitter:image" content="https://naigrowth.com/assets/logos/naitik_logo.png">
+    content="Online reputation management, paid PR, paid reviews and reputation consultancy for brands that cannot afford a bad first page.">
+  <meta name="twitter:image" content="https://naigrowth.com/assets/og-image.png">
+  <meta name="twitter:image:alt"
+    content="NaiGrowth: online reputation management, ORM, paid PR, paid reviews and reputation consultancy">
 
+  <!-- Icons. The SVG is the primary (any size, crisp); the PNGs cover browsers
+       that ignore SVG favicons. The full logo is deliberately not used here —
+       its circuit detail is unreadable at 16 px. -->
+  <link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
+  <link rel="icon" href="assets/favicon-32.png" sizes="32x32" type="image/png">
+  <link rel="icon" href="assets/favicon-16.png" sizes="16x16" type="image/png">
+  <link rel="apple-touch-icon" href="assets/apple-touch-icon.png">
+  <link rel="manifest" href="site.webmanifest">
+
+  <!-- Fonts. Preconnect first so the handshake overlaps CSS parsing. -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="preload" as="style"
+    href="https://fonts.googleapis.com/css2?family=Instrument+Sans:wght@400..700&family=JetBrains+Mono:wght@400;500&display=swap">
+  <link rel="stylesheet"
+    href="https://fonts.googleapis.com/css2?family=Instrument+Sans:wght@400..700&family=JetBrains+Mono:wght@400;500&display=swap">
+
+  <link rel="stylesheet" href="css/tokens.css">
+  <link rel="stylesheet" href="css/base.css">
+  <link rel="stylesheet" href="css/components.css">
+
+  <!-- Applies the remembered colour scheme before the page paints. Blocking
+       on purpose: a deferred script would flash the light page at a visitor
+       who chose dark. ~1 KB, no dependencies. -->
+  <script src="js/theme.js"></script>
+
+  <!-- ======================================================================
+       Structured data
+       ProfessionalService + service catalogue, FAQPage, BreadcrumbList.
+       No aggregateRating is declared: review-rating markup must be backed by
+       on-page, verifiable reviews or Google treats it as spam.
+       ====================================================================== -->
   <script type="application/ld+json">
   {
     "@context": "https://schema.org",
-    "@type": "Organization",
-    "name": "NaiGrowth",
-    "url": "https://naigrowth.com",
-    "logo": "https://naigrowth.com/assets/logos/naitik_logo.png",
-    "email": "admin@naigrowth.com",
-    "description": "Full-service digital agency for website design & development, e-commerce platforms (jewelry & gems specialists), and B2B software review growth on G2, Capterra, Gartner and TrustPilot.",
-    "knowsAbout": ["Website Design", "Web Development", "E-Commerce Development", "Shopify", "Next.js", "G2 Reviews", "Capterra Reviews", "Reputation Management", "Salesforce Consulting", "SEO"],
-    "contactPoint": {
-      "@type": "ContactPoint",
-      "contactType": "sales",
-      "email": "admin@naigrowth.com",
-      "telephone": "+91-88908-19966",
-      "availableLanguage": ["English", "Hindi"]
-    },
-    "areaServed": "Worldwide"
+    "@graph": [
+      {
+        "@type": "ProfessionalService",
+        "@id": "https://naigrowth.com/#organization",
+        "name": "NaiGrowth",
+        "alternateName": "NaiGrowth Reputation Management",
+        "description": "NaiGrowth is an online reputation management company providing ORM, paid PR, paid reviews, review management, reputation consultancy and paid media for B2B SaaS and enterprise brands.",
+        "url": "https://naigrowth.com/",
+        "logo": {
+          "@type": "ImageObject",
+          "url": "https://naigrowth.com/assets/logos/naitik_logo.png",
+          "width": 640,
+          "height": 640
+        },
+        "image": "https://naigrowth.com/assets/logos/naitik_logo.png",
+        "email": "admin@naigrowth.com",
+        "telephone": "+91-8890819966",
+        "priceRange": "$$",
+        "founder": {
+          "@type": "Person",
+          "name": "Naitik Vijayvargiya",
+          "jobTitle": "Founder & CEO"
+        },
+        "address": {
+          "@type": "PostalAddress",
+          "addressCountry": "IN"
+        },
+        "areaServed": {
+          "@type": "Place",
+          "name": "Worldwide"
+        },
+        "knowsAbout": [
+          "Online Reputation Management",
+          "ORM Services",
+          "Paid PR",
+          "Paid Reviews",
+          "Review Management",
+          "Reputation Consultancy",
+          "Paid Media",
+          "Search Engine Optimisation"
+        ],
+        "contactPoint": {
+          "@type": "ContactPoint",
+          "contactType": "sales",
+          "email": "admin@naigrowth.com",
+          "telephone": "+91-8890819966",
+          "availableLanguage": ["en", "hi"]
+        },
+        "hasOfferCatalog": {
+          "@type": "OfferCatalog",
+          "name": "Reputation and growth services",
+          "itemListElement": [
+            {
+              "@type": "Offer",
+              "itemOffered": {
+                "@type": "Service",
+                "name": "Online Reputation Management (ORM)",
+                "description": "Full-funnel online reputation management: search-result control, narrative repair, sentiment monitoring and ongoing defence of branded queries."
+              }
+            },
+            {
+              "@type": "Offer",
+              "itemOffered": {
+                "@type": "Service",
+                "name": "Paid Media",
+                "description": "Performance advertising across Google, LinkedIn, Meta and programmatic, built to own branded and competitor search terms."
+              }
+            },
+            {
+              "@type": "Offer",
+              "itemOffered": {
+                "@type": "Service",
+                "name": "Paid PR and Digital Publications",
+                "description": "Guaranteed editorial placements in tier-one and niche publications to push authoritative coverage onto page one."
+              }
+            },
+            {
+              "@type": "Offer",
+              "itemOffered": {
+                "@type": "Service",
+                "name": "Paid Reviews and Review Management",
+                "description": "Compliant, incentive-disclosed review generation and management across G2, Capterra, Gartner, Trustpilot, TrustRadius and app stores."
+              }
+            },
+            {
+              "@type": "Offer",
+              "itemOffered": {
+                "@type": "Service",
+                "name": "Reputation Consultancy",
+                "description": "Advisory engagements covering reputation audits, crisis playbooks, competitor benchmarking and review-policy compliance."
+              }
+            },
+            {
+              "@type": "Offer",
+              "itemOffered": {
+                "@type": "Service",
+                "name": "Search Engine Optimisation",
+                "description": "Technical and content SEO that puts owned properties on page one for branded and high-intent commercial queries."
+              }
+            },
+            {
+              "@type": "Offer",
+              "itemOffered": {
+                "@type": "Service",
+                "name": "Salesforce Consultancy",
+                "description": "Salesforce implementation, pipeline automation and CRM hygiene for revenue teams."
+              }
+            },
+            {
+              "@type": "Offer",
+              "itemOffered": {
+                "@type": "Service",
+                "name": "Website Design and Management",
+                "description": "Conversion-focused website design, build and ongoing management on modern, fast, accessible foundations."
+              }
+            }
+          ]
+        }
+      },
+      {
+        "@type": "WebSite",
+        "@id": "https://naigrowth.com/#website",
+        "url": "https://naigrowth.com/",
+        "name": "NaiGrowth",
+        "publisher": { "@id": "https://naigrowth.com/#organization" },
+        "inLanguage": "en"
+      },
+      {
+        "@type": "BreadcrumbList",
+        "@id": "https://naigrowth.com/#breadcrumb",
+        "itemListElement": [
+          { "@type": "ListItem", "position": 1, "name": "Home", "item": "https://naigrowth.com/" },
+          { "@type": "ListItem", "position": 2, "name": "Services", "item": "https://naigrowth.com/#services" },
+          { "@type": "ListItem", "position": 3, "name": "Platforms", "item": "https://naigrowth.com/#platforms" },
+          { "@type": "ListItem", "position": 4, "name": "Process", "item": "https://naigrowth.com/#process" },
+          { "@type": "ListItem", "position": 5, "name": "Contact", "item": "https://naigrowth.com/#contact" }
+        ]
+      },
+      {
+        "@type": "FAQPage",
+        "@id": "https://naigrowth.com/#faq",
+        "mainEntity": [
+          {
+            "@type": "Question",
+            "name": "What is online reputation management (ORM)?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "Online reputation management is the practice of shaping what appears when someone searches your brand. It combines search-result control, review management, paid PR placements, paid media and sentiment monitoring so that the first page of results reflects the business you actually run rather than its loudest critics."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "What makes NaiGrowth a leading online reputation management company?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "NaiGrowth works only on reputation-critical surfaces: software review platforms, branded search, paid media and editorial coverage. We have delivered more than 10,000 verified reviews for over 50 brands across G2, Capterra, Gartner, Trustpilot and the app stores, and every engagement is run by a named strategist rather than a ticket queue."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "How much does online reputation management cost?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "We price by how much ground has to move, not by hours. A review programme on one platform costs far less than a full ORM engagement covering search results, press and ads across several markets. Every quote comes after the audit, which is a $50 to $100 one-time setup depending on how many brands and markets we are covering. So you see the real number against the real results before you commit to anything monthly."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "Are paid reviews legitimate?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "Paid review programmes are legitimate when they follow each platform's own incentive rules: reviews come from real, verified customers, the incentive is disclosed where the platform requires it, and nobody dictates the rating or the wording. That is the only model NaiGrowth operates. We decline work that asks for fabricated reviews because it gets clients delisted."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "How long does reputation repair take?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "Review volume and sentiment usually move within four to eight weeks. Displacing an unwanted page-one search result takes longer, typically three to six months, because it depends on building authoritative pages that outrank it. We report on both tracks separately so progress is never hidden behind an average."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "Do you offer paid PR placements and reputation consultancy separately?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "Yes. Paid PR can be bought as standalone placements in tier-one and niche publications, and reputation consultancy is available as a fixed-scope engagement covering an audit, a crisis playbook, competitor benchmarking and review-policy compliance, with no ongoing retainer required."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "Which is the best online reputation management company for B2B SaaS brands?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "Judge any online reputation management company on four things: whether it can show compliant review programmes on the platforms your buyers actually read, whether it runs paid media and organic on one plan rather than as separate vendors competing for the same ten results, whether it reports search-result movement separately from review sentiment, and whether it will tell you plainly what cannot be fixed. NaiGrowth is built around those four. We have delivered more than 10,000 verified reviews for over 50 brands across G2, Capterra, Gartner, Trustpilot and the app stores, and we decline fabricated-review work outright because it gets clients delisted."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "Do you provide ORM services in India and internationally?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "Yes. NaiGrowth is based in India and runs online reputation management, paid PR, paid reviews and paid media programmes for clients worldwide. Review platforms, branded search and editorial placement are global surfaces, so the work is not limited by where your team sits. Reporting and strategist calls are scheduled to your timezone."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "Can you remove negative reviews or negative articles?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "Usually not, and any agency that promises removal as a default is worth treating with caution. Reviews come down only when they breach a platform's own policy, and publishers rarely retract. What reputation management actually does is displace: build and promote authoritative pages, editorial coverage and review volume until the unwanted result falls off page one. Where a genuine policy breach exists we will file it, but we quote on displacement, not deletion."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "What is the difference between G2, Capterra and Gartner Peer Insights?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "They serve different buyers and move at different speeds. G2 is the largest software review site and is read by buyers building a shortlist; its category grids often outrank vendor websites. Capterra belongs to Gartner Digital Markets with GetApp and Software Advice, so one approved review can appear across three sites, and its listings rank strongly for “best software” searches. Gartner Peer Insights is separate from the paid analyst reports: reviews come from verified enterprise practitioners and are moderated by hand, which makes it the slowest platform to move and the most persuasive inside enterprise procurement. Most B2B brands should start with Capterra and G2 for volume, then build Gartner Peer Insights deliberately over a quarter."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "What are the phases of a NaiGrowth reputation management engagement?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "Five. Step one is the audit in week zero, a $50 to $100 one-time setup. We map every page one result for your brand, score your reviews against three competitors and tell you what cannot be moved. Step two, weeks one to two, is setup: profiles claimed, tracking connected, compliance signed off before any review request goes out. Step three, weeks two to eight, is build: reviews coming in at a steady pace, ads live on your brand and competitor terms, first press placements commissioned. Step four, weeks six to sixteen, is when rating moves and then search rankings follow. Step five is ongoing defence: monitoring, a reply time on every new review, and a fresh audit every quarter."
+            }
+          }
+        ]
+      }
+    ]
   }
   </script>
-
-  <link rel="stylesheet" href="css/styles.css">
-  <link rel="stylesheet" href="css/premium.css">
 </head>
 
 <body>
+  <a class="skip-link" href="#main">Skip to main content</a>
 
-  <a href="#main-content" class="skip-link">Skip to main content</a>
-
-  <aside class="floating-cta" aria-label="Quick contact">
-    <a href="https://wa.me/918890819966?text=Hi%20NaiGrowth%2C%20I%27m%20interested%20in%20your%20services"
-      target="_blank" rel="noopener" aria-label="Contact NaiGrowth on WhatsApp">
-      <svg width="22" height="22" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true">
-        <path
-          d="M11.996 2C6.485 2 2 6.486 2 12.001c0 1.954.507 3.82 1.469 5.485L2 22l4.639-1.42c1.611.895 3.425 1.417 5.357 1.417 5.511 0 9.998-4.486 9.998-10.001C21.994 6.486 17.507 2 11.996 2zm0 18.257c-1.637 0-3.235-.429-4.636-1.242l-.333-.197-3.414 1.045 1.065-3.328-.216-.345A8.251 8.251 0 0 1 3.738 12c0-4.545 3.7-8.243 8.258-8.243 4.557 0 8.257 3.698 8.257 8.243s-3.7 8.257-8.257 8.257zm4.538-6.191c-.248-.124-1.472-.727-1.7-.811-.228-.083-.395-.124-.562.124-.166.248-.644.811-.789.977-.145.166-.29.186-.538.062a6.76 6.76 0 0 1-2.007-1.241 7.152 7.152 0 0 1-1.392-1.738c-.145-.248-.016-.382.108-.506.111-.112.248-.29.373-.434.124-.145.166-.248.248-.414.083-.166.041-.311-.021-.435-.062-.124-.562-1.355-.77-1.854-.202-.486-.407-.419-.562-.427-.145-.008-.311-.008-.477-.008a.91.91 0 0 0-.663.311c-.228.248-.869.849-.869 2.072 0 1.223.89 2.406 1.015 2.572.124.166 1.754 2.678 4.247 3.753.593.256 1.056.409 1.416.524.595.19 1.137.163 1.565.099.479-.072 1.472-.601 1.679-1.183.207-.582.207-1.08.145-1.183-.062-.104-.228-.166-.477-.29z" />
-      </svg>
-      WhatsApp Us
-    </a>
-  </aside>
-
-  <nav class="navbar" id="navbar" aria-label="Main navigation">
-    <div class="scroll-progress" id="scrollProgress" aria-hidden="true"></div>
-    <div class="container">
-      <a href="#hero" class="nav-logo" aria-label="NaiGrowth — Back to top">
-        <img src="assets/logos/naitik_logo.png" alt="NaiGrowth Logo" width="40" height="40"
-          style="border-radius:10px; box-shadow:0 4px 12px rgba(79,110,247,0.3)">
-        <span class="nav-logo-text"><span>Nai</span>Growth</span>
+  <!-- ====================================================================
+       Navigation
+       ==================================================================== -->
+  <header class="nav" data-nav>
+    <div class="shell nav__inner">
+      <a class="nav__brand" href="#top" aria-label="NaiGrowth, back to top">
+        <img src="assets/logos/naitik_logo.png"
+          alt="NaiGrowth logo, an illuminated N monogram with an upward growth arrow" width="38" height="38">
+        <span class="nav__brand-name">NAI<span>GROWTH</span></span>
       </a>
-      <div class="nav-links" id="navLinks" role="menubar">
-        <a href="#services" role="menuitem">Services</a>
-        <a href="#webdev" role="menuitem">Web Dev</a>
-        <a href="#platforms" role="menuitem">Reviews</a>
-        <a href="#roadmap" role="menuitem">Roadmap</a>
-        <a href="#about" role="menuitem">About</a>
-        <a href="#faq" role="menuitem">FAQ</a>
-        <a href="#contact" role="menuitem">Contact</a>
-        <a href="mailto:admin@naigrowth.com" class="btn btn-primary btn-sm" role="menuitem"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="m3 7 9 6 9-6"/></svg> Email Us</a>
+
+      <nav class="nav__links" aria-label="Primary">
+        <a class="nav__link" href="#services">Services</a>
+        <a class="nav__link" href="#platforms">Platforms</a>
+        <a class="nav__link" href="#process">Process</a>
+        <a class="nav__link" href="#why">Why us</a>
+        <a class="nav__link" href="#playbook">Playbook</a>
+        <a class="nav__link" href="#faq">FAQ</a>
+      </nav>
+
+      <div class="nav__actions">
+        <button class="nav__theme" type="button" data-theme-toggle
+          aria-label="Theme: light. Switch to dark.">
+          <svg class="icon-moon" viewBox="0 0 24 24" aria-hidden="true">
+            <path d="M20.4 14.2A8.5 8.5 0 0 1 9.8 3.6a8.5 8.5 0 1 0 10.6 10.6Z" />
+          </svg>
+          <svg class="icon-gold" viewBox="0 0 24 24" aria-hidden="true">
+            <path d="m12 2.8 2.3 5.6 5.6 2.3-5.6 2.3-2.3 5.6-2.3-5.6L4.1 10.7l5.6-2.3Z" />
+            <path d="M18.6 16.4l.9 2.1 2.1.9-2.1.9-.9 2.1-.9-2.1-2.1-.9 2.1-.9Z" />
+          </svg>
+          <svg class="icon-sun" viewBox="0 0 24 24" aria-hidden="true">
+            <circle cx="12" cy="12" r="4.1" />
+            <path d="M12 2.2v2.3M12 19.5v2.3M4.2 12H1.9M22.1 12h-2.3M6.5 6.5 4.9 4.9M19.1 19.1l-1.6-1.6M17.5 6.5l1.6-1.6M4.9 19.1l1.6-1.6" />
+          </svg>
+        </button>
+        <span class="magnetic" data-magnetic>
+          <a class="btn btn--primary" href="#contact">
+            Get my page one audit
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+              stroke-linejoin="round" aria-hidden="true">
+              <path d="M5 12h14" />
+              <path d="m13 6 6 6-6 6" />
+            </svg>
+          </a>
+        </span>
+        <button class="nav__toggle" data-nav-toggle aria-expanded="false" aria-controls="nav-drawer"
+          aria-label="Open navigation menu">
+          <span></span><span></span><span></span>
+        </button>
       </div>
-      <button class="nav-toggle" id="navToggle" aria-label="Toggle navigation menu"
-        aria-expanded="false"><span></span><span></span><span></span></button>
     </div>
-  </nav>
 
-  <header class="hero" id="hero">
-    <div class="hero-bg">
-      <div class="gradient-orb orb-1"></div>
-      <div class="gradient-orb orb-2"></div>
-    </div>
-    <div class="container">
-      <div class="hero-content">
-        <div class="hero-badge"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="m12 3 2 5.5L19.5 10 14 12l-2 5.5L10 12 4.5 10 10 8.5z"/></svg> Web Development × Review Growth — 50+ Brands Worldwide</div>
-        <h1 class="hero-title">
-          Websites That <span class="gradient-text">Convert</span>.<br>
-          Reviews That <span class="gradient-text">Rank</span>.
-        </h1>
-        <p class="hero-desc">
-          NaiGrowth is a full-service digital agency. We <strong>design &amp; develop high-performance
-            websites</strong> — from luxury <strong>jewelry e-commerce</strong> to SaaS platforms — and scale
-          authentic <strong>software reviews</strong> on <strong>G2, Capterra, and Gartner</strong>.
-        </p>
-        <div class="hero-pillars" aria-label="Our two core services">
-          <a href="#webdev" class="pillar-chip pillar-web"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="m16 18 6-6-6-6M8 6l-6 6 6 6"/></svg> Website Development <span>50%</span></a>
-          <a href="#platforms" class="pillar-chip pillar-rev"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="m12 3 2.6 5.3 5.9.9-4.3 4.1 1 5.8L12 16.9 6.8 19.2l1-5.8-4.3-4.1 5.9-.9z"/></svg> Review Growth <span>50%</span></a>
-        </div>
-        <div class="hero-ctas">
-          <a href="https://wa.me/918890819966?text=Hi%20NaiGrowth%2C%20I%27m%20interested%20in%20your%20services"
-            target="_blank" rel="noopener" class="btn btn-primary btn-lg" id="hero-cta-whatsapp"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M21 12a8 8 0 0 1-11.5 7.2L4 21l1.8-5.5A8 8 0 1 1 21 12z"/></svg> WhatsApp Us Now
-            <span class="btn-arrow">→</span></a>
-          <a href="#contact" class="btn btn-outline btn-lg" id="hero-cta-consultation">Book Free Consultation</a>
-        </div>
-
-        <div class="trust-strip" aria-label="Trust and security guarantees">
-          <span class="trust-badge"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><rect x="4.5" y="10.5" width="15" height="10" rx="2"/><path d="M8 10.5V7a4 4 0 0 1 8 0v3.5"/></svg> SSL Secured</span>
-          <span class="trust-badge"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3 5 6v5c0 4.5 3 7.6 7 9 4-1.4 7-4.5 7-9V6z"/></svg> Spam-Protected</span>
-          <span class="trust-badge"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="m8.5 12 2.4 2.4 4.6-4.8"/></svg> 100% Genuine Reviews</span>
-          <span class="trust-badge"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M13 2 4 14h7l-1 8 9-12h-7z"/></svg> 24h Response</span>
-        </div>
-
-        <div class="hero-platforms">
-          <span class="hero-platforms-label">We cover:</span>
-          <img src="assets/logos/g2.png" alt="G2 software reviews and reputation management platform logo" width="24"
-            height="24" loading="lazy">
-          <img src="assets/logos/capterra.png" alt="Capterra B2B software reviews generation logo" width="24"
-            height="24" loading="lazy">
-          <img src="assets/logos/gartner.png" alt="Gartner enterprise software reviews and insights logo" width="24"
-            height="24" loading="lazy">
-          <img src="assets/logos/trustpilot.png" alt="TrustPilot authentic customer reputation reviews logo" width="24"
-            height="24" loading="lazy">
-          <img src="assets/logos/trustradius.png" alt="TrustRadius verified software reviews logo" width="24"
-            height="24" loading="lazy">
-          <img src="assets/logos/appstore.png" alt="Apple App Store mobile app reviews and ratings logo" width="24"
-            height="24" loading="lazy">
-          <img src="assets/logos/playstore.png" alt="Google Play Store Android app reviews logo" width="24" height="24"
-            loading="lazy">
-        </div>
-      </div>
-
-      <div class="hero-visual">
-
-        <div class="cube-scene" aria-hidden="true">
-          <div class="cube">
-            <div class="cube-face cube-front"><img src="assets/logos/g2.png" alt="" width="64" height="64"></div>
-            <div class="cube-face cube-back"><img src="assets/logos/capterra.png" alt="" width="64" height="64"></div>
-            <div class="cube-face cube-right"><img src="assets/logos/gartner.png" alt="" width="64" height="64"></div>
-            <div class="cube-face cube-left"><img src="assets/logos/trustpilot.png" alt="" width="64" height="64"></div>
-            <div class="cube-face cube-top"><img src="assets/logos/trustradius.png" alt="" width="64" height="64">
-            </div>
-            <div class="cube-face cube-bottom"><span class="cube-star"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="m12 3 2.6 5.3 5.9.9-4.3 4.1 1 5.8L12 16.9 6.8 19.2l1-5.8-4.3-4.1 5.9-.9z"/></svg></span></div>
-          </div>
-          <div class="cube-glow"></div>
-        </div>
-        <div class="hero-stats-grid">
-          <div class="hero-stat-card">
-            <div class="stat-number" data-target="50" data-suffix="+">0</div>
-            <div class="stat-label">Happy Clients</div>
-          </div>
-          <div class="hero-stat-card accent">
-            <div class="stat-number" data-target="10000" data-suffix="+">0</div>
-            <div class="stat-label">Reviews Generated</div>
-          </div>
-          <div class="hero-stat-card">
-            <div class="stat-number" data-target="40" data-suffix="+">0</div>
-            <div class="stat-label">Websites Built</div>
-          </div>
-          <div class="hero-stat-card">
-            <div class="stat-number" data-target="98" data-suffix="%">0</div>
-            <div class="stat-label">Satisfaction</div>
-          </div>
-        </div>
-
-        <div class="hero-visual-card">
-          <div class="hvc-head">
-            <span class="hvc-title"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="m3 17 6-6 4 4 8-8"/><path d="M16 7h5v5"/></svg> Avg. Client Review Growth</span>
-            <span class="hvc-badge">+312%</span>
-          </div>
-          <div class="hvc-row">
-            <span class="hvc-label">G2</span>
-            <div class="bar-track">
-              <div class="bar-fill bar-g2" style="width:92%"></div>
-            </div>
-            <span class="hvc-val">92%</span>
-          </div>
-          <div class="hvc-row">
-            <span class="hvc-label">Capterra</span>
-            <div class="bar-track">
-              <div class="bar-fill bar-cap" style="width:84%"></div>
-            </div>
-            <span class="hvc-val">84%</span>
-          </div>
-          <div class="hvc-row">
-            <span class="hvc-label">TrustPilot</span>
-            <div class="bar-track">
-              <div class="bar-fill bar-tp" style="width:76%"></div>
-            </div>
-            <span class="hvc-val">76%</span>
-          </div>
-        </div>
-      </div>
+    <div class="nav__drawer" id="nav-drawer" data-nav-drawer data-open="false">
+      <a href="#services">Services</a>
+      <a href="#platforms">Platforms</a>
+      <a href="#process">Process</a>
+      <a href="#why">Why us</a>
+      <a href="#playbook">Playbook</a>
+      <a href="#faq">FAQ</a>
+      <a class="btn btn--primary btn--block" href="#contact">Get my page one audit</a>
     </div>
   </header>
 
-  <main id="main-content">
+  <main id="main">
 
-    <section class="section-light section-padding" id="platforms">
-      <div class="container">
-        <div class="section-header reveal">
-          <p class="section-label">Reviews Pillar · 7 Platforms</p>
-          <h2 class="section-title">Get Reviewed Where <span class="highlight">Buyers Actually Look</span></h2>
-          <p class="section-sub">Millions of buyers check these platforms before every purchase. We put genuine,
-            verified reviews of your product right in front of them.</p>
-        </div>
-
-        <div class="platforms-grid">
-          <a href="https://www.g2.com" target="_blank" rel="noopener" class="platform-card p-g2 reveal"
-            aria-label="G2 review growth services">
-            <div class="pc-tile"><img src="assets/logos/g2.png"
-                alt="G2 software reviews reputation management service for SaaS" width="44" height="44"
-                loading="lazy"></div>
-            <h3>G2</h3>
-            <p>90M+ software buyers research here every year</p>
-            <span class="pc-cta">Get G2 Reviews →</span>
-          </a>
-          <a href="https://www.capterra.com" target="_blank" rel="noopener"
-            class="platform-card p-cap reveal reveal-delay-1" aria-label="Capterra review growth services">
-            <div class="pc-tile"><img src="assets/logos/capterra.png"
-                alt="Capterra B2B software reviews and custom reputation generation" width="44" height="44"
-                loading="lazy"></div>
-            <h3>Capterra</h3>
-            <p>The #1 stop for software comparison shoppers</p>
-            <span class="pc-cta">Get Capterra Reviews →</span>
-          </a>
-          <a href="https://www.gartner.com" target="_blank" rel="noopener"
-            class="platform-card p-gar reveal reveal-delay-2" aria-label="Gartner peer review strategy">
-            <div class="pc-tile"><img src="assets/logos/gartner.png"
-                alt="Gartner enterprise B2B tech software reviews strategy" width="44" height="44" loading="lazy">
-            </div>
-            <h3>Gartner</h3>
-            <p>Where enterprise decision-makers shortlist vendors</p>
-            <span class="pc-cta">Gartner Strategy →</span>
-          </a>
-          <a href="https://www.trustpilot.com" target="_blank" rel="noopener"
-            class="platform-card p-tp reveal reveal-delay-3" aria-label="TrustPilot reputation growth">
-            <div class="pc-tile"><img src="assets/logos/trustpilot.png"
-                alt="TrustPilot authentic reputation building and consumer reviews" width="44" height="44"
-                loading="lazy"></div>
-            <h3>TrustPilot</h3>
-            <p>The trust signal consumers check first</p>
-            <span class="pc-cta">TrustPilot Growth →</span>
-          </a>
-          <a href="https://www.trustradius.com" target="_blank" rel="noopener" class="platform-card p-tr reveal"
-            aria-label="TrustRadius review growth">
-            <div class="pc-tile"><img src="assets/logos/trustradius.png"
-                alt="TrustRadius genuine user verified B2B software reviews" width="44" height="44" loading="lazy">
-            </div>
-            <h3>TrustRadius</h3>
-            <p>100% verified, in-depth B2B tech reviews</p>
-            <span class="pc-cta">TrustRadius Reviews →</span>
-          </a>
-          <a href="https://apps.apple.com" target="_blank" rel="noopener"
-            class="platform-card p-as reveal reveal-delay-1" aria-label="App Store ratings growth">
-            <div class="pc-tile"><img src="assets/logos/appstore.png"
-                alt="Apple App Store mobile app ratings scale and reputation management" width="44" height="44"
-                loading="lazy"></div>
-            <h3>App Store</h3>
-            <p>Ratings that move you up iOS search results</p>
-            <span class="pc-cta">App Store Ratings →</span>
-          </a>
-          <a href="https://play.google.com" target="_blank" rel="noopener"
-            class="platform-card p-ps reveal reveal-delay-2" aria-label="Google Play ratings growth">
-            <div class="pc-tile"><img src="assets/logos/playstore.png"
-                alt="Google Play Store Android app ranking and reputation reviews" width="44" height="44"
-                loading="lazy"></div>
-            <h3>Play Store</h3>
-            <p>Win more Android installs with 5★ momentum</p>
-            <span class="pc-cta">Play Store Ratings →</span>
-          </a>
-        </div>
+    <!-- ==================================================================
+         Hero
+         The canvas is decorative and aria-hidden; the entire message is
+         real DOM text layered above it.
+         ================================================================== -->
+    <section class="hero on-dark" id="top" data-hero>
+      <!-- The whole scene layer is decorative; aria-hidden sits here so the
+           canvas never needs a role of its own. -->
+      <div class="scene" data-scene aria-hidden="true">
+        <!-- Painted instantly, and the permanent state where WebGL2 is
+             unavailable or the device is on data-saver. -->
+        <div class="scene__fallback"></div>
+        <canvas data-scene-canvas></canvas>
       </div>
-    </section>
 
-    <section class="section-dark section-padding" id="services">
-      <div class="container">
-        <div class="section-header reveal">
-          <p class="section-label">Our Services</p>
-          <h2 class="section-title">Everything You Need to <span class="highlight">Grow</span></h2>
-        </div>
-        <div class="services-grid">
-          <div class="service-card featured reveal">
-            <div class="service-badge">Core Service</div>
-            <div class="service-emoji"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="m16 18 6-6-6-6M8 6l-6 6 6 6"/></svg></div>
-            <h3>Website Design & Development</h3>
-            <p>Custom, conversion-first <strong>website design and development</strong> — marketing sites, SaaS
-              platforms, and full e-commerce builds engineered for speed, SEO, and sales.</p>
-            <div class="tags">
-              <span>Custom Websites</span><span>Next.js</span><span>Shopify</span><span>UI/UX</span><span>SEO-Ready</span><span>E-Commerce</span>
-            </div>
-          </div>
-          <div class="service-card featured reveal reveal-delay-1">
-            <div class="service-badge badge-alt">Most Popular</div>
-            <div class="service-emoji"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="m12 3 2.6 5.3 5.9.9-4.3 4.1 1 5.8L12 16.9 6.8 19.2l1-5.8-4.3-4.1 5.9-.9z"/></svg></div>
-            <h3>Software Reviews & Reputation Management</h3>
-            <p>Drive authentic, verified <strong>software reviews</strong> from real users on <strong>G2, Capterra,
-                Gartner</strong>, TrustPilot, and App Stores — plus analytics, benchmarking, and ROI tracking.</p>
-            <div class="tags">
-              <span>G2</span><span>Capterra</span><span>Gartner</span><span>TrustPilot</span><span>TrustRadius</span><span>App
-                Store</span><span>Play Store</span>
-            </div>
-          </div>
-          <div class="service-card reveal reveal-delay-2">
-            <div class="service-emoji"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3 3 9l9 12 9-12z"/><path d="M3 9h18M9 3l-2 6 5 12 5-12-2-6"/></svg></div>
-            <h3>Jewelry & Gems E-Commerce</h3>
-            <p>High-performance, luxury e-commerce websites built specifically for the <strong>jewelry and gems
-                industry</strong> to maximize lead generation.</p>
-            <div class="tags"><span>Jewelry Sites</span><span>Gems E-Commerce</span><span>Lead Gen</span><span>Luxury
-                Web
-                Dev</span>
-            </div>
-          </div>
-          <div class="service-card reveal">
-            <div class="service-emoji"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><rect x="5" y="7" width="14" height="11" rx="2.5"/><circle cx="9.5" cy="12.5" r="1"/><circle cx="14.5" cy="12.5" r="1"/><path d="M12 3v4M4 12H3M21 12h-1"/></svg></div>
-            <h3>AI & Automation</h3>
-            <p>AI-driven review campaigns, customer outreach automation, chatbots, and intelligent workflows.</p>
-            <div class="tags"><span>AI Campaigns</span><span>Automation</span><span>Chatbots</span><span>Outreach</span>
-            </div>
-          </div>
-          <div class="service-card reveal reveal-delay-1">
-            <div class="service-emoji"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M7 18a4 4 0 0 1-.5-7.97 5 5 0 0 1 9.7-1.2A3.5 3.5 0 0 1 17.5 18z"/></svg></div>
-            <h3>Salesforce Consulting</h3>
-            <p>Certified Platform Developers & Agentforce Specialists. CRM setup, customization & automation.</p>
-            <div class="tags"><span>Salesforce</span><span>Agentforce</span><span>CRM</span><span>Automation</span>
-            </div>
-          </div>
-          <div class="service-card reveal reveal-delay-2">
-            <div class="service-emoji"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg></div>
-            <h3>SEO & Digital Marketing</h3>
-            <p>Data-driven SEO, content strategy, and digital campaigns that drive organic traffic.</p>
-            <div class="tags"><span>SEO</span><span>Content</span><span>Analytics</span><span>Link Building</span></div>
-          </div>
-        </div>
-      </div>
-    </section>
+      <div class="hero__overlay">
+        <div class="shell hero__inner">
+          <p class="eyebrow" data-reveal>ORM · Paid PR · Paid Reviews · Reputation Consultancy</p>
 
-    <section class="section-light-2 section-padding webdev-section" id="webdev">
-      <div class="container">
-        <div class="section-header reveal">
-          <p class="section-label">Web Development Studio</p>
-          <h2 class="section-title">We Architect <span class="highlight">Websites That Sell</span></h2>
-          <p class="section-sub">From luxury <strong>jewelry e-commerce</strong> to SaaS platforms — every site is
-            designed, engineered, and launched with conversion, speed, and SEO built in.</p>
-        </div>
+          <h1 data-reveal data-reveal-delay="80">
+Own page one for your <span class="accent-text">brand name</span>. Every single result.
+          </h1>
 
-        <div class="webdev-layout">
-          <div class="webdev-content reveal">
-            <div class="webdev-feats">
-              <div class="webdev-feat">
-                <span class="wd-dot wd-pink"></span>
-                <div><strong><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><rect x="4" y="4" width="16" height="16" rx="2"/><path d="M4 9h16M9 9v11"/></svg> UI / UX Design</strong>
-                  <p>Wireframes, design systems, and conversion-first layouts your customers love.</p>
-                </div>
-              </div>
-              <div class="webdev-feat">
-                <span class="wd-dot wd-cyan"></span>
-                <div><strong><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M13 2 4 14h7l-1 8 9-12h-7z"/></svg> Frontend Engineering</strong>
-                  <p>Blazing-fast, responsive, pixel-perfect interfaces on modern frameworks.</p>
-                </div>
-              </div>
-              <div class="webdev-feat">
-                <span class="wd-dot wd-purple"></span>
-                <div><strong><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><rect x="4" y="4" width="16" height="6.5" rx="1.5"/><rect x="4" y="13.5" width="16" height="6.5" rx="1.5"/><path d="M7.5 7.25h.01M7.5 16.75h.01"/></svg> Backend & APIs</strong>
-                  <p>Robust integrations, payments, CRMs, and content systems that scale.</p>
-                </div>
-              </div>
-              <div class="webdev-feat">
-                <span class="wd-dot wd-green"></span>
-                <div><strong><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><rect x="4.5" y="10.5" width="15" height="10" rx="2"/><path d="M8 10.5V7a4 4 0 0 1 8 0v3.5"/></svg> Security & Hosting</strong>
-                  <p>SSL, hardened headers, spam protection, and rock-solid cloud hosting.</p>
-                </div>
-              </div>
-            </div>
+          <p class="hero__lead" data-reveal data-reveal-delay="160">
+            Your buyer Googles you before they ever talk to sales. What they find there decides the
+            deal. We fix those ten results: your reviews, your press, your ads, your search. So page
+            one sells for you instead of against you.
+          </p>
 
-            <div class="tech-chips" aria-label="Technologies we build with">
-              <span class="tech-chip">React</span>
-              <span class="tech-chip">Next.js</span>
-              <span class="tech-chip">Shopify</span>
-              <span class="tech-chip">WordPress</span>
-              <span class="tech-chip">Node.js</span>
-              <span class="tech-chip">Vercel</span>
-              <span class="tech-chip">Salesforce</span>
-            </div>
-
-            <a href="#contact" class="btn btn-primary">Start Your Project <span class="btn-arrow">→</span></a>
+          <div class="hero__cta" data-reveal data-reveal-delay="240">
+            <span class="magnetic" data-magnetic data-magnetic-strength="0.4">
+              <a class="btn btn--primary btn--lg" href="#contact">
+                Get my page one audit
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                  stroke-linejoin="round" aria-hidden="true">
+                  <path d="M5 12h14" />
+                  <path d="m13 6 6 6-6 6" />
+                </svg>
+              </a>
+            </span>
+            <span class="magnetic" data-magnetic>
+              <a class="btn btn--ghost btn--lg" href="#services">See what we do</a>
+            </span>
           </div>
 
-          <div class="arch-scene reveal reveal-delay-1" aria-hidden="true">
-            <div class="arch-stack">
-              <div class="arch-layer arch-l1"><span><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><rect x="4.5" y="10.5" width="15" height="10" rx="2"/><path d="M8 10.5V7a4 4 0 0 1 8 0v3.5"/></svg> Security</span></div>
-              <div class="arch-layer arch-l2"><span><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><rect x="4" y="4" width="16" height="6.5" rx="1.5"/><rect x="4" y="13.5" width="16" height="6.5" rx="1.5"/><path d="M7.5 7.25h.01M7.5 16.75h.01"/></svg> Backend</span></div>
-              <div class="arch-layer arch-l3"><span><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M13 2 4 14h7l-1 8 9-12h-7z"/></svg> Frontend</span></div>
-              <div class="arch-layer arch-l4"><span><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><rect x="4" y="4" width="16" height="16" rx="2"/><path d="M4 9h16M9 9v11"/></svg> UI / UX</span></div>
+          <div class="hero__proof" data-reveal data-reveal-delay="320">
+            <div class="hero__proof-item">
+              <span class="hero__proof-num" data-count-to="10000" data-count-suffix="+">10,000+</span>
+              <span class="hero__proof-label">Verified reviews delivered</span>
             </div>
-            <div class="arch-glow"></div>
-          </div>
-        </div>
-
-        <div class="devmap-head reveal">
-          <h3><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="m9 5-6 2v12l6-2 6 2 6-2V5l-6 2z"/><path d="M9 5v12M15 7v12"/></svg> The Website Design Map — From Idea to Launch</h3>
-          <p>Six stations. Zero guesswork. You see exactly where your project is at every step.</p>
-        </div>
-        <div class="devmap reveal reveal-delay-1">
-          <div class="devmap-line" aria-hidden="true"></div>
-          <div class="devmap-stop">
-            <div class="devmap-num dm-1">01</div>
-            <h4>Discovery</h4>
-            <p>Goals, audience & competitor strategy</p>
-          </div>
-          <div class="devmap-stop">
-            <div class="devmap-num dm-2">02</div>
-            <h4>Wireframes</h4>
-            <p>Site architecture & user-flow mapping</p>
-          </div>
-          <div class="devmap-stop">
-            <div class="devmap-num dm-3">03</div>
-            <h4>UI Design</h4>
-            <p>Stunning, on-brand visual design</p>
-          </div>
-          <div class="devmap-stop">
-            <div class="devmap-num dm-4">04</div>
-            <h4>Development</h4>
-            <p>Clean, fast, scalable code</p>
-          </div>
-          <div class="devmap-stop">
-            <div class="devmap-num dm-5">05</div>
-            <h4>QA & SEO</h4>
-            <p>Testing, speed & search optimization</p>
-          </div>
-          <div class="devmap-stop">
-            <div class="devmap-num dm-6">06</div>
-            <h4>Launch & Grow</h4>
-            <p>Go live, monitor & iterate</p>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <section class="section-light section-padding" id="process">
-      <div class="container">
-        <div class="section-header reveal">
-          <p class="section-label">Reviews Pillar · Proven Process</p>
-          <h2 class="section-title">How We Generate <span class="highlight">Software Reviews</span></h2>
-          <p class="section-sub">Ethical, AI-powered systems to scale your <strong>reputation reviews</strong> — no fake
-            reviews, ever.</p>
-        </div>
-        <div class="process-grid">
-          <div class="process-card reveal">
-            <div class="process-num">01</div>
-            <h3>Identify Real Users</h3>
-            <p>We identify genuine users from your customer database who've had meaningful product experiences.</p>
-          </div>
-          <div class="process-card reveal reveal-delay-1">
-            <div class="process-num">02</div>
-            <h3>AI-Powered Outreach</h3>
-            <p>Personalized, well-timed automated requests via email, SMS, and in-app prompts.</p>
-          </div>
-          <div class="process-card reveal reveal-delay-2">
-            <div class="process-num">03</div>
-            <h3>Multi-Platform Software Reviews</h3>
-            <p>Seamlessly guide users to leave authentic <strong>software reviews</strong> on <strong>G2, Capterra, and
-                Gartner</strong>.</p>
-          </div>
-          <div class="process-card reveal reveal-delay-3">
-            <div class="process-num">04</div>
-            <h3>Monitor & Optimize</h3>
-            <p>Real-time dashboards track review velocity, sentiment, and ratings continuously.</p>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <section class="section-light-2 section-padding" id="roadmap">
-      <div class="container">
-        <div class="section-header reveal">
-          <p class="section-label">Reviews Growth Roadmap</p>
-          <h2 class="section-title">From Zero to <span class="highlight">Category Leader</span> in 90 Days</h2>
-          <p class="section-sub">A transparent, milestone-driven <strong>review generation roadmap</strong> — you
-            always know exactly what happens next.</p>
-        </div>
-        <div class="roadmap">
-          <div class="roadmap-line" aria-hidden="true"></div>
-          <div class="roadmap-item reveal">
-            <div class="roadmap-dot" aria-hidden="true"></div>
-            <div class="roadmap-card">
-              <span class="roadmap-phase phase-p1">Days 0–7</span>
-              <h3><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg> Foundation & Audit</h3>
-              <p>Deep audit of your current G2, Capterra & TrustPilot presence, competitor benchmarking, and customer
-                database analysis to find your happiest users.</p>
-              <div class="tags-light"><span>Profile Audit</span><span>Competitor Scan</span><span>User Mapping</span>
-              </div>
+            <div class="hero__proof-item">
+              <span class="hero__proof-num" data-count-to="50" data-count-suffix="+">50+</span>
+              <span class="hero__proof-label">Brands worldwide</span>
             </div>
-          </div>
-          <div class="roadmap-item reveal reveal-delay-1">
-            <div class="roadmap-dot" aria-hidden="true"></div>
-            <div class="roadmap-card">
-              <span class="roadmap-phase phase-p2">Days 8–30</span>
-              <h3><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M5 15c-1.5 1.4-2 5-2 5s3.6-.5 5-2"/><path d="M14 4c3-1 6 2 6 6 0 4-5 9-9 11l-3-3C10 14 11 5 14 4z"/><circle cx="14.5" cy="9.5" r="1.5"/></svg> Launch Campaigns</h3>
-              <p>AI-powered outreach goes live across email, SMS, and in-app prompts. First wave of authentic
-                <strong>software reviews</strong> starts landing on your profiles.</p>
-              <div class="tags-light"><span>AI Outreach</span><span>First Reviews</span><span>Profile
-                  Optimization</span></div>
-            </div>
-          </div>
-          <div class="roadmap-item reveal reveal-delay-2">
-            <div class="roadmap-dot" aria-hidden="true"></div>
-            <div class="roadmap-card">
-              <span class="roadmap-phase phase-p3">Days 31–60</span>
-              <h3><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="m3 17 6-6 4 4 8-8"/><path d="M16 7h5v5"/></svg> Scale & Optimize</h3>
-              <p>Review velocity compounds. We A/B test outreach timing, respond to every review, and push your
-                category ranking upward week after week.</p>
-              <div class="tags-light"><span>Velocity Growth</span><span>A/B Testing</span><span>Rank Climbing</span>
-              </div>
-            </div>
-          </div>
-          <div class="roadmap-item reveal reveal-delay-3">
-            <div class="roadmap-dot" aria-hidden="true"></div>
-            <div class="roadmap-card">
-              <span class="roadmap-phase phase-p4">Days 61–90</span>
-              <h3><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="9" r="6"/><path d="m9 14-2 7 5-3 5 3-2-7"/></svg> Dominate Your Category</h3>
-              <p>Target: Top 3 in your category with badges, leader grids, and a review profile that converts visitors
-                into demos on autopilot.</p>
-              <div class="tags-light"><span>Top 3 Ranking</span><span>Leader Badges</span><span>Conversion Lift</span>
-              </div>
-            </div>
-          </div>
-          <div class="roadmap-item reveal">
-            <div class="roadmap-dot roadmap-dot-final" aria-hidden="true"></div>
-            <div class="roadmap-card roadmap-card-final">
-              <span class="roadmap-phase phase-p5">Beyond Day 90</span>
-              <h3><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M7 9a3 3 0 1 0 0 6c2 0 3.5-3 5-3s3 3 5 3a3 3 0 1 0 0-6c-2 0-3.5 3-5 3s-3-3-5-3z"/></svg> Compounding Growth</h3>
-              <p>Always-on review engine, quarterly strategy reviews, and reputation monitoring — your moat keeps
-                widening while you focus on product.</p>
-              <a href="#contact" class="btn btn-primary btn-sm">Start Your Roadmap →</a>
+            <div class="hero__proof-item">
+              <span class="hero__proof-num">8</span>
+              <span class="hero__proof-label">Review platforms covered</span>
             </div>
           </div>
         </div>
       </div>
+
+      <button class="scene__toggle" data-orbit-toggle type="button" aria-pressed="false" hidden
+        aria-label="Toggle drag-to-orbit on the decorative 3D scene" data-cursor="Drag">
+        <span class="scene__toggle-dot" aria-hidden="true"></span>
+        Orbit
+      </button>
     </section>
 
-    <section class="section-dark section-padding" id="portfolio">
-      <div class="container">
-        <div class="section-header reveal">
-          <p class="section-label">Our Work</p>
-          <h2 class="section-title">Projects That <span class="highlight">Deliver</span></h2>
+    <!-- ==================================================================
+         Trust strip
+         ================================================================== -->
+    <section class="trust" aria-labelledby="trust-heading">
+      <div class="shell">
+        <h2 class="trust__label" id="trust-heading">We work the platforms your buyers actually read</h2>
+        <ul class="trust__logos">
+          <li>
+            <img src="assets/logos/g2.png" alt="G2 software review platform logo" width="26" height="26" loading="lazy"
+              decoding="async">G2
+          </li>
+          <li>
+            <img src="assets/logos/capterra.png" alt="Capterra software review platform logo" width="26" height="26"
+              loading="lazy" decoding="async">Capterra
+          </li>
+          <li>
+            <img src="assets/logos/gartner.png" alt="Gartner Peer Insights logo" width="26" height="26" loading="lazy"
+              decoding="async">Gartner
+          </li>
+          <li>
+            <img src="assets/logos/trustpilot.png" alt="Trustpilot consumer review platform logo" width="26" height="26"
+              loading="lazy" decoding="async">Trustpilot
+          </li>
+          <li>
+            <img src="assets/logos/trustradius.png" alt="TrustRadius B2B review platform logo" width="26" height="26"
+              loading="lazy" decoding="async">TrustRadius
+          </li>
+          <li>
+            <img src="assets/logos/appstore.png" alt="Apple App Store logo" width="26" height="26" loading="lazy"
+              decoding="async">App Store
+          </li>
+          <li>
+            <img src="assets/logos/playstore.png" alt="Google Play Store logo" width="26" height="26" loading="lazy"
+              decoding="async">Play Store
+          </li>
+        </ul>
+      </div>
+    </section>
+
+
+    <!-- ==================================================================
+         Clientele
+         A continuous marquee rather than a grid: nine logos in a row read as
+         momentum, and the band stays one line tall at every width. The second
+         track is an exact copy, aria-hidden, and exists only so the loop can
+         wrap without a visible seam.
+
+         Logos are downloaded and self-hosted under assets/logos/clients/
+         rather than hot-linked: the CSP is img-src 'self' data:, and a remote
+         URL would break the day that brand reorganises its CDN.
+         ================================================================== */ -->
+    <section class="section section--tight clients-band" id="clients" aria-labelledby="clients-heading">
+      <div class="shell">
+        <h2 class="clients__label" id="clients-heading">
+          <span>Trusted by teams at</span>
+        </h2>
+      </div>
+
+      <div class="marquee" data-marquee aria-hidden="true">
+        <div class="marquee__inner">
+          <ul class="marquee__track">
+            <li class="client"><a href="https://www.zoom.com/" target="_blank" rel="noopener noreferrer" tabindex="-1"><img src="assets/logos/clients/zoom.png" alt="" width="40" height="40" decoding="async" fetchpriority="low"><span class="client__name">Zoom</span></a></li>
+            <li class="client"><a href="https://workspace.google.com/products/meet/" target="_blank" rel="noopener noreferrer" tabindex="-1"><img src="assets/logos/clients/google-meet.png" alt="" width="40" height="40" decoding="async" fetchpriority="low"><span class="client__name">Google <span>Meet</span></span></a></li>
+            <li class="client"><a href="https://www.microsoft.com/microsoft-teams/group-chat-software" target="_blank" rel="noopener noreferrer" tabindex="-1"><img src="assets/logos/clients/microsoft-teams.png" alt="" width="40" height="40" decoding="async" fetchpriority="low"><span class="client__name">Microsoft <span>Teams</span></span></a></li>
+            <li class="client"><a href="https://www.wondershare.com/" target="_blank" rel="noopener noreferrer" tabindex="-1"><img src="assets/logos/clients/wondershare.png" alt="" width="40" height="40" decoding="async" fetchpriority="low"><span class="client__name">Wondershare</span></a></li>
+            <li class="client"><a href="https://virbo.wondershare.com/" target="_blank" rel="noopener noreferrer" tabindex="-1"><img src="assets/logos/clients/virbo.png" alt="" width="40" height="40" decoding="async" fetchpriority="low"><span class="client__name">Virbo</span></a></li>
+            <li class="client"><a href="https://www.edrawmax.com/" target="_blank" rel="noopener noreferrer" tabindex="-1"><img src="assets/logos/clients/edrawmax.png" alt="" width="40" height="40" decoding="async" fetchpriority="low"><span class="client__name">EdrawMax</span></a></li>
+            <li class="client"><a href="https://www.blockchain.com/" target="_blank" rel="noopener noreferrer" tabindex="-1"><img src="assets/logos/clients/blockchain.png" alt="" width="40" height="40" decoding="async" fetchpriority="low"><span class="client__name">Blockchain</span></a></li>
+            <li class="client"><a href="https://www.hitandfitgems.com/" target="_blank" rel="noopener noreferrer" tabindex="-1"><img src="assets/logos/clients/hit-and-fit-gems.png" alt="" width="40" height="40" decoding="async" fetchpriority="low"><span class="client__name">Hit &amp; Fit <span>Gems</span></span></a></li>
+            <li class="client"><a href="https://kfmmasale.com/" target="_blank" rel="noopener noreferrer" tabindex="-1"><img src="assets/logos/clients/kfm-masale.png" alt="" width="40" height="40" decoding="async" fetchpriority="low"><span class="client__name">KFM <span>Masale</span></span></a></li>
+          </ul>
+          <ul class="marquee__track">
+            <li class="client"><a href="https://www.zoom.com/" target="_blank" rel="noopener noreferrer" tabindex="-1"><img src="assets/logos/clients/zoom.png" alt="" width="40" height="40" decoding="async" fetchpriority="low"><span class="client__name">Zoom</span></a></li>
+            <li class="client"><a href="https://workspace.google.com/products/meet/" target="_blank" rel="noopener noreferrer" tabindex="-1"><img src="assets/logos/clients/google-meet.png" alt="" width="40" height="40" decoding="async" fetchpriority="low"><span class="client__name">Google <span>Meet</span></span></a></li>
+            <li class="client"><a href="https://www.microsoft.com/microsoft-teams/group-chat-software" target="_blank" rel="noopener noreferrer" tabindex="-1"><img src="assets/logos/clients/microsoft-teams.png" alt="" width="40" height="40" decoding="async" fetchpriority="low"><span class="client__name">Microsoft <span>Teams</span></span></a></li>
+            <li class="client"><a href="https://www.wondershare.com/" target="_blank" rel="noopener noreferrer" tabindex="-1"><img src="assets/logos/clients/wondershare.png" alt="" width="40" height="40" decoding="async" fetchpriority="low"><span class="client__name">Wondershare</span></a></li>
+            <li class="client"><a href="https://virbo.wondershare.com/" target="_blank" rel="noopener noreferrer" tabindex="-1"><img src="assets/logos/clients/virbo.png" alt="" width="40" height="40" decoding="async" fetchpriority="low"><span class="client__name">Virbo</span></a></li>
+            <li class="client"><a href="https://www.edrawmax.com/" target="_blank" rel="noopener noreferrer" tabindex="-1"><img src="assets/logos/clients/edrawmax.png" alt="" width="40" height="40" decoding="async" fetchpriority="low"><span class="client__name">EdrawMax</span></a></li>
+            <li class="client"><a href="https://www.blockchain.com/" target="_blank" rel="noopener noreferrer" tabindex="-1"><img src="assets/logos/clients/blockchain.png" alt="" width="40" height="40" decoding="async" fetchpriority="low"><span class="client__name">Blockchain</span></a></li>
+            <li class="client"><a href="https://www.hitandfitgems.com/" target="_blank" rel="noopener noreferrer" tabindex="-1"><img src="assets/logos/clients/hit-and-fit-gems.png" alt="" width="40" height="40" decoding="async" fetchpriority="low"><span class="client__name">Hit &amp; Fit <span>Gems</span></span></a></li>
+            <li class="client"><a href="https://kfmmasale.com/" target="_blank" rel="noopener noreferrer" tabindex="-1"><img src="assets/logos/clients/kfm-masale.png" alt="" width="40" height="40" decoding="async" fetchpriority="low"><span class="client__name">KFM <span>Masale</span></span></a></li>
+          </ul>
         </div>
-        <div class="portfolio-grid">
-          <div class="portfolio-card reveal">
-            <div class="portfolio-img" style="background:linear-gradient(135deg,#1a0a00,#2d1600)">
-              <span
-                style="font-family:'Outfit',sans-serif;font-size:1.6rem;font-weight:700;color:#e2e8f0;letter-spacing:1px;text-transform:uppercase;">KFM
-                Masale</span>
-            </div>
-            <div class="portfolio-body">
-              <span class="portfolio-cat">E-Commerce · Spices</span>
-              <h3>KFM Masale</h3>
-              <p>Full e-commerce platform with product reviews, SEO, and high-converting UX.</p>
-              <a href="https://kfmmasale.com" target="_blank" rel="noopener" class="btn btn-sm btn-outline-light">Visit
-                Site →</a>
-            </div>
+      </div>
+
+      <!-- The keyboard and screen-reader path to the same nine clients. -->
+      <ul class="visually-hidden">
+          <li><a href="https://www.zoom.com/" target="_blank" rel="noopener noreferrer">Zoom</a></li>
+          <li><a href="https://workspace.google.com/products/meet/" target="_blank" rel="noopener noreferrer">Google Meet</a></li>
+          <li><a href="https://www.microsoft.com/microsoft-teams/group-chat-software" target="_blank" rel="noopener noreferrer">Microsoft Teams</a></li>
+          <li><a href="https://www.wondershare.com/" target="_blank" rel="noopener noreferrer">Wondershare</a></li>
+          <li><a href="https://virbo.wondershare.com/" target="_blank" rel="noopener noreferrer">Wondershare Virbo</a></li>
+          <li><a href="https://www.edrawmax.com/" target="_blank" rel="noopener noreferrer">EdrawMax</a></li>
+          <li><a href="https://www.blockchain.com/" target="_blank" rel="noopener noreferrer">Blockchain.com</a></li>
+          <li><a href="https://www.hitandfitgems.com/" target="_blank" rel="noopener noreferrer">Hit and Fit Gems</a></li>
+          <li><a href="https://kfmmasale.com/" target="_blank" rel="noopener noreferrer">KFM Masale</a></li>
+      </ul>
+    </section>
+
+    <!-- ==================================================================
+         Services — "What We Create"
+         ================================================================== -->
+    <section class="section" id="services" aria-labelledby="services-heading">
+      <div class="shell">
+        <div class="section-head">
+          <p class="eyebrow" data-reveal>What we do</p>
+          <h2 id="services-heading" data-reveal>
+Eight services. One job: <span class="accent-solid">control the first page</span>.
+          </h2>
+          <p data-reveal>
+ORM and paid media do the heavy lifting. The rest feeds them. Paid PR gives you authority,
+            reviews give you proof, consultancy gives you the plan, and SEO plus your own website give
+            you ground nobody can take away. Open any service below to see exactly how it works.
+          </p>
+        </div>
+
+        <div class="services__grid">
+
+          <a class="glass service service--flagship" href="services/online-reputation-management.html" data-reveal data-cursor="Open">
+            <span class="service__icon" aria-hidden="true">
+              <svg aria-hidden="true" viewBox="0 0 24 24"><path d="M12 2.8 4.5 6v6c0 4.4 3.1 7.9 7.5 9.2 4.4-1.3 7.5-4.8 7.5-9.2V6Z" /><path d="m8.8 12.1 2.3 2.3 4.3-4.6" /></svg>
+            </span>
+            <h3>Online Reputation Management</h3>
+            <p>This is what we are known for. We look at all ten results people see when they search your name. The ones that hurt you get pushed down. The ones that help you get built up and pushed to the top. Then we watch it every day, so the next problem gets caught while it is still small enough to handle quietly.</p>
+            <ul class="service__tags">
+              <li>Search result control</li>
+              <li>Fix the story</li>
+              <li>Daily monitoring</li>
+              <li>Crisis help</li>
+            </ul>
+            <span class="service__more">See how ORM works <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14" /><path d="m13 6 6 6-6 6" /></svg></span>
+          </a>
+          <a class="glass service service--flagship" href="services/paid-media.html" data-reveal data-reveal-delay="90" data-cursor="Open">
+            <span class="service__icon" aria-hidden="true">
+              <svg aria-hidden="true" viewBox="0 0 24 24"><circle cx="12" cy="12" r="8.4" /><circle cx="12" cy="12" r="4.2" /><circle cx="12" cy="12" r="0.9" fill="currentColor" stroke="none" /><path d="M12 3.6V1.4M12 22.6v-2.2M3.6 12H1.4M22.6 12h-2.2" /></svg>
+            </span>
+            <h3>Paid Media</h3>
+            <p>The fastest fix on this page. Ads let you buy the top of your own brand search today, not in three months. We take your branded terms before a competitor does, run comparison campaigns against them, and send every click to a page built to convert. Google, LinkedIn, Meta and programmatic.</p>
+            <ul class="service__tags">
+              <li>Protect your brand terms</li>
+              <li>Beat competitors</li>
+              <li>LinkedIn &amp; Meta</li>
+              <li>Programmatic</li>
+            </ul>
+            <span class="service__more">See how paid media works <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14" /><path d="m13 6 6 6-6 6" /></svg></span>
+          </a>
+          <a class="glass service" href="services/paid-pr.html" data-reveal data-cursor="Open">
+            <span class="service__icon" aria-hidden="true">
+              <svg aria-hidden="true" viewBox="0 0 24 24"><path d="M3.4 9.6v4.8a1.6 1.6 0 0 0 1.6 1.6h2.4l6.8 4V4L7.4 8H5a1.6 1.6 0 0 0-1.6 1.6Z" /><path d="M17.8 9a4.4 4.4 0 0 1 0 6" /><path d="M20.3 6.3a8 8 0 0 1 0 11.4" /></svg>
+            </span>
+            <h3>Paid PR &amp; Publications</h3>
+            <p>Real articles in real publications, guaranteed to run. These are the strong pages that push bad results down, and the links your sales team can send without explaining anything.</p>
+            <ul class="service__tags">
+              <li>Top-tier outlets</li>
+              <li>Industry press</li>
+              <li>Founder stories</li>
+            </ul>
+            <span class="service__more">See how paid PR works <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14" /><path d="m13 6 6 6-6 6" /></svg></span>
+          </a>
+          <a class="glass service" href="services/paid-reviews.html" data-reveal data-reveal-delay="80" data-cursor="Open">
+            <span class="service__icon" aria-hidden="true">
+              <svg aria-hidden="true" viewBox="0 0 24 24"><path d="m12 3.4 2.65 5.37 5.93.86-4.29 4.18 1.01 5.9L12 16.92l-5.3 2.79 1.01-5.9-4.29-4.18 5.93-.86Z" /></svg>
+            </span>
+            <h3>Paid Reviews &amp; Review Management</h3>
+            <p>Reviews from your real customers on G2, Capterra, Gartner, Trustpilot, TrustRadius and the app stores. Every incentive declared exactly how each platform asks. We never write the review and we never ask for a rating.</p>
+            <ul class="service__tags">
+              <li>Get more reviews</li>
+              <li>Reply to every one</li>
+              <li>Platform safe</li>
+            </ul>
+            <span class="service__more">See how reviews work <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14" /><path d="m13 6 6 6-6 6" /></svg></span>
+          </a>
+          <a class="glass service" href="services/reputation-consultancy.html" data-reveal data-reveal-delay="160" data-cursor="Open">
+            <span class="service__icon" aria-hidden="true">
+              <svg aria-hidden="true" viewBox="0 0 24 24"><circle cx="12" cy="12" r="8.6" /><path d="m15.2 8.8-2 4.4-4.4 2 2-4.4Z" /></svg>
+            </span>
+            <h3>Reputation Consultancy</h3>
+            <p>For teams who want the plan, not the monthly bill. You get a full audit, a crisis playbook, a competitor breakdown and a compliance check. Your team runs it. Fixed price, no retainer.</p>
+            <ul class="service__tags">
+              <li>Full audit</li>
+              <li>Crisis playbook</li>
+              <li>Competitor check</li>
+            </ul>
+            <span class="service__more">See what you get <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14" /><path d="m13 6 6 6-6 6" /></svg></span>
+          </a>
+          <a class="glass service" href="services/seo.html" data-reveal data-cursor="Open">
+            <span class="service__icon" aria-hidden="true">
+              <svg aria-hidden="true" viewBox="0 0 24 24"><circle cx="10.6" cy="10.6" r="6.3" /><path d="m15.3 15.3 4.3 4.3" /><path d="m7.8 11.6 2 2 3.2-3.8" /></svg>
+            </span>
+            <h3>SEO &amp; Search Visibility</h3>
+            <p>Rank for your own name and for the searches your buyers actually type. Owned pages are the cheapest real estate on page one, and once they rank, everything else gets easier.</p>
+            <ul class="service__tags">
+              <li>Technical SEO</li>
+              <li>Content plan</li>
+              <li>Branded search</li>
+            </ul>
+            <span class="service__more">See how SEO works <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14" /><path d="m13 6 6 6-6 6" /></svg></span>
+          </a>
+          <a class="glass service" href="services/salesforce.html" data-reveal data-reveal-delay="80" data-cursor="Open">
+            <span class="service__icon" aria-hidden="true">
+              <svg aria-hidden="true" viewBox="0 0 24 24"><path d="M6.6 17.4a3.9 3.9 0 0 1-.5-7.77 5.2 5.2 0 0 1 9.86-1.9 3.4 3.4 0 0 1 4.6 3.2 3.9 3.9 0 0 1-1.4 7.47Z" /><path d="M10.2 13.4h4.6" /></svg>
+            </span>
+            <h3>Salesforce Consultancy</h3>
+            <p>Setup, pipeline automation and clean data. So the leads the rest of this work brings in actually get called, instead of sitting in a list nobody owns.</p>
+            <ul class="service__tags">
+              <li>Setup</li>
+              <li>Pipeline automation</li>
+              <li>Clean data</li>
+            </ul>
+            <span class="service__more">See how we help <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14" /><path d="m13 6 6 6-6 6" /></svg></span>
+          </a>
+          <a class="glass service" href="services/website-design.html" data-reveal data-reveal-delay="160" data-cursor="Open">
+            <span class="service__icon" aria-hidden="true">
+              <svg aria-hidden="true" viewBox="0 0 24 24"><rect x="3.2" y="4.4" width="17.6" height="15.2" rx="2.4" /><path d="M3.2 9h17.6" /><path d="m9.4 13 -1.9 1.9 1.9 1.9M14.6 13l1.9 1.9-1.9 1.9" /></svg>
+            </span>
+            <h3>Website Design &amp; Management</h3>
+            <p>Fast, clean sites that load quickly and turn visitors into enquiries. Built properly, then actually looked after. A website nobody maintains is a reputation problem of its own.</p>
+            <ul class="service__tags">
+              <li>Design &amp; build</li>
+              <li>Speed &amp; Core Web Vitals</li>
+              <li>Ongoing care</li>
+            </ul>
+            <span class="service__more">See how we build <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14" /><path d="m13 6 6 6-6 6" /></svg></span>
+          </a>
+
+        </div>
+      </div>
+    </section>
+
+    <!-- ==================================================================
+         Platforms — written as an explainer, not as a capabilities list.
+         Each card answers the four questions a client actually asks:
+         what is this site, who reads it, why should I care, what do you do.
+         ================================================================== -->
+    <section class="section section--band" id="platforms" aria-labelledby="platforms-heading">
+      <div class="shell">
+        <div class="section-head">
+          <p class="eyebrow" data-reveal>Where we work</p>
+          <h2 id="platforms-heading" data-reveal>
+            G2, Capterra, Gartner. <span class="accent-solid">What each one actually is</span>.
+          </h2>
+          <p data-reveal>
+            Most people hear these names in a sales call and just nod. Here is the short version of
+            each one. Open any card for the full picture: what it is, who reads it, what it costs you
+            to ignore, and exactly how we work it.
+          </p>
+        </div>
+
+        <div class="platforms__grid">
+
+          <a class="glass platform" href="platforms/g2.html" data-reveal data-cursor="Open">
+            <header class="platform__head">
+              <img class="platform__logo" src="assets/logos/g2.png" alt="G2 logo" width="42" height="42" loading="lazy" decoding="async">
+              <div>
+                <h3>G2</h3>
+                <span class="platform__who">Software buyers making a shortlist</span>
+              </div>
+            </header>
+            <p class="platform__summary">The biggest software review site there is. If a competitor has 90 reviews and you have 11, your buyer sees both numbers side by side.</p>
+            <ul class="platform__meta">
+              <li><span>First results</span><strong>3 to 5 weeks</strong></li>
+              <li><span>Difficulty</span><strong>Medium</strong></li>
+            </ul>
+            <span class="service__more">How we work G2 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14" /><path d="m13 6 6 6-6 6" /></svg></span>
+          </a>
+
+          <a class="glass platform" href="platforms/capterra.html" data-reveal data-reveal-delay="80" data-cursor="Open">
+            <header class="platform__head">
+              <img class="platform__logo" src="assets/logos/capterra.png" alt="Capterra logo" width="42" height="42" loading="lazy" decoding="async">
+              <div>
+                <h3>Capterra</h3>
+                <span class="platform__who">Small and mid-size business buyers</span>
+              </div>
+            </header>
+            <p class="platform__summary">Part of Gartner Digital Markets with GetApp and Software Advice. One approved review can show up in three places.</p>
+            <ul class="platform__meta">
+              <li><span>First results</span><strong>2 to 4 weeks</strong></li>
+              <li><span>Difficulty</span><strong>Easier</strong></li>
+            </ul>
+            <span class="service__more">How we work Capterra <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14" /><path d="m13 6 6 6-6 6" /></svg></span>
+          </a>
+
+          <a class="glass platform" href="platforms/gartner-peer-insights.html" data-reveal data-reveal-delay="160" data-cursor="Open">
+            <header class="platform__head">
+              <img class="platform__logo" src="assets/logos/gartner.png" alt="Gartner Peer Insights logo" width="42" height="42" loading="lazy" decoding="async">
+              <div>
+                <h3>Gartner Peer Insights</h3>
+                <span class="platform__who">Enterprise buyers and procurement</span>
+              </div>
+            </header>
+            <p class="platform__summary">The slowest platform to move and the most valuable one to have. Procurement teams trust it like nothing else.</p>
+            <ul class="platform__meta">
+              <li><span>First results</span><strong>6 to 10 weeks</strong></li>
+              <li><span>Difficulty</span><strong>Hard</strong></li>
+            </ul>
+            <span class="service__more">How we work Gartner Peer Insights <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14" /><path d="m13 6 6 6-6 6" /></svg></span>
+          </a>
+
+          <a class="glass platform" href="platforms/trustpilot.html" data-reveal data-cursor="Open">
+            <header class="platform__head">
+              <img class="platform__logo" src="assets/logos/trustpilot.png" alt="Trustpilot logo" width="42" height="42" loading="lazy" decoding="async">
+              <div>
+                <h3>Trustpilot</h3>
+                <span class="platform__who">Consumers and online shoppers</span>
+              </div>
+            </header>
+            <p class="platform__summary">Often sits in the top three Google results for your own brand name, stars and all. Frequently the first thing anyone sees.</p>
+            <ul class="platform__meta">
+              <li><span>First results</span><strong>2 to 3 weeks</strong></li>
+              <li><span>Difficulty</span><strong>Easier</strong></li>
+            </ul>
+            <span class="service__more">How we work Trustpilot <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14" /><path d="m13 6 6 6-6 6" /></svg></span>
+          </a>
+
+          <a class="glass platform" href="platforms/trustradius.html" data-reveal data-reveal-delay="80" data-cursor="Open">
+            <header class="platform__head">
+              <img class="platform__logo" src="assets/logos/trustradius.png" alt="TrustRadius logo" width="42" height="42" loading="lazy" decoding="async">
+              <div>
+                <h3>TrustRadius</h3>
+                <span class="platform__who">Technical evaluators late in a deal</span>
+              </div>
+            </header>
+            <p class="platform__summary">Long structured reviews instead of star ratings. Detailed enough to be pasted into an internal business case.</p>
+            <ul class="platform__meta">
+              <li><span>First results</span><strong>4 to 6 weeks</strong></li>
+              <li><span>Difficulty</span><strong>Medium</strong></li>
+            </ul>
+            <span class="service__more">How we work TrustRadius <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14" /><path d="m13 6 6 6-6 6" /></svg></span>
+          </a>
+
+          <a class="glass platform" href="platforms/product-hunt.html" data-reveal data-reveal-delay="160" data-cursor="Open">
+            <header class="platform__head">
+              <span class="platform__logo platform__logo--icon" aria-hidden="true"><svg aria-hidden="true" viewBox="0 0 24 24"><path d="M12 2.6c3 2.2 4.7 5.4 4.7 9.1 0 2.3-.7 4.4-1.9 6.1H9.2A10.4 10.4 0 0 1 7.3 11.7c0-3.7 1.7-6.9 4.7-9.1Z" /><circle cx="12" cy="10.2" r="2" /><path d="M9.2 17.8 7 21l3-.9M14.8 17.8 17 21l-3-.9" /></svg></span>
+              <div>
+                <h3>Product Hunt</h3>
+                <span class="platform__who">Early adopters, press and investors</span>
+              </div>
+            </header>
+            <p class="platform__summary">A 24 hour launch window, then a permanent well-indexed page that keeps ranking for your product name.</p>
+            <ul class="platform__meta">
+              <li><span>First results</span><strong>Launch day</strong></li>
+              <li><span>Difficulty</span><strong>Medium</strong></li>
+            </ul>
+            <span class="service__more">How we work Product Hunt <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14" /><path d="m13 6 6 6-6 6" /></svg></span>
+          </a>
+
+          <a class="glass platform" href="platforms/app-stores.html" data-reveal data-cursor="Open">
+            <header class="platform__head">
+              <img class="platform__logo" src="assets/logos/appstore.png" alt="App Store logo" width="42" height="42" loading="lazy" decoding="async">
+              <div>
+                <h3>App Store &amp; Google Play</h3>
+                <span class="platform__who">Everyone, right before they install</span>
+              </div>
+            </header>
+            <p class="platform__summary">Your star rating sits next to the install button. The gap between 3.8 and 4.5 is measured in installs.</p>
+            <ul class="platform__meta">
+              <li><span>First results</span><strong>3 to 6 weeks</strong></li>
+              <li><span>Difficulty</span><strong>Medium</strong></li>
+            </ul>
+            <span class="service__more">How we work App Store &amp; Google Play <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14" /><path d="m13 6 6 6-6 6" /></svg></span>
+          </a>
+
+        </div>
+      </div>
+    </section>
+
+    <!-- ==================================================================
+         Process — the engagement timeline, phase by phase
+         ================================================================== -->
+    <section class="section" id="process" aria-labelledby="process-heading">
+      <div class="shell">
+        <div class="section-head">
+          <p class="eyebrow" data-reveal>How it runs</p>
+          <h2 id="process-heading" data-reveal>
+Five steps, and <span class="accent-solid">when you actually see results</span>.
+          </h2>
+          <p data-reveal>
+This work runs on two clocks. Reviews move in weeks. Search results move in months. Here is
+            the whole thing laid out so you always know what is happening, what you get at the end of
+            each step, and roughly when.
+          </p>
+        </div>
+
+        <ol class="phases">
+
+          <li class="phase" data-reveal>
+            <span class="phase__dot" aria-hidden="true">01</span>
+            <span class="phase__when">Week 0 &middot; $50 to $100 one-time</span>
+            <h3>Audit</h3>
+            <p>
+One-time setup of $50 to $100, depending on how many brands and markets we are covering.
+              We pull every result on page one for your name, score your reviews on each platform
+              against your three closest competitors, and mark what can move, what will take time and
+              what cannot be touched. You keep the written plan whether you hire us or not. There is
+              no retainer attached to it.
+            </p>
+            <ul class="phase__out">
+              <li>Page-one map</li>
+              <li>Review scorecard</li>
+              <li>Competitor gap</li>
+              <li>Written plan</li>
+            </ul>
+          </li>
+
+          <li class="phase" data-reveal data-reveal-delay="60">
+            <span class="phase__dot" aria-hidden="true">02</span>
+            <span class="phase__when">Weeks 1&ndash;2</span>
+            <h3>Setup</h3>
+            <p>
+Profiles claimed and filled in, tracking connected, and the compliance check done before
+              a single review request goes out. Every platform has different rules about incentives and
+              disclosure. Getting this part wrong is exactly what gets programmes pulled down later.
+            </p>
+            <ul class="phase__out">
+              <li>Profiles claimed</li>
+              <li>Tracking live</li>
+              <li>Compliance sign-off</li>
+            </ul>
+          </li>
+
+          <li class="phase" data-reveal data-reveal-delay="120">
+            <span class="phase__dot" aria-hidden="true">03</span>
+            <span class="phase__when">Weeks 2&ndash;8</span>
+            <h3>Build</h3>
+            <p>
+Everything goes live. Review requests to real customers at a steady pace instead of one
+              suspicious burst. Ads running on your brand terms and your competitors&rsquo;. And the
+              first press placements commissioned.
+            </p>
+            <ul class="phase__out">
+              <li>Review velocity</li>
+              <li>Branded search defence</li>
+              <li>First placements</li>
+            </ul>
+          </li>
+
+          <li class="phase" data-reveal data-reveal-delay="180">
+            <span class="phase__dot" aria-hidden="true">04</span>
+            <span class="phase__when">Weeks 6&ndash;16</span>
+            <h3>Shift</h3>
+            <p>
+Numbers start moving on both clocks. Review count and rating usually move first. Search
+              rankings follow once the new pages are indexed and strong enough to push past whatever is
+              sitting there now. We report those two separately, never blended.
+            </p>
+            <ul class="phase__out">
+              <li>Rating movement</li>
+              <li>SERP displacement</li>
+              <li>Monthly report</li>
+            </ul>
+          </li>
+
+          <li class="phase" data-reveal data-reveal-delay="240">
+            <span class="phase__dot" aria-hidden="true">05</span>
+            <span class="phase__when">Ongoing</span>
+            <h3>Defend</h3>
+            <p>
+We watch your brand search and every review site, reply to new reviews inside an agreed
+              time, and run a fresh audit every quarter. So the next problem gets caught while it is
+              still on page three.
+            </p>
+            <ul class="phase__out">
+              <li>Alerts</li>
+              <li>Response SLA</li>
+              <li>Quarterly re-audit</li>
+            </ul>
+          </li>
+
+        </ol>
+      </div>
+    </section>
+
+    <!-- ==================================================================
+         Why us
+         ================================================================== -->
+    <section class="section" id="why" aria-labelledby="why-heading">
+      <div class="shell">
+        <div class="section-head">
+          <p class="eyebrow" data-reveal>Why NaiGrowth</p>
+          <h2 id="why-heading" data-reveal>
+Why people pick us over the <span class="accent-solid">bigger agencies</span>.
+          </h2>
+        </div>
+
+        <div class="benefits">
+          <div class="benefit" data-reveal>
+            <span class="benefit__num">01</span>
+            <h3>We keep you inside the rules</h3>
+            <p>
+Every review comes from a real, verified customer, with the incentive declared exactly
+              how the platform asks. We say no to fake review work. It gets companies delisted, and a
+              delisting is far worse than whatever problem you walked in with.
+            </p>
           </div>
-          <div class="portfolio-card reveal reveal-delay-1">
-            <div class="portfolio-img" style="background:linear-gradient(135deg,#0f0520,#1a0a30)">
-              <span
-                style="font-family:'Outfit',sans-serif;font-size:1.6rem;font-weight:700;color:#e2e8f0;letter-spacing:1px;text-transform:uppercase;">Hitandfit
-                Gems</span>
-            </div>
-            <div class="portfolio-body">
-              <span class="portfolio-cat">Luxury · Gems Industry</span>
-              <h3>Premium Jewelry E-Commerce</h3>
-              <p>Stunning, high-converting retail platform designed exclusively for luxury <strong>jewelry and
-                  gems</strong> brands.</p>
-              <span class="btn btn-sm btn-outline-light">Case Study →</span>
-            </div>
+
+          <div class="benefit" data-reveal data-reveal-delay="80">
+            <span class="benefit__num">02</span>
+            <h3>No blended numbers</h3>
+            <p>
+Reviews move in weeks. Search results move in months. We report those two separately
+              instead of averaging them into one number that looks better than reality.
+            </p>
           </div>
-          <div class="portfolio-card reveal reveal-delay-2">
-            <div class="portfolio-img" style="background:linear-gradient(135deg,#0a0f2c,#1a1000)">
-              <span
-                style="font-family:'Outfit',sans-serif;font-size:1.6rem;font-weight:700;color:#e2e8f0;letter-spacing:1px;text-transform:uppercase;">RepuSync
-                AI</span>
-            </div>
-            <div class="portfolio-body">
-              <span class="portfolio-cat">SaaS · Reputation Reviews</span>
-              <h3>B2B Software Reviews Campaign</h3>
-              <p>Generated 500+ genuine <strong>software reviews</strong> across <strong>G2 and Capterra</strong> in
-                just
-                6 months, securing Top 3 rankings.</p>
-              <span class="btn btn-sm btn-outline-light">View Results →</span>
-            </div>
+
+          <div class="benefit" data-reveal data-reveal-delay="160">
+            <span class="benefit__num">03</span>
+            <h3>You get a person, not a ticket</h3>
+            <p>
+You talk to the person actually running your account. No ticket system in between, and
+              no account manager going away to ask someone else and coming back a day later.
+            </p>
+          </div>
+
+          <div class="benefit" data-reveal>
+            <span class="benefit__num">04</span>
+            <h3>One plan, not three vendors</h3>
+            <p>
+Most agencies do reviews, or ads, or PR. Reputation needs all three aimed at the same ten
+              results. Run by three separate vendors, they quietly fight each other for the same spots.
+            </p>
+          </div>
+
+          <div class="benefit" data-reveal data-reveal-delay="80">
+            <span class="benefit__num">05</span>
+            <h3>We tell you what will not work</h3>
+            <p>
+Some results cannot be removed. Some categories cannot be won this quarter. You hear that
+              in the audit, before you sign anything, not six months into a retainer.
+            </p>
+          </div>
+
+          <div class="benefit" data-reveal data-reveal-delay="160">
+            <span class="benefit__num">06</span>
+            <h3>You keep everything</h3>
+            <p>
+Accounts, profiles, ad assets and content are yours the whole time. If we stop working
+              together, nothing you paid for walks out the door with us.
+            </p>
           </div>
         </div>
       </div>
     </section>
 
-    <section class="section-light section-padding" id="about">
-      <div class="container">
-        <div class="about-layout">
-          <div class="about-content reveal">
-            <p class="section-label">About NaiGrowth</p>
-            <h2 class="section-title">A Dual-Engine Team: <span class="highlight">Web & Reputation</span></h2>
-            <p class="section-sub" style="margin-bottom:32px">Half our craft is <strong>website design &amp;
-                development</strong> — bespoke e-commerce for <strong>jewelry and gems</strong>, SaaS platforms, and
-              marketing sites. The other half scales B2B <strong>software reviews</strong> on G2 and Capterra.</p>
-            <div class="about-features">
-              <div class="about-feat"><span><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3c2.5 2.6 2.5 15.4 0 18M12 3c-2.5 2.6-2.5 15.4 0 18"/></svg></span>
-                <div><strong>Full-Stack Web Studio</strong>
-                  <p>Design to deployment — UI/UX, frontend, backend, all in-house.</p>
-                </div>
-              </div>
-              <div class="about-feat"><span><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3 5 6v5c0 4.5 3 7.6 7 9 4-1.4 7-4.5 7-9V6z"/></svg></span>
-                <div><strong>100% Genuine Software Reviews</strong>
-                  <p>Every review from a real, verified product user.</p>
-                </div>
-              </div>
-              <div class="about-feat"><span><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M7 18a4 4 0 0 1-.5-7.97 5 5 0 0 1 9.7-1.2A3.5 3.5 0 0 1 17.5 18z"/></svg></span>
-                <div><strong>Salesforce Certified</strong>
-                  <p>Platform Developers & Agentforce Specialists.</p>
-                </div>
-              </div>
-              <div class="about-feat"><span><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="m3 17 6-6 4 4 8-8"/><path d="M16 7h5v5"/></svg></span>
-                <div><strong>Data-Driven & AI-Powered</strong>
-                  <p>Every build and campaign backed by analytics and automation.</p>
-                </div>
-              </div>
-            </div>
+    <!-- ==================================================================
+         Stats
+         ================================================================== -->
+    <section class="section section--tight" aria-labelledby="stats-heading">
+      <div class="shell">
+        <h2 class="visually-hidden" id="stats-heading">NaiGrowth by the numbers</h2>
+        <div class="stats" data-reveal>
+          <div class="stat">
+            <span class="stat__num" data-count-to="10000" data-count-suffix="+">10,000+</span>
+            <span class="stat__label">Verified reviews delivered</span>
           </div>
-          <div class="about-stats reveal reveal-delay-1">
-            <div class="stat-box">
-              <div class="stat-number" data-target="50" data-suffix="+">0</div>
-              <div class="stat-label">Clients</div>
-            </div>
-            <div class="stat-box accent">
-              <div class="stat-number" data-target="10000" data-suffix="+">0</div>
-              <div class="stat-label">Reviews</div>
-            </div>
-            <div class="stat-box">
-              <div class="stat-number" data-target="40" data-suffix="+">0</div>
-              <div class="stat-label">Websites Built</div>
-            </div>
-            <div class="stat-box">
-              <div class="stat-number" data-target="30" data-suffix="+">0</div>
-              <div class="stat-label">AI Workflows</div>
-            </div>
+          <div class="stat">
+            <span class="stat__num" data-count-to="50" data-count-suffix="+">50+</span>
+            <span class="stat__label">Brands worldwide</span>
+          </div>
+          <div class="stat">
+            <span class="stat__num" data-count-to="40" data-count-suffix="+">40+</span>
+            <span class="stat__label">Websites built &amp; managed</span>
+          </div>
+          <div class="stat">
+            <span class="stat__num" data-count-to="98" data-count-suffix="%">98%</span>
+            <span class="stat__label">Client satisfaction</span>
           </div>
         </div>
       </div>
     </section>
 
-    <section class="section-dark section-padding">
-      <div class="container">
-        <div class="section-header reveal">
-          <p class="section-label">Client Stories</p>
-          <h2 class="section-title">What Our <span class="highlight">Clients Say</span></h2>
+    <!-- ==================================================================
+         Testimonials
+         ================================================================== -->
+    <section class="section" id="results" aria-labelledby="results-heading">
+      <div class="shell">
+        <div class="section-head">
+          <p class="eyebrow" data-reveal>In their words</p>
+          <h2 id="results-heading" data-reveal>What clients say after the first quarter.</h2>
         </div>
-        <div class="testimonials-grid">
-          <div class="testimonial-card reveal">
-            <div class="stars">★★★★★</div>
-            <blockquote>"NaiGrowth transformed our G2 & Capterra presence. 200+ genuine reviews in 3 months, conversion
-              jumped 40%."</blockquote>
-            <div class="author">
-              <div class="avatar">RK</div>
-              <div><strong>Rajesh K.</strong><span>CEO, SaaS Company</span></div>
-            </div>
-          </div>
-          <div class="testimonial-card reveal reveal-delay-1">
-            <div class="stars">★★★★★</div>
-            <blockquote>"The Salesforce implementation was flawless. Sales pipeline automated, team productivity up
-              60%."
+
+        <div class="quotes">
+          <figure class="glass quote" data-reveal>
+            <blockquote>
+              &ldquo;NaiGrowth transformed our G2 &amp; Capterra presence. 200+ genuine reviews in
+              3 months, conversion jumped 40%.&rdquo;
             </blockquote>
-            <div class="author">
-              <div class="avatar">SP</div>
-              <div><strong>Sneha P.</strong><span>VP Sales, Enterprise</span></div>
-            </div>
-          </div>
-          <div class="testimonial-card reveal reveal-delay-2">
-            <div class="stars">★★★★★</div>
-            <blockquote>"Built a stunning jewelry e-commerce site. 300% more organic traffic. Incredible ROI."
+            <figcaption>
+              <span class="quote__avatar" aria-hidden="true">RK</span>
+              <span>
+                <span class="quote__who">Rajesh K.</span><br>
+                <span class="quote__role">CEO, SaaS Company</span>
+              </span>
+            </figcaption>
+          </figure>
+
+          <figure class="glass quote" data-reveal data-reveal-delay="80">
+            <blockquote>
+              &ldquo;The Salesforce implementation was flawless. Sales pipeline automated, team
+              productivity up 60%.&rdquo;
             </blockquote>
-            <div class="author">
-              <div class="avatar">AM</div>
-              <div><strong>Amir M.</strong><span>Owner, Gems & Jewelry</span></div>
-            </div>
-          </div>
+            <figcaption>
+              <span class="quote__avatar" aria-hidden="true">SP</span>
+              <span>
+                <span class="quote__who">Sneha P.</span><br>
+                <span class="quote__role">VP Sales, Enterprise</span>
+              </span>
+            </figcaption>
+          </figure>
+
+          <figure class="glass quote" data-reveal data-reveal-delay="160">
+            <blockquote>
+              &ldquo;Built a stunning jewelry e-commerce site. 300% more organic traffic.
+              Incredible ROI.&rdquo;
+            </blockquote>
+            <figcaption>
+              <span class="quote__avatar" aria-hidden="true">AM</span>
+              <span>
+                <span class="quote__who">Amir M.</span><br>
+                <span class="quote__role">Owner, Gems &amp; Jewelry</span>
+              </span>
+            </figcaption>
+          </figure>
         </div>
       </div>
     </section>
 
-    <section class="cta-section">
-      <div class="container">
-        <div class="cta-box reveal">
-          <h2>Ready to Build Your <span class="highlight">Website & Reputation?</span></h2>
-          <p>Join 50+ businesses that trust NaiGrowth for stunning websites and genuine reviews.</p>
-          <div class="cta-buttons">
-            <a href="mailto:admin@naigrowth.com" class="btn btn-white btn-lg"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="m3 7 9 6 9-6"/></svg> Email admin@naigrowth.com</a>
-            <a href="https://wa.me/918890819966" class="btn btn-outline btn-lg" target="_blank" rel="noopener">WhatsApp
-              Us</a>
-          </div>
+    <!-- ==================================================================
+         Playbook — the text-driven resources module
+         ================================================================== -->
+    <section class="section" id="playbook" aria-labelledby="playbook-heading">
+      <div class="shell">
+        <div class="section-head">
+          <p class="eyebrow" data-reveal>Reputation playbook</p>
+          <h2 id="playbook-heading" data-reveal>
+Three things every founder asks us.
+          </h2>
+          <p data-reveal>
+Straight answers, before you give us a rupee or a dollar.
+          </p>
+        </div>
+
+        <div class="showcase__grid">
+          <article class="glass work" data-reveal>
+            <h3>What ORM actually covers</h3>
+            <p>
+It is not deleting bad reviews. Almost nothing on the internet can simply be deleted.
+              What it actually is: deciding which ten results should sit on page one for your name,
+              then building, buying and earning those results until they stick. Reviews, press
+              articles, your own pages, ads and your social profiles are the building blocks.
+            </p>
+            <ul class="work__platforms">
+              <li>Audit</li>
+              <li>Displace</li>
+              <li>Defend</li>
+            </ul>
+          </article>
+
+          <article class="glass work" data-reveal data-reveal-delay="80">
+            <h3>How compliant paid reviews work</h3>
+            <p>
+Every big platform allows incentives, with conditions. The reviewer has to be a real,
+              verifiable customer. The incentive has to be declared where required. Nobody may touch
+              the rating or the wording. A clean programme asks your actual customers and then gets
+              out of the way. Anything that writes the review for them, or pays per five star, risks
+              getting you delisted permanently.
+            </p>
+            <ul class="work__platforms">
+              <li>Verified only</li>
+              <li>Disclosed</li>
+              <li>Unscripted</li>
+            </ul>
+          </article>
+
+          <article class="glass work" data-reveal data-reveal-delay="160">
+            <h3>When you need consultancy, not a retainer</h3>
+            <p>
+If you have a marketing team and one clear problem, like a bad quarter on Trustpilot, one
+              hostile article, or a funding round coming up, a fixed-price piece of consultancy usually
+              beats a monthly retainer. You get the audit, the playbook and the compliance review, and
+              your own team runs it. When that is the honest answer, we will say it.
+            </p>
+            <ul class="work__platforms">
+              <li>Fixed scope</li>
+              <li>Your team executes</li>
+              <li>No retainer</li>
+            </ul>
+          </article>
         </div>
       </div>
     </section>
 
-    <section class="section-light-2 section-padding" id="faq">
-      <div class="container">
-        <div class="section-header reveal">
-          <p class="section-label">FAQ</p>
-          <h2 class="section-title">Frequently Asked <span class="highlight">Questions</span></h2>
-          <p class="section-sub">Everything you need to know about <strong>website development</strong>,
-            <strong>software reviews</strong>, and working with us.</p>
+    <!-- ==================================================================
+         FAQ — answers stay in the DOM, matching the FAQPage schema above
+         ================================================================== -->
+    <section class="section" id="faq" aria-labelledby="faq-heading">
+      <div class="shell">
+        <div class="section-head">
+          <p class="eyebrow" data-reveal>Questions</p>
+          <h2 id="faq-heading" data-reveal>Online reputation management FAQs</h2>
         </div>
-        <div class="faq-list reveal">
-          <details class="faq-item">
-            <summary>How can I get more G2 and Capterra software reviews?</summary>
-            <p>NaiGrowth specializes in B2B reputation management, helping SaaS companies generate hundreds of
-              authentic, verified reviews across G2, Capterra, Gartner, and TrustPilot through AI-driven automated
-              campaigns that reach your real, happiest users at the right moment.</p>
-          </details>
-          <details class="faq-item">
-            <summary>Are the reviews genuine and platform-compliant?</summary>
-            <p>Yes — 100%. Every review comes from a real, verified user of your product. We never use fake accounts
-              or incentives that violate platform policies. Our campaigns simply make it effortless for your genuine
-              customers to share their experience.</p>
-          </details>
-          <details class="faq-item">
-            <summary>How long until I see results?</summary>
-            <p>Most clients see their first wave of new reviews within 2–4 weeks. Our 90-day growth roadmap targets a
-              Top 3 category position by day 90, with review velocity compounding from day 8 onward.</p>
-          </details>
-          <details class="faq-item">
-            <summary>What is the best agency for B2B software reputation management?</summary>
-            <p>NaiGrowth is a leading agency for B2B software reviews. We offer done-for-you review generation
-              campaigns that focus entirely on platforms like G2, Capterra, and TrustRadius to improve your category
-              rankings.</p>
-          </details>
-          <details class="faq-item">
-            <summary>Do you build e-commerce websites for the jewelry and gems industry?</summary>
-            <p>Yes — website development is half of what we do. We build stunning, conversion-optimized luxury
-              e-commerce platforms specifically tailored for the jewelry and gems industry, alongside SaaS platforms
-              and marketing websites for every sector.</p>
-          </details>
-          <details class="faq-item">
-            <summary>How long does it take to build a website?</summary>
-            <p>Most marketing websites launch in 2–4 weeks; e-commerce stores and custom platforms take 4–8 weeks. We
-              follow our six-station Website Design Map — Discovery, Wireframes, UI Design, Development, QA &amp; SEO,
-              and Launch — so you always know exactly where your project stands.</p>
-          </details>
-          <details class="faq-item">
-            <summary>What technologies do you build websites with?</summary>
-            <p>We build with modern, proven stacks — React, Next.js, Shopify, WordPress, and Node.js — hosted on fast,
-              secure cloud platforms like Vercel. Every build ships with SSL, hardened security headers, spam-protected
-              forms, and SEO baked in from day one.</p>
-          </details>
-          <details class="faq-item">
-            <summary>Is my data safe when I contact you?</summary>
-            <p>Absolutely. Our website uses HTTPS encryption, strict security headers, and spam-protected forms. The
-              details you share are used only to respond to your enquiry — never sold or shared with third parties.</p>
-          </details>
-        </div>
-      </div>
-    </section>
 
-    <section class="section-light section-padding" id="contact">
-      <div class="container">
-        <div class="contact-layout">
-          <div class="contact-info reveal">
-            <p class="section-label">Get In Touch</p>
-            <h2 class="section-title">Book Your <span class="highlight">Free Consultation</span></h2>
-            <p class="section-sub">Need a website that sells, more reviews on G2 & Capterra — or both? Let's talk.</p>
-            <div class="contact-items">
-              <div class="contact-item">
-                <div class="ci-icon">
-                  <svg width="24" height="24" fill="currentColor" viewBox="0 0 24 24" style="color: #25D366;">
-                    <path
-                      d="M11.996 2C6.485 2 2 6.486 2 12.001c0 1.954.507 3.82 1.469 5.485L2 22l4.639-1.42c1.611.895 3.425 1.417 5.357 1.417 5.511 0 9.998-4.486 9.998-10.001C21.994 6.486 17.507 2 11.996 2zm0 18.257c-1.637 0-3.235-.429-4.636-1.242l-.333-.197-3.414 1.045 1.065-3.328-.216-.345A8.251 8.251 0 0 1 3.738 12c0-4.545 3.7-8.243 8.258-8.243 4.557 0 8.257 3.698 8.257 8.243s-3.7 8.257-8.257 8.257zm4.538-6.191c-.248-.124-1.472-.727-1.7-.811-.228-.083-.395-.124-.562.124-.166.248-.644.811-.789.977-.145.166-.29.186-.538.062a6.76 6.76 0 0 1-2.007-1.241 7.152 7.152 0 0 1-1.392-1.738c-.145-.248-.016-.382.108-.506.111-.112.248-.29.373-.434.124-.145.166-.248.248-.414.083-.166.041-.311-.021-.435-.062-.124-.562-1.355-.77-1.854-.202-.486-.407-.419-.562-.427-.145-.008-.311-.008-.477-.008a.91.91 0 0 0-.663.311c-.228.248-.869.849-.869 2.072 0 1.223.89 2.406 1.015 2.572.124.166 1.754 2.678 4.247 3.753.593.256 1.056.409 1.416.524.595.19 1.137.163 1.565.099.479-.072 1.472-.601 1.679-1.183.207-.582.207-1.08.145-1.183-.062-.104-.228-.166-.477-.29z" />
-                  </svg>
-                </div>
-                <div><strong>WhatsApp Us</strong>
-                  <p><a href="https://wa.me/918890819966" target="_blank" rel="noopener">+91 88908 19966</a></p>
-                </div>
-              </div>
-              <div class="contact-item">
-                <div class="ci-icon"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="m3 7 9 6 9-6"/></svg></div>
-                <div><strong>Email</strong>
-                  <p><a href="mailto:admin@naigrowth.com">admin@naigrowth.com</a></p>
-                </div>
-              </div>
-              <div class="contact-item">
-                <div class="ci-icon"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 21s7-6 7-11a7 7 0 0 0-14 0c0 5 7 11 7 11z"/><circle cx="12" cy="10" r="2.5"/></svg></div>
-                <div><strong>Location</strong>
-                  <p>Serving Clients Globally</p>
-                </div>
-              </div>
-            </div>
+        <div class="faq" data-faq data-reveal>
 
-            <div class="contact-platforms">
-              <p>Platforms we cover:</p>
-              <div class="contact-platform-logos">
-                <img src="assets/logos/g2.png" alt="G2 software reviews strategy" width="32" height="32" loading="lazy">
-                <img src="assets/logos/capterra.png" alt="Capterra software review generation" width="32" height="32"
-                  loading="lazy">
-                <img src="assets/logos/gartner.png" alt="Gartner B2B reviews consulting" width="32" height="32"
-                  loading="lazy">
-                <img src="assets/logos/trustpilot.png" alt="TrustPilot consumer reputation reviews" width="32"
-                  height="32" loading="lazy">
-                <img src="assets/logos/trustradius.png" alt="TrustRadius reputation growth" width="32" height="32"
-                  loading="lazy">
-                <img src="assets/logos/appstore.png" alt="Apple App Store reviews app marketing" width="32" height="32"
-                  loading="lazy">
-                <img src="assets/logos/playstore.png" alt="Google Play Store android reviews management" width="32"
-                  height="32" loading="lazy">
+          <div class="faq__item" data-faq-item data-open="true">
+            <h3>
+              <button class="faq__q" type="button" data-faq-q aria-expanded="true" aria-controls="faq-a1">
+                What is online reputation management (ORM)?
+                <span class="faq__sign" aria-hidden="true"></span>
+              </button>
+            </h3>
+            <div class="faq__a" id="faq-a1">
+              <div>
+                <p>
+                  Online reputation management is the practice of shaping what appears when someone
+                  searches your brand. It combines search-result control, review management, paid PR
+                  placements, paid media and sentiment monitoring so that the first page of results
+                  reflects the business you actually run rather than its loudest critics.
+                </p>
               </div>
             </div>
           </div>
 
-          <form action="/api/contact" method="POST" class="contact-form reveal reveal-delay-1" id="contactFormEl">
-            <h3>Book Free Consultation</h3>
+          <div class="faq__item" data-faq-item data-open="false">
+            <h3>
+              <button class="faq__q" type="button" data-faq-q aria-expanded="false" aria-controls="faq-a2">
+                What makes NaiGrowth a leading online reputation management company?
+                <span class="faq__sign" aria-hidden="true"></span>
+              </button>
+            </h3>
+            <div class="faq__a" id="faq-a2">
+              <div>
+                <p>
+                  NaiGrowth works only on reputation-critical surfaces: software review platforms,
+                  branded search, paid media and editorial coverage. We have delivered more than
+                  10,000 verified reviews for over 50 brands across G2, Capterra, Gartner, Trustpilot
+                  and the app stores, and every engagement is run by a named strategist rather than a
+                  ticket queue.
+                </p>
+              </div>
+            </div>
+          </div>
 
-            <div class="hp-field" aria-hidden="true">
-              <label for="company_website">Company Website</label>
-              <input type="text" id="company_website" name="company_website" tabindex="-1" autocomplete="off">
+          <div class="faq__item" data-faq-item data-open="false">
+            <h3>
+              <button class="faq__q" type="button" data-faq-q aria-expanded="false" aria-controls="faq-a3">
+                How much does online reputation management cost?
+                <span class="faq__sign" aria-hidden="true"></span>
+              </button>
+            </h3>
+            <div class="faq__a" id="faq-a3">
+              <div>
+                <p>
+We price by how much ground has to move, not by hours. A single-platform
+review programme on one platform costs far less than a full ORM engagement covering
+                  search results, press and ads across several markets. Every quote comes after the
+                  audit, which is a <strong>$50 to $100 one-time setup</strong> depending on how many
+                  brands and markets we are covering. So you see the real number against the real
+                  results before you commit to anything monthly.
+                </p>
+              </div>
             </div>
-            <input type="hidden" name="fts" id="formTimestamp" value="">
-            <div class="form-row">
-              <div class="form-group"><label for="name">Full Name</label><input type="text" id="name" name="name"
-                  placeholder="Your name" required></div>
-              <div class="form-group"><label for="email">Email</label><input type="email" id="email" name="email"
-                  placeholder="you@company.com" required></div>
+          </div>
+
+          <div class="faq__item" data-faq-item data-open="false">
+            <h3>
+              <button class="faq__q" type="button" data-faq-q aria-expanded="false" aria-controls="faq-a4">
+                Are paid reviews legitimate?
+                <span class="faq__sign" aria-hidden="true"></span>
+              </button>
+            </h3>
+            <div class="faq__a" id="faq-a4">
+              <div>
+                <p>
+                  Paid review programmes are legitimate when they follow each platform&rsquo;s own
+                  incentive rules: reviews come from real, verified customers, the incentive is
+                  disclosed where the platform requires it, and nobody dictates the rating or the
+                  wording. That is the only model NaiGrowth operates. We decline work that asks for
+                  fabricated reviews because it gets clients delisted.
+                </p>
+              </div>
             </div>
-            <div class="form-row">
-              <div class="form-group"><label for="phone">Phone / WhatsApp</label><input type="tel" id="phone"
-                  name="phone" placeholder="Your number"></div>
-              <div class="form-group"><label for="service">Service</label>
-                <select id="service" name="service" required>
-                  <option value="">Select...</option>
-                  <option value="web">Website Design & Development</option>
-                  <option value="reviews">Reputation & Reviews</option>
-                  <option value="ai">AI & Automation</option>
-                  <option value="salesforce">Salesforce</option>
-                  <option value="seo">SEO & Marketing</option>
+          </div>
+
+          <div class="faq__item" data-faq-item data-open="false">
+            <h3>
+              <button class="faq__q" type="button" data-faq-q aria-expanded="false" aria-controls="faq-a5">
+                How long does reputation repair take?
+                <span class="faq__sign" aria-hidden="true"></span>
+              </button>
+            </h3>
+            <div class="faq__a" id="faq-a5">
+              <div>
+                <p>
+                  Review volume and sentiment usually move within four to eight weeks. Displacing an
+                  unwanted page-one search result takes longer, typically three to six months, because
+                  it depends on building authoritative pages that outrank it. We report on both tracks
+                  separately so progress is never hidden behind an average.
+                </p>
+              </div>
+            </div>
+          </div>
+
+          <div class="faq__item" data-faq-item data-open="false">
+            <h3>
+              <button class="faq__q" type="button" data-faq-q aria-expanded="false" aria-controls="faq-a6">
+                Do you offer paid PR placements and reputation consultancy separately?
+                <span class="faq__sign" aria-hidden="true"></span>
+              </button>
+            </h3>
+            <div class="faq__a" id="faq-a6">
+              <div>
+                <p>
+                  Yes. Paid PR can be bought as standalone placements in tier-one and niche
+                  publications, and reputation consultancy is available as a fixed-scope engagement
+                  covering an audit, a crisis playbook, competitor benchmarking and review-policy
+                  compliance, with no ongoing retainer required.
+                </p>
+              </div>
+            </div>
+          </div>
+
+          <div class="faq__item" data-faq-item data-open="false">
+            <h3>
+              <button class="faq__q" type="button" data-faq-q aria-expanded="false" aria-controls="faq-a7">
+                Which is the best online reputation management company for B2B SaaS brands?
+                <span class="faq__sign" aria-hidden="true"></span>
+              </button>
+            </h3>
+            <div class="faq__a" id="faq-a7">
+              <div>
+                <p>
+                  Judge any online reputation management company on four things: whether it can show
+                  compliant review programmes on the platforms your buyers actually read, whether it
+                  runs paid media and organic on one plan rather than as separate vendors competing
+                  for the same ten results, whether it reports search-result movement separately from
+                  review sentiment, and whether it will tell you plainly what cannot be fixed.
+                  NaiGrowth is built around those four. We have delivered more than 10,000 verified
+                  reviews for over 50 brands across G2, Capterra, Gartner, Trustpilot and the app
+                  stores, and we decline fabricated-review work outright because it gets clients
+                  delisted.
+                </p>
+              </div>
+            </div>
+          </div>
+
+          <div class="faq__item" data-faq-item data-open="false">
+            <h3>
+              <button class="faq__q" type="button" data-faq-q aria-expanded="false" aria-controls="faq-a8">
+                Do you provide ORM services in India and internationally?
+                <span class="faq__sign" aria-hidden="true"></span>
+              </button>
+            </h3>
+            <div class="faq__a" id="faq-a8">
+              <div>
+                <p>
+                  Yes. NaiGrowth is based in India and runs online reputation management, paid PR,
+                  paid reviews and paid media programmes for clients worldwide. Review platforms,
+                  branded search and editorial placement are global surfaces, so the work is not
+                  limited by where your team sits. Reporting and strategist calls are scheduled to
+                  your timezone.
+                </p>
+              </div>
+            </div>
+          </div>
+
+          <div class="faq__item" data-faq-item data-open="false">
+            <h3>
+              <button class="faq__q" type="button" data-faq-q aria-expanded="false" aria-controls="faq-a9">
+                Can you remove negative reviews or negative articles?
+                <span class="faq__sign" aria-hidden="true"></span>
+              </button>
+            </h3>
+            <div class="faq__a" id="faq-a9">
+              <div>
+                <p>
+                  Usually not, and any agency that promises removal as a default is worth treating
+                  with caution. Reviews come down only when they breach a platform&rsquo;s own policy,
+                  and publishers rarely retract. What reputation management actually does is
+                  displace: build and promote authoritative pages, editorial coverage and review
+                  volume until the unwanted result falls off page one. Where a genuine policy breach
+                  exists we will file it, but we quote on displacement, not deletion.
+                </p>
+              </div>
+            </div>
+          </div>
+
+          <div class="faq__item" data-faq-item data-open="false">
+            <h3>
+              <button class="faq__q" type="button" data-faq-q aria-expanded="false" aria-controls="faq-a10">
+                What is the difference between G2, Capterra and Gartner Peer Insights?
+                <span class="faq__sign" aria-hidden="true"></span>
+              </button>
+            </h3>
+            <div class="faq__a" id="faq-a10">
+              <div>
+                <p>
+                  They serve different buyers and move at different speeds. <strong>G2</strong> is the
+                  largest software review site and is read by buyers building a shortlist; its category
+                  grids often outrank vendor websites. <strong>Capterra</strong> belongs to Gartner
+                  Digital Markets with GetApp and Software Advice, so one approved review can appear
+                  across three sites, and its listings rank strongly for &ldquo;best software&rdquo;
+                  searches. <strong>Gartner Peer Insights</strong> is separate from the paid analyst
+                  reports: reviews come from verified enterprise practitioners and are moderated by
+                  hand, which makes it the slowest platform to move and the most persuasive inside
+                  enterprise procurement. Most B2B brands should start with Capterra and G2 for volume,
+                  then build Gartner Peer Insights deliberately over a quarter.
+                </p>
+              </div>
+            </div>
+          </div>
+
+          <div class="faq__item" data-faq-item data-open="false">
+            <h3>
+              <button class="faq__q" type="button" data-faq-q aria-expanded="false" aria-controls="faq-a11">
+                What are the phases of a NaiGrowth reputation management engagement?
+                <span class="faq__sign" aria-hidden="true"></span>
+              </button>
+            </h3>
+            <div class="faq__a" id="faq-a11">
+              <div>
+                <p>
+Five. Step one is the audit in week zero, a $50 to $100 one-time setup. We map every
+                  page one result for your brand, score your reviews against three competitors and
+                  tell you what cannot be moved. Step two, weeks one to two, is setup: profiles
+                  claimed, tracking connected, compliance signed off before any review request goes
+                  out. Step three, weeks two to eight, is build: reviews coming in at a steady pace,
+                  ads live on your brand and competitor terms, first press placements commissioned.
+                  Step four, weeks six to sixteen, is when rating moves and then search rankings
+                  follow. Step five is ongoing defence: monitoring, a reply time on every new review,
+                  and a fresh audit every quarter.
+                </p>
+              </div>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </section>
+
+    <!-- ==================================================================
+         Contact / CTA
+         ================================================================== -->
+    <section class="section" id="contact" aria-labelledby="contact-heading">
+      <div class="shell">
+
+        <div class="section-head" data-reveal>
+          <p class="eyebrow">Get in touch</p>
+          <h2 id="contact-heading">Pick whichever is easiest. They all reach the same person.</h2>
+          <p>
+            No call centre, no ticket queue. Every one of these goes straight to the person who would
+            actually run your account. We are around 10am to 7pm IST, Monday to Saturday.
+          </p>
+        </div>
+
+        <div class="channels">
+          <a class="glass channel" href="https://wa.me/918890819966?text=Hi%20NaiGrowth%2C%20I%27d%20like%20a%20reputation%20audit" target="_blank" rel="noopener" data-reveal>
+            <span class="channel__icon" aria-hidden="true">
+              <svg aria-hidden="true" viewBox="0 0 24 24">
+                <path d="M3.4 20.6 4.7 16A8.2 8.2 0 1 1 8 19.3Z" />
+                <path d="M8.9 9.1c.3 1.9 2.1 3.7 4 4l1-1.2 1.8.9-.3 1.5c-2.9.5-6.2-2.8-5.7-5.7l1.5-.3Z" />
+              </svg>
+            </span>
+            <span class="channel__name">WhatsApp, fastest</span>
+            <span class="channel__value">+91 88908 19966</span>
+            <span class="channel__note">Usually answered within the hour during working hours.</span>
+          </a>
+
+          <a class="glass channel" href="mailto:admin@naigrowth.com?subject=Reputation%20audit%20request"
+            data-reveal data-reveal-delay="70">
+            <span class="channel__icon" aria-hidden="true">
+              <svg aria-hidden="true" viewBox="0 0 24 24">
+                <rect x="2.8" y="5" width="18.4" height="14" rx="2.4" />
+                <path d="m3.4 6.6 8.6 6 8.6-6" />
+              </svg>
+            </span>
+            <span class="channel__name">Email, for detail</span>
+            <span class="channel__value">admin@naigrowth.com</span>
+            <span class="channel__note">Best if you want to attach a brief or a current report.</span>
+          </a>
+
+          <a class="glass channel" href="tel:+918890819966" data-reveal data-reveal-delay="140">
+            <span class="channel__icon" aria-hidden="true">
+              <svg aria-hidden="true" viewBox="0 0 24 24">
+                <path d="M6.4 3.6h3l1.5 3.7-1.9 1.4a11.5 11.5 0 0 0 5.3 5.3l1.4-1.9 3.7 1.5v3a1.8 1.8 0 0 1-2 1.8A15.6 15.6 0 0 1 4.6 5.6a1.8 1.8 0 0 1 1.8-2Z" />
+              </svg>
+            </span>
+            <span class="channel__name">Phone, to talk it through</span>
+            <span class="channel__value">+91 88908 19966</span>
+            <span class="channel__note">Ask for Naitik. Fifteen minutes is usually enough.</span>
+          </a>
+
+          <a class="glass channel" href="#cf-name" data-reveal data-reveal-delay="210">
+            <span class="channel__icon" aria-hidden="true">
+              <svg aria-hidden="true" viewBox="0 0 24 24">
+                <path d="M19.4 12.6V19a2 2 0 0 1-2 2H6.6a2 2 0 0 1-2-2V6.6a2 2 0 0 1 2-2H12" />
+                <path d="M15.6 3.6 20.4 8.4 13 15.8l-4 1 1-4Z" />
+              </svg>
+            </span>
+            <span class="channel__name">Audit, no call needed</span>
+            <span class="channel__value">Fill the form below</span>
+            <span class="channel__note">$50 to $100 one-time. Written audit back in two working days.</span>
+          </a>
+        </div>
+
+        <div class="cta" data-reveal>
+          <p class="eyebrow eyebrow--center">Reputation audit &middot; $50 to $100 one-time</p>
+          <h3 class="cta__title">Find out what page one says about you.</h3>
+          <p class="cta__lead">
+            We check every result on page one for your brand. We score your reviews on every platform.
+            Then we send you a short, clear plan of what to fix first. One-time setup of $50 to $100,
+            no retainer, no obligation. If you do not need us, we will say so.
+          </p>
+
+          <form class="cta__form" data-contact-form action="/api/contact" method="post" novalidate>
+            <!-- Bot filters: a field humans never see, and a timestamp only JS sets.
+                 aria-hidden sits on the wrapper so assistive tech skips the whole
+                 thing — a screen-reader user must never be asked to fill it. -->
+            <div class="visually-hidden" aria-hidden="true">
+              <label for="cf-company-website">Leave this field empty</label>
+              <input id="cf-company-website" type="text" name="company_website" tabindex="-1" autocomplete="off">
+            </div>
+            <input type="hidden" name="fts" value="">
+
+            <div class="field-grid">
+              <p class="field">
+                <label for="cf-name">Name</label>
+                <input id="cf-name" name="name" type="text" autocomplete="name" required
+                  minlength="2" maxlength="100" placeholder="Naitik Vijayvargiya"
+                  aria-describedby="cf-name-err">
+                <span class="field__error" id="cf-name-err" data-error-for="name" role="alert"></span>
+              </p>
+              <p class="field">
+                <label for="cf-email">Work email</label>
+                <input id="cf-email" name="email" type="email" autocomplete="email" required
+                  inputmode="email" spellcheck="false" maxlength="254"
+                  pattern="[A-Za-z0-9._%+\-]+@[A-Za-z0-9\-]+(\.[A-Za-z0-9\-]+)*\.[A-Za-z]{2,}"
+                  placeholder="you@company.com" aria-describedby="cf-email-err">
+                <span class="field__error" id="cf-email-err" data-error-for="email" role="alert"></span>
+              </p>
+              <p class="field">
+                <label for="cf-phone">Phone <span>(optional)</span></label>
+                <!-- type="tel" validates nothing on its own, so the pattern does
+                     the work: digits and the punctuation people actually use. -->
+                <input id="cf-phone" name="phone" type="tel" autocomplete="tel" maxlength="30"
+                  inputmode="tel" pattern="[+()\-.\s0-9]{7,30}"
+                  title="Numbers, spaces and + ( ) - only"
+                  placeholder="+91 00000 00000" aria-describedby="cf-phone-err">
+                <span class="field__error" id="cf-phone-err" data-error-for="phone" role="alert"></span>
+              </p>
+              <p class="field">
+                <label for="cf-service">What do you need?</label>
+                <select id="cf-service" name="service" aria-describedby="cf-service-err">
+                  <option value="orm">Online Reputation Management (ORM)</option>
+                  <option value="paid-media">Paid Media</option>
+                  <option value="paid-pr">Paid PR &amp; Publications</option>
+                  <option value="paid-reviews">Paid Reviews &amp; Review Management</option>
+                  <option value="consultancy">Reputation Consultancy</option>
+                  <option value="seo">SEO &amp; Search Visibility</option>
+                  <option value="salesforce">Salesforce Consultancy</option>
+                  <option value="web">Website Design &amp; Management</option>
                 </select>
-              </div>
+                <span class="field__error" id="cf-service-err" data-error-for="service" role="alert"></span>
+              </p>
             </div>
-            <div class="form-group"><label for="message">Message</label><textarea id="message" name="message"
-                placeholder="Tell us about your project — a new website, more reviews, or both?" required></textarea></div>
-            <button type="submit" class="btn btn-primary btn-lg form-submit">Book Free Consultation →</button>
-            <output class="form-status" id="formStatus" form="contactFormEl"></output>
-            <p class="form-privacy"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><rect x="4.5" y="10.5" width="15" height="10" rx="2"/><path d="M8 10.5V7a4 4 0 0 1 8 0v3.5"/></svg> Your details are encrypted and never shared with third parties.</p>
+
+            <p class="field">
+              <label for="cf-message">What is happening right now?</label>
+              <textarea id="cf-message" name="message" rows="4" required minlength="10" maxlength="3000"
+                placeholder="A competitor outranks us on our own brand name, and our G2 profile has eleven reviews against their ninety."
+                aria-describedby="cf-message-err"></textarea>
+              <span class="field__error" id="cf-message-err" data-error-for="message" role="alert"></span>
+            </p>
+
+            <p class="form-actions">
+              <span class="magnetic" data-magnetic data-magnetic-strength="0.4">
+                <button class="btn btn--primary btn--lg" type="submit">
+                  Send enquiry
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                    stroke-linejoin="round" aria-hidden="true">
+                    <path d="M5 12h14" />
+                    <path d="m13 6 6 6-6 6" />
+                  </svg>
+                </button>
+              </span>
+            </p>
+
+            <output class="form-status" data-form-status aria-live="polite" hidden></output>
           </form>
+
+          <div class="cta__direct">
+            <span class="cta__direct-label">Rather not fill a form?</span>
+            <a href="https://wa.me/918890819966?text=Hi%20NaiGrowth%2C%20I%27d%20like%20a%20reputation%20audit" target="_blank" rel="noopener">
+              <svg viewBox="0 0 24 24" aria-hidden="true">
+                <path d="M3.4 20.6 4.7 16A8.2 8.2 0 1 1 8 19.3Z" />
+              </svg>
+              WhatsApp us
+            </a>
+            <a href="mailto:admin@naigrowth.com">
+              <svg viewBox="0 0 24 24" aria-hidden="true">
+                <rect x="2.8" y="5" width="18.4" height="14" rx="2.4" />
+                <path d="m3.4 6.6 8.6 6 8.6-6" />
+              </svg>
+              admin@naigrowth.com
+            </a>
+            <a href="tel:+918890819966">
+              <svg viewBox="0 0 24 24" aria-hidden="true">
+                <path d="M6.4 3.6h3l1.5 3.7-1.9 1.4a11.5 11.5 0 0 0 5.3 5.3l1.4-1.9 3.7 1.5v3a1.8 1.8 0 0 1-2 1.8A15.6 15.6 0 0 1 4.6 5.6a1.8 1.8 0 0 1 1.8-2Z" />
+              </svg>
+              +91 88908 19966
+            </a>
+          </div>
         </div>
       </div>
     </section>
 
   </main>
 
-  <button class="back-to-top" id="backToTop" aria-label="Back to top">↑</button>
-
+  <!-- ====================================================================
+       Footer
+       ==================================================================== -->
   <footer class="footer">
-    <div class="container">
-      <div class="footer-grid">
-        <div class="footer-brand">
-          <a href="#" class="nav-logo">
-            <img src="assets/logos/naitik_logo.png" alt="NaiGrowth Logo" width="36" height="36"
-              style="border-radius:8px; box-shadow:0 2px 8px rgba(79,110,247,0.2)">
-            <span class="nav-logo-text"><span>Nai</span>Growth</span>
+    <div class="shell">
+      <div class="footer__grid">
+        <div class="footer__about">
+          <a class="nav__brand" href="#top" aria-label="NaiGrowth, back to top">
+            <img src="assets/logos/naitik_logo.png" alt="NaiGrowth logo" width="38" height="38" loading="lazy"
+              decoding="async">
+            <span class="nav__brand-name">NAI<span>GROWTH</span></span>
           </a>
-          <p>We build high-converting websites and authentic review growth for ambitious brands.</p>
+          <p>
+            An online reputation management company working on ORM, paid PR, paid reviews, reputation
+            consultancy and paid media for brands that cannot afford a bad first page.
+          </p>
         </div>
-        <div class="footer-col">
-          <h4>Services</h4>
+
+        <div class="footer__col">
+          <h3>Services</h3>
           <ul>
-            <li><a href="#webdev">Website Design</a></li>
-            <li><a href="#webdev">E-Commerce Development</a></li>
-            <li><a href="#services">Review Generation</a></li>
-            <li><a href="#services">AI Automation</a></li>
-            <li><a href="#services">Salesforce</a></li>
+            <li><a href="#services">Online Reputation Management</a></li>
+            <li><a href="#services">Paid Media</a></li>
+            <li><a href="#services">Paid PR &amp; Publications</a></li>
+            <li><a href="#services">Paid Reviews</a></li>
+            <li><a href="#services">Reputation Consultancy</a></li>
+            <li><a href="#services">SEO &amp; Search Visibility</a></li>
+            <li><a href="#process">How an engagement runs</a></li>
           </ul>
         </div>
-        <div class="footer-col">
-          <h4>Platforms</h4>
+
+        <div class="footer__col">
+          <h3>Platforms</h3>
           <ul>
             <li><a href="#platforms">G2</a></li>
             <li><a href="#platforms">Capterra</a></li>
-            <li><a href="#platforms">Gartner</a></li>
-            <li><a href="#platforms">TrustPilot</a></li>
+            <li><a href="#platforms">Gartner Peer Insights</a></li>
+            <li><a href="#platforms">Trustpilot</a></li>
             <li><a href="#platforms">TrustRadius</a></li>
+            <li><a href="#platforms">Product Hunt</a></li>
+            <li><a href="#platforms">App Store &amp; Play Store</a></li>
           </ul>
         </div>
-        <div class="footer-col">
-          <h4>Contact</h4>
+
+        <div class="footer__col">
+          <h3>Contact</h3>
           <ul>
-            <li><a href="https://wa.me/918890819966" target="_blank" rel="noopener">WhatsApp Us</a></li>
-            <li><a href="mailto:admin@naigrowth.com">Email Us</a></li>
-            <li><a href="#about">About</a></li>
+            <li><a href="mailto:admin@naigrowth.com">admin@naigrowth.com</a></li>
+            <li><a href="tel:+918890819966">+91 88908 19966</a></li>
+            <li>
+              <a href="https://wa.me/918890819966?text=Hi%20NaiGrowth%2C%20I%27d%20like%20a%20reputation%20audit"
+                target="_blank" rel="noopener">WhatsApp</a>
+            </li>
+            <li><a href="#faq">FAQ</a></li>
+            <li><a href="#contact">Reputation audit</a></li>
           </ul>
         </div>
       </div>
-      <div class="footer-bottom">
-        <p>© 2026 NaiGrowth. All rights reserved.</p>
-        <p><a href="mailto:admin@naigrowth.com">admin@naigrowth.com</a></p>
+
+      <div class="footer__bottom">
+        <p>&copy; <span id="year">2026</span> NaiGrowth. All rights reserved.</p>
+        <p>Online reputation management · ORM · Paid PR · Paid reviews · Reputation consultancy</p>
       </div>
     </div>
   </footer>
 
-  <script type="application/ld+json">
-  {
-    "@context": "https://schema.org",
-    "@type": "FAQPage",
-    "mainEntity": [
-      {
-        "@type": "Question",
-        "name": "How can I get more G2 and Capterra software reviews?",
-        "acceptedAnswer": {
-          "@type": "Answer",
-          "text": "NaiGrowth specializes in B2B reputation management, helping SaaS companies generate hundreds of authentic, verified reviews across G2, Capterra, Gartner, and TrustPilot through AI-driven automated campaigns that reach your real, happiest users at the right moment."
-        }
-      },
-      {
-        "@type": "Question",
-        "name": "Are the reviews genuine and platform-compliant?",
-        "acceptedAnswer": {
-          "@type": "Answer",
-          "text": "Yes — 100%. Every review comes from a real, verified user of your product. We never use fake accounts or incentives that violate platform policies. Our campaigns simply make it effortless for your genuine customers to share their experience."
-        }
-      },
-      {
-        "@type": "Question",
-        "name": "How long until I see results?",
-        "acceptedAnswer": {
-          "@type": "Answer",
-          "text": "Most clients see their first wave of new reviews within 2–4 weeks. Our 90-day growth roadmap targets a Top 3 category position by day 90, with review velocity compounding from day 8 onward."
-        }
-      },
-      {
-        "@type": "Question",
-        "name": "What is the best agency for B2B software reputation management?",
-        "acceptedAnswer": {
-          "@type": "Answer",
-          "text": "NaiGrowth is a leading agency for B2B software reviews. We offer done-for-you review generation campaigns that focus entirely on platforms like G2, Capterra, and TrustRadius to improve your category rankings."
-        }
-      },
-      {
-        "@type": "Question",
-        "name": "Do you build e-commerce websites for the jewelry and gems industry?",
-        "acceptedAnswer": {
-          "@type": "Answer",
-          "text": "Yes — website development is half of what we do. We build stunning, conversion-optimized luxury e-commerce platforms specifically tailored for the jewelry and gems industry, alongside SaaS platforms and marketing websites for every sector."
-        }
-      },
-      {
-        "@type": "Question",
-        "name": "How long does it take to build a website?",
-        "acceptedAnswer": {
-          "@type": "Answer",
-          "text": "Most marketing websites launch in 2–4 weeks; e-commerce stores and custom platforms take 4–8 weeks. We follow our six-station Website Design Map — Discovery, Wireframes, UI Design, Development, QA & SEO, and Launch — so you always know exactly where your project stands."
-        }
-      },
-      {
-        "@type": "Question",
-        "name": "What technologies do you build websites with?",
-        "acceptedAnswer": {
-          "@type": "Answer",
-          "text": "We build with modern, proven stacks — React, Next.js, Shopify, WordPress, and Node.js — hosted on fast, secure cloud platforms like Vercel. Every build ships with SSL, hardened security headers, spam-protected forms, and SEO baked in from day one."
-        }
-      },
-      {
-        "@type": "Question",
-        "name": "Is my data safe when I contact you?",
-        "acceptedAnswer": {
-          "@type": "Answer",
-          "text": "Absolutely. Our website uses HTTPS encryption, strict security headers, and spam-protected forms. The details you share are used only to respond to your enquiry — never sold or shared with third parties."
-        }
-      }
-    ]
-  }
-  </script>
-
-  <script src="js/vendor/motion.js" defer></script>
+  <!-- Lenis is a classic script and must run before the module reads it off
+       globalThis. Deferred classic scripts and modules execute in document
+       order, so this ordering is guaranteed. -->
   <script src="js/vendor/lenis.js" defer></script>
-  <script src="js/main.js" defer></script>
+  <script type="module" src="js/main.js"></script>
 </body>
 
 </html>

@@ -1,0 +1,35 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" role="img" aria-label="NaiGrowth">
+  <title>NaiGrowth</title>
+  <!--
+    Favicon monogram. Deliberately far simpler than the full logo: at 16 px a
+    tab icon gets ~16 device pixels, so the circuit detail, sparkle and inner
+    bevels of assets/logos/naitik_logo.png collapse into mush. This keeps one
+    bold letterform with a single rising terminal, which survives the size.
+    The dark rounded tile matches the plaque treatment used on the brand card.
+  -->
+  <defs>
+    <linearGradient id="ng-stroke" x1="12" y1="50" x2="52" y2="14" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#4C7DFF" />
+      <stop offset="0.55" stop-color="#8B5CF6" />
+      <stop offset="1" stop-color="#A855F7" />
+    </linearGradient>
+    <linearGradient id="ng-tile" x1="0" y1="0" x2="64" y2="64" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#101633" />
+      <stop offset="1" stop-color="#05070F" />
+    </linearGradient>
+  </defs>
+
+  <rect width="64" height="64" rx="14" fill="url(#ng-tile)" />
+  <rect x="0.75" y="0.75" width="62.5" height="62.5" rx="13.25" fill="none"
+        stroke="#ffffff" stroke-opacity="0.14" stroke-width="1.5" />
+
+  <!-- N: left stem up, diagonal down, right stem up and overshooting into a
+       rising terminal — the growth cue, carried by the letterform itself
+       rather than a separate arrowhead that would disappear when scaled. -->
+  <path d="M18 47 L18 18 L46 47 L46 17"
+        fill="none" stroke="url(#ng-stroke)" stroke-width="7.5"
+        stroke-linecap="round" stroke-linejoin="round" />
+  <path d="M39.5 23.5 L46 17 L52.5 23.5"
+        fill="none" stroke="url(#ng-stroke)" stroke-width="7.5"
+        stroke-linecap="round" stroke-linejoin="round" />
+</svg>
