@@ -9,4 +9,4 @@ Disallow: /hiring/
 Disallow: /ad-library/
 Disallow: /api/
 
-Sitemap: https://naigrowth.com/sitemap.xml
+Sitemap: https://www.naigrowth.com/sitemap.xml

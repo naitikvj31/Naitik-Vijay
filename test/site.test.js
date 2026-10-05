@@ -13,6 +13,11 @@ import path from 'node:path';
 
 const ROOT = path.resolve(import.meta.dirname, '..');
 
+/* The apex 307-redirects to www, so www is the host every absolute URL on the
+   site must use. Kept in one constant: if the primary domain ever changes,
+   this is the only line to edit. */
+const SITE = 'https://www.naigrowth.com';
+
 const PAGES = [
     'index.html',
     '404.html',
@@ -107,7 +112,7 @@ test('breadcrumbs on sub-pages point at a real file', () => {
         const bc = jsonLd(html[p])['@graph'].find((n) => n['@type'] === 'BreadcrumbList');
         assert.ok(bc, p + ' has no BreadcrumbList');
         const last = bc.itemListElement.at(-1).item;
-        const rel = last.replace('https://naigrowth.com/', '');
+        const rel = last.replace(SITE + '/', '');
         assert.ok(fs.existsSync(path.join(ROOT, rel)), `${p}: breadcrumb target ${rel} missing`);
     }
 });
@@ -180,7 +185,7 @@ test('every referenced local asset exists', () => {
 
 test('every external link opens safely', () => {
     for (const p of PAGES) {
-        for (const m of html[p].matchAll(/<a\s[^>]*href="https?:\/\/(?!naigrowth\.com)[^"]*"[^>]*>/g)) {
+        for (const m of html[p].matchAll(/<a\s[^>]*href="https?:\/\/(?!(www\.)?naigrowth\.com)[^"]*"[^>]*>/g)) {
             if (!/target="_blank"/.test(m[0])) continue;
             assert.match(m[0], /rel="[^"]*noopener/, `${p}: ${m[0].slice(0, 90)}`);
         }
@@ -200,14 +205,12 @@ test('the sitemap lists every indexed page and nothing that is missing', () => {
     const locs = [...xml.matchAll(/<loc>([^<]+)<\/loc>/g)].map((m) => m[1]);
 
     for (const p of INDEXED) {
-        const url = p === 'index.html'
-            ? 'https://naigrowth.com/'
-            : 'https://naigrowth.com/' + p;
+        const url = p === 'index.html' ? SITE + '/' : SITE + '/' + p;
         assert.ok(locs.includes(url), 'sitemap is missing ' + url);
     }
 
     for (const loc of locs) {
-        const rel = loc.replace('https://naigrowth.com/', '') || 'index.html';
+        const rel = loc.replace(SITE + '/', '') || 'index.html';
         assert.ok(fs.existsSync(path.join(ROOT, rel)), 'sitemap points at missing ' + rel);
     }
 });
@@ -336,6 +339,6 @@ test('billing material is excluded from the deployment', () => {
 
 test('robots.txt points at the sitemap and blocks the api', () => {
     const r = read('robots.txt');
-    assert.match(r, /Sitemap: https:\/\/naigrowth\.com\/sitemap\.xml/);
+    assert.match(r, /Sitemap: https:\/\/www\.naigrowth\.com\/sitemap\.xml/);
     assert.match(r, /Disallow: \/api\//);
 });
