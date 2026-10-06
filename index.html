@@ -354,16 +354,14 @@
             <path d="M12 2.2v2.3M12 19.5v2.3M4.2 12H1.9M22.1 12h-2.3M6.5 6.5 4.9 4.9M19.1 19.1l-1.6-1.6M17.5 6.5l1.6-1.6M4.9 19.1l1.6-1.6" />
           </svg>
         </button>
-        <span class="magnetic" data-magnetic>
-          <a class="btn btn--primary" href="#contact">
-            Get my page one audit
+        <a class="btn btn--primary" href="#contact">
+            Request an audit
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
               stroke-linejoin="round" aria-hidden="true">
               <path d="M5 12h14" />
               <path d="m13 6 6 6-6 6" />
             </svg>
           </a>
-        </span>
         <button class="nav__toggle" data-nav-toggle aria-expanded="false" aria-controls="nav-drawer"
           aria-label="Open navigation menu">
           <span></span><span></span><span></span>
@@ -378,7 +376,7 @@
       <a href="#why">Why us</a>
       <a href="#playbook">Playbook</a>
       <a href="#faq">FAQ</a>
-      <a class="btn btn--primary btn--block" href="#contact">Get my page one audit</a>
+      <a class="btn btn--primary btn--block" href="#contact">Request an audit</a>
     </div>
   </header>
 
@@ -389,68 +387,187 @@
          The canvas is decorative and aria-hidden; the entire message is
          real DOM text layered above it.
          ================================================================== -->
+    <!-- ==================================================================
+         Hero
+         The subject of this business is a search results page, so that is
+         what the hero shows: the same brand query before and after the work.
+         It replaces a decorative 3D scene that said nothing about ORM and
+         cost 64 KB of shader to say it. js/gl/nebula.js is still in the repo
+         and main.js still guards on [data-scene]; restoring it is one block
+         of markup.
+         ================================================================== -->
     <section class="hero on-dark" id="top" data-hero>
-      <!-- The whole scene layer is decorative; aria-hidden sits here so the
-           canvas never needs a role of its own. -->
-      <div class="scene" data-scene aria-hidden="true">
-        <!-- Painted instantly, and the permanent state where WebGL2 is
-             unavailable or the device is on data-saver. -->
-        <div class="scene__fallback"></div>
-        <canvas data-scene-canvas></canvas>
-      </div>
+      <div class="hero__shell">
 
-      <div class="hero__overlay">
-        <div class="shell hero__inner">
-          <p class="eyebrow" data-reveal>ORM · Paid PR · Paid Reviews · Reputation Consultancy</p>
+        <div class="hero__copy">
+          <p class="eyebrow">Online reputation management &middot; Paid media &middot; Paid PR</p>
 
-          <h1 data-reveal data-reveal-delay="80">
-Own page one for your <span class="accent-text">brand name</span>. Every single result.
-          </h1>
+          <h1>Online reputation management for B2B brands</h1>
 
-          <p class="hero__lead" data-reveal data-reveal-delay="160">
-            Your buyer Googles you before they ever talk to sales. What they find there decides the
-            deal. We fix those ten results: your reviews, your press, your ads, your search. So page
-            one sells for you instead of against you.
+          <p class="hero__lead">
+            Your buyer searches your name before the first call. If a two-star Trustpilot page and a
+            competitor&rsquo;s comparison post sit above your own website, that meeting starts badly.
+            We work the ten results they actually see: reviews, press, ads and search. And we tell
+            you plainly what cannot be moved.
           </p>
 
-          <div class="hero__cta" data-reveal data-reveal-delay="240">
-            <span class="magnetic" data-magnetic data-magnetic-strength="0.4">
-              <a class="btn btn--primary btn--lg" href="#contact">
-                Get my page one audit
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
-                  stroke-linejoin="round" aria-hidden="true">
-                  <path d="M5 12h14" />
-                  <path d="m13 6 6 6-6 6" />
-                </svg>
-              </a>
-            </span>
-            <span class="magnetic" data-magnetic>
-              <a class="btn btn--ghost btn--lg" href="#services">See what we do</a>
-            </span>
+          <div class="hero__cta">
+            <a class="btn btn--primary btn--lg" href="#contact">
+              Request an audit
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                stroke-linejoin="round" aria-hidden="true">
+                <path d="M5 12h14" />
+                <path d="m13 6 6 6-6 6" />
+              </svg>
+            </a>
+            <a class="btn btn--ghost btn--lg" href="#process">See how it works</a>
           </div>
 
-          <div class="hero__proof" data-reveal data-reveal-delay="320">
-            <div class="hero__proof-item">
+          <p class="hero__fineprint">
+            $50 to $100 one-time setup. Written report in two working days. No retainer attached.
+          </p>
+
+          <ul class="hero__proof">
+            <li>
               <span class="hero__proof-num" data-count-to="10000" data-count-suffix="+">10,000+</span>
               <span class="hero__proof-label">Verified reviews delivered</span>
-            </div>
-            <div class="hero__proof-item">
+            </li>
+            <li>
               <span class="hero__proof-num" data-count-to="50" data-count-suffix="+">50+</span>
-              <span class="hero__proof-label">Brands worldwide</span>
-            </div>
-            <div class="hero__proof-item">
+              <span class="hero__proof-label">Brands worked with</span>
+            </li>
+            <li>
               <span class="hero__proof-num">8</span>
-              <span class="hero__proof-label">Review platforms covered</span>
-            </div>
-          </div>
+              <span class="hero__proof-label">Platforms we cover</span>
+            </li>
+          </ul>
         </div>
-      </div>
 
-      <button class="scene__toggle" data-orbit-toggle type="button" aria-pressed="false" hidden
-        aria-label="Toggle drag-to-orbit on the decorative 3D scene" data-cursor="Drag">
-        <span class="scene__toggle-dot" aria-hidden="true"></span>
-        Orbit
-      </button>
+        <figure class="serp" data-serp>
+          <figcaption class="serp__head">
+            <span class="serp__query">
+              <svg viewBox="0 0 24 24" aria-hidden="true">
+                <circle cx="10.5" cy="10.5" r="6.4" /><path d="m15.4 15.4 4.2 4.2" />
+              </svg>
+              your brand name
+            </span>
+            <span class="serp__example">Example</span>
+          </figcaption>
+
+          <div class="serp__switch" role="group" aria-label="Page one, before and after">
+            <button type="button" data-serp-state="before" aria-pressed="true">Before</button>
+            <button type="button" data-serp-state="after" aria-pressed="false">After</button>
+          </div>
+
+          <ol class="serp__list" data-serp-list data-state="before">
+            <li class="serp__row" data-kind="risk">
+              <span class="serp__pos">1</span>
+              <span class="serp__text">
+                <span class="serp__title">Is this company legit? Mixed experience</span>
+                <span class="serp__domain">reddit.com</span>
+              </span>
+              <span class="serp__tag">Risk</span>
+            </li>
+            <li class="serp__row" data-kind="risk">
+              <span class="serp__pos">2</span>
+              <span class="serp__text">
+                <span class="serp__title">2.1 out of 5 from 46 reviews</span>
+                <span class="serp__domain">trustpilot.com</span>
+              </span>
+              <span class="serp__tag">2.1 &#9733;</span>
+            </li>
+            <li class="serp__row" data-kind="rival">
+              <span class="serp__pos">3</span>
+              <span class="serp__text">
+                <span class="serp__title">Acme vs this vendor: which wins?</span>
+                <span class="serp__domain">competitor.com</span>
+              </span>
+              <span class="serp__tag">Rival</span>
+            </li>
+            <li class="serp__row" data-kind="owned">
+              <span class="serp__pos">4</span>
+              <span class="serp__text">
+                <span class="serp__title">Official site</span>
+                <span class="serp__domain">yourbrand.com</span>
+              </span>
+              <span class="serp__tag">Owned</span>
+            </li>
+            <li class="serp__row" data-kind="weak">
+              <span class="serp__pos">5</span>
+              <span class="serp__text">
+                <span class="serp__title">11 reviews, no category badge</span>
+                <span class="serp__domain">g2.com</span>
+              </span>
+              <span class="serp__tag">Thin</span>
+            </li>
+            <li class="serp__row" data-kind="weak">
+              <span class="serp__pos">6</span>
+              <span class="serp__text">
+                <span class="serp__title">Funding round, 2019</span>
+                <span class="serp__domain">oldnews.com</span>
+              </span>
+              <span class="serp__tag">Stale</span>
+            </li>
+          </ol>
+
+          <ol class="serp__list" data-serp-list data-state="after" hidden>
+            <li class="serp__row" data-kind="owned">
+              <span class="serp__pos">1</span>
+              <span class="serp__text">
+                <span class="serp__title">Official site</span>
+                <span class="serp__domain">yourbrand.com</span>
+              </span>
+              <span class="serp__tag">Owned</span>
+            </li>
+            <li class="serp__row" data-kind="strong">
+              <span class="serp__pos">2</span>
+              <span class="serp__text">
+                <span class="serp__title">4.7 out of 5 from 180 reviews</span>
+                <span class="serp__domain">g2.com</span>
+              </span>
+              <span class="serp__tag">4.7 &#9733;</span>
+            </li>
+            <li class="serp__row" data-kind="strong">
+              <span class="serp__pos">3</span>
+              <span class="serp__text">
+                <span class="serp__title">How this team rebuilt buyer trust</span>
+                <span class="serp__domain">tier-one-press.com</span>
+              </span>
+              <span class="serp__tag">Press</span>
+            </li>
+            <li class="serp__row" data-kind="strong">
+              <span class="serp__pos">4</span>
+              <span class="serp__text">
+                <span class="serp__title">4.6 out of 5, category leader</span>
+                <span class="serp__domain">capterra.com</span>
+              </span>
+              <span class="serp__tag">4.6 &#9733;</span>
+            </li>
+            <li class="serp__row" data-kind="owned">
+              <span class="serp__pos">5</span>
+              <span class="serp__text">
+                <span class="serp__title">Customer stories</span>
+                <span class="serp__domain">yourbrand.com</span>
+              </span>
+              <span class="serp__tag">Owned</span>
+            </li>
+            <li class="serp__row" data-kind="strong">
+              <span class="serp__pos">6</span>
+              <span class="serp__text">
+                <span class="serp__title">4.3 out of 5 from 210 reviews</span>
+                <span class="serp__domain">trustpilot.com</span>
+              </span>
+              <span class="serp__tag">Recovered</span>
+            </li>
+          </ol>
+
+          <p class="serp__note">
+            An illustration of what page one looks like before and after a typical engagement, not a
+            specific client&rsquo;s results.
+          </p>
+        </figure>
+
+      </div>
     </section>
 
     <!-- ==================================================================
@@ -1527,8 +1644,7 @@ Five. Step one is the audit in week zero, a $50 to $100 one-time setup. We map e
             </p>
 
             <p class="form-actions">
-              <span class="magnetic" data-magnetic data-magnetic-strength="0.4">
-                <button class="btn btn--primary btn--lg" type="submit">
+              <button class="btn btn--primary btn--lg" type="submit">
                   Send enquiry
                   <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
                     stroke-linejoin="round" aria-hidden="true">
@@ -1536,7 +1652,6 @@ Five. Step one is the audit in week zero, a $50 to $100 one-time setup. We map e
                     <path d="m13 6 6 6-6 6" />
                   </svg>
                 </button>
-              </span>
             </p>
 
             <output class="form-status" data-form-status aria-live="polite" hidden></output>

@@ -533,225 +533,6 @@ body.cursor-press.cursor-label .cursor-ring__shape {
 }
 
 /* ==========================================================================
-   4. Hero — canvas layer + semantic overlay
-   The canvas is purely decorative and sits behind everything. The overlay is
-   real HTML text so crawlers and screen readers get the full message.
-   ========================================================================== */
-
-.hero {
-  position: relative;
-  /* svh keeps the first screen whole when a mobile URL bar is showing; the
-     min() floor stops a short landscape phone from cropping the headline. */
-  min-height: min(100svh, 46rem);
-  display: flex;
-  align-items: center;
-  padding-block: 7rem 4rem;
-  overflow: hidden;
-  /* `.on-dark` in the markup supplies the near-black ground and the dark text
-     tokens, so the stage reads the same in either theme. */
-}
-
-@media (min-width: 861px) {
-  .hero {
-    min-height: 100svh;
-  }
-}
-
-/* Contrast bed. The scene is bright on the right where the sphere sits, so the
-   copy side is darkened to keep the headline legible over it. Without this the
-   gradient headline sits on mid-lavender and the contrast collapses. */
-.hero::before {
-  content: "";
-  position: absolute;
-  inset: 0;
-  z-index: 1;
-  pointer-events: none;
-  background: linear-gradient(
-    100deg,
-    rgba(4, 5, 12, 0.94) 0%,
-    rgba(4, 5, 12, 0.86) 28%,
-    rgba(4, 5, 12, 0.5) 52%,
-    rgba(4, 5, 12, 0.12) 72%,
-    transparent 88%
-  );
-}
-
-/* On narrow screens the copy runs full width and the sphere sits above it, so
-   the bed becomes vertical instead. */
-@media (max-width: 860px) {
-  .hero::before {
-    background: linear-gradient(
-      180deg,
-      rgba(4, 5, 12, 0.62) 0%,
-      rgba(4, 5, 12, 0.34) 18%,
-      rgba(4, 5, 12, 0.68) 40%,
-      rgba(4, 5, 12, 0.93) 60%,
-      rgba(4, 5, 12, 0.97) 100%
-    );
-  }
-}
-
-.scene {
-  position: absolute;
-  inset: 0;
-  z-index: var(--z-canvas);
-  pointer-events: none;
-}
-
-.scene canvas {
-  width: 100%;
-  height: 100%;
-  display: block;
-}
-
-/* Painted immediately so the hero never flashes flat black while WebGL boots,
-   and so the section still reads as designed if WebGL is unavailable. */
-.scene__fallback {
-  position: absolute;
-  inset: 0;
-  background:
-    radial-gradient(42% 46% at 68% 42%, rgba(139, 92, 246, 0.4) 0%, transparent 68%),
-    radial-gradient(34% 38% at 62% 36%, rgba(76, 125, 255, 0.42) 0%, transparent 70%),
-    radial-gradient(60% 70% at 18% 88%, rgba(168, 85, 247, 0.16) 0%, transparent 72%);
-  transition: opacity 1.1s var(--ease-out);
-}
-
-.scene--live .scene__fallback {
-  opacity: 0;
-}
-
-.hero__overlay {
-  position: relative;
-  z-index: var(--z-content);
-  width: 100%;
-  /* The overlay must not eat pointer events meant for the scene; individual
-     controls opt back in below. */
-  pointer-events: none;
-}
-
-.hero__overlay a,
-.hero__overlay button,
-.hero__overlay .magnetic {
-  pointer-events: auto;
-}
-
-.hero__inner {
-  display: grid;
-  gap: var(--s-6);
-  max-width: 60rem;
-}
-
-/* Keep the copy out of the sphere's half of the frame on wide screens. */
-@media (min-width: 861px) {
-  .hero__inner {
-    max-width: 46rem;
-  }
-}
-
-.hero h1 {
-  margin-top: var(--s-2);
-}
-
-.hero__lead {
-  font-size: var(--t-lead);
-  color: var(--text-dim);
-  max-width: 44rem;
-}
-
-.hero__cta {
-  display: flex;
-  flex-wrap: wrap;
-  gap: var(--s-5);
-  margin-top: var(--s-2);
-}
-
-.hero__proof {
-  display: flex;
-  flex-wrap: wrap;
-  align-items: center;
-  gap: var(--s-3) var(--s-6);
-  margin-top: var(--s-5);
-  padding-top: var(--s-5);
-  border-top: 1px solid var(--hairline);
-  max-width: 46rem;
-}
-
-.hero__proof-item {
-  display: flex;
-  flex-direction: column;
-  gap: 2px;
-}
-
-.hero__proof-num {
-  font-family: var(--font-display);
-  font-size: 1.6rem;
-  font-weight: 600;
-  letter-spacing: -0.035em;
-  font-variant-numeric: tabular-nums;
-}
-
-.hero__proof-label {
-  font-family: var(--font-mono);
-  font-size: 0.68rem;
-  font-weight: 400;
-  color: var(--text-muted);
-  letter-spacing: 0.11em;
-  text-transform: uppercase;
-}
-
-/* Orbit toggle — lets a curious visitor grab the scene, off by default so
-   scrolling is never hijacked. */
-.scene__toggle {
-  position: absolute;
-  right: var(--gutter);
-  bottom: 2.2rem;
-  z-index: var(--z-content);
-  pointer-events: auto;
-  display: inline-flex;
-  align-items: center;
-  gap: 0.55rem;
-  padding: 0.6rem 1.05rem;
-  border-radius: var(--r-pill);
-  border: 1px solid var(--hairline-strong);
-  background: rgba(8, 11, 26, 0.6);
-  backdrop-filter: blur(14px);
-  font-family: var(--font-mono);
-  font-size: 0.7rem;
-  font-weight: 500;
-  letter-spacing: 0.08em;
-  text-transform: uppercase;
-  color: var(--text-dim);
-  transition: color var(--t-fast) var(--ease-out), border-color var(--t-fast) var(--ease-out),
-    background-color var(--t-fast) var(--ease-out);
-}
-
-.scene__toggle:hover,
-.scene__toggle[aria-pressed="true"] {
-  color: #fff;
-  border-color: rgba(169, 137, 255, 0.6);
-  background: rgba(139, 92, 246, 0.18);
-}
-
-.scene__toggle-dot {
-  width: 7px;
-  height: 7px;
-  border-radius: 50%;
-  background: var(--text-faint);
-  transition: background-color var(--t-fast) var(--ease-out), box-shadow var(--t-fast) var(--ease-out);
-}
-
-.scene__toggle[aria-pressed="true"] .scene__toggle-dot {
-  background: var(--blue-bright);
-  box-shadow: 0 0 10px var(--blue-bright);
-}
-
-@media (max-width: 720px) {
-  .scene__toggle {
-    display: none;
-  }
-}
-
-/* ==========================================================================
    5. Trust strip
    ========================================================================== */
 
@@ -2616,4 +2397,305 @@ body.cursor-press.cursor-label .cursor-ring__shape {
 .field textarea[aria-invalid="true"]:focus {
   border-color: var(--field-error);
   box-shadow: 0 0 0 3px var(--field-error-ring);
+}
+
+/* ==========================================================================
+   25. Hero
+   Full-bleed two-column at desktop, stacked on a phone. The shell is wider
+   than the page's 1240px because the hero is the one place the screen should
+   be used edge to edge; everything below stays on the narrower measure.
+   ========================================================================== */
+
+.hero {
+  position: relative;
+  padding-block: clamp(6.5rem, 11vw, 9rem) clamp(3.5rem, 7vw, 6rem);
+  overflow: hidden;
+}
+
+/* A single wide wash instead of the old radial glows. Flat enough that the
+   headline sits on an even ground at every width. */
+.hero::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background: linear-gradient(118deg, transparent 38%, rgba(76, 125, 255, 0.1) 72%, rgba(139, 92, 246, 0.14) 100%);
+}
+
+.hero__shell {
+  position: relative;
+  z-index: var(--z-content);
+  width: 100%;
+  max-width: 1440px;
+  margin-inline: auto;
+  padding-inline: var(--gutter);
+  display: grid;
+  gap: clamp(2.5rem, 5vw, 4.5rem);
+  align-items: center;
+}
+
+@media (min-width: 1040px) {
+  .hero__shell {
+    grid-template-columns: minmax(0, 1.04fr) minmax(0, 1fr);
+  }
+}
+
+.hero__copy {
+  display: grid;
+  gap: var(--s-5);
+  justify-items: start;
+}
+
+.hero h1 {
+  /* No gradient fill. A two-stop sweep across the one line a crawler weighs
+     most is decoration bought at the cost of legibility. */
+  max-width: 17ch;
+  margin: 0;
+}
+
+.hero__lead {
+  font-size: var(--t-lead);
+  color: var(--text-dim);
+  max-width: 54ch;
+  margin: 0;
+}
+
+.hero__cta {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--s-4);
+}
+
+.hero__fineprint {
+  margin: calc(var(--s-4) * -1) 0 0;
+  font-family: var(--font-mono);
+  font-size: 0.72rem;
+  letter-spacing: 0.02em;
+  color: var(--text-muted);
+}
+
+.hero__proof {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--s-4) clamp(1.5rem, 3.5vw, 3rem);
+  margin: var(--s-3) 0 0;
+  padding-top: var(--s-5);
+  border-top: 1px solid var(--hairline);
+  width: 100%;
+  max-width: 44rem;
+}
+
+.hero__proof li {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.hero__proof-num {
+  font-family: var(--font-display);
+  font-size: clamp(1.4rem, 2.4vw, 1.75rem);
+  font-weight: 650;
+  letter-spacing: -0.04em;
+  line-height: 1;
+  font-variant-numeric: tabular-nums;
+}
+
+.hero__proof-label {
+  font-family: var(--font-mono);
+  font-size: 0.68rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--text-muted);
+}
+
+/* ==========================================================================
+   26. The page-one panel
+   A search results page is the thing this business operates on, so the hero
+   shows one: the same brand query before and after the work.
+   ========================================================================== */
+
+.serp {
+  margin: 0;
+  width: 100%;
+  border: 1px solid var(--hairline-strong);
+  border-radius: var(--r-md);
+  background: rgba(10, 14, 28, 0.72);
+  backdrop-filter: blur(16px);
+  box-shadow: 0 30px 70px -30px rgba(0, 0, 0, 0.8);
+  overflow: hidden;
+}
+
+.serp__head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--s-4);
+  padding: 0.85rem 1rem;
+  border-bottom: 1px solid var(--hairline);
+}
+
+.serp__query {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.55rem;
+  font-family: var(--font-mono);
+  font-size: 0.8rem;
+  color: var(--text-dim);
+}
+
+.serp__query svg {
+  width: 15px;
+  height: 15px;
+  flex: none;
+  fill: none;
+  stroke: var(--text-muted);
+  stroke-width: 1.8;
+  stroke-linecap: round;
+}
+
+.serp__example {
+  font-family: var(--font-mono);
+  font-size: 0.62rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--text-muted);
+  border: 1px solid var(--hairline);
+  border-radius: var(--r-pill);
+  padding: 0.2rem 0.55rem;
+}
+
+.serp__switch {
+  display: flex;
+  gap: 2px;
+  padding: 0.6rem 1rem 0;
+}
+
+.serp__switch button {
+  flex: 1;
+  padding: 0.55rem 0.5rem;
+  border-radius: var(--r-sm) var(--r-sm) 0 0;
+  font-family: var(--font-mono);
+  font-size: 0.7rem;
+  font-weight: 500;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--text-muted);
+  border-bottom: 2px solid transparent;
+  transition: color var(--t-fast) var(--ease-out), border-color var(--t-fast) var(--ease-out);
+}
+
+.serp__switch button[aria-pressed="true"] {
+  color: var(--text);
+  border-bottom-color: var(--accent-ink);
+}
+
+.serp__list {
+  display: grid;
+  margin: 0;
+  padding: 0.3rem 0 0;
+}
+
+/* `display: grid` on a class outranks the UA's [hidden] rule, so without this
+   both states render at once. Same trap the form status line fell into. */
+.serp__list[hidden] {
+  display: none;
+}
+
+.serp__row {
+  display: grid;
+  grid-template-columns: 1.6rem minmax(0, 1fr) auto;
+  align-items: center;
+  gap: 0.8rem;
+  padding: 0.72rem 1rem;
+  border-bottom: 1px solid var(--hairline);
+}
+
+.serp__row:last-child {
+  border-bottom: 0;
+}
+
+.serp__pos {
+  font-family: var(--font-mono);
+  font-size: 0.72rem;
+  color: var(--text-faint);
+  font-variant-numeric: tabular-nums;
+}
+
+.serp__text {
+  display: grid;
+  gap: 1px;
+  min-width: 0;
+}
+
+.serp__title {
+  font-size: 0.86rem;
+  color: var(--text);
+  /* A long result title truncates the way a real one does rather than
+     pushing the panel wider than its column. */
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.serp__domain {
+  font-family: var(--font-mono);
+  font-size: 0.68rem;
+  color: var(--text-muted);
+}
+
+.serp__tag {
+  font-family: var(--font-mono);
+  font-size: 0.64rem;
+  letter-spacing: 0.06em;
+  padding: 0.22rem 0.5rem;
+  border-radius: var(--r-pill);
+  border: 1px solid var(--hairline-strong);
+  color: var(--text-muted);
+  white-space: nowrap;
+}
+
+/* Status colour is semantic and deliberately not the brand accent, so a
+   problem row never reads as a highlighted one. */
+.serp__row[data-kind="risk"] .serp__tag {
+  color: #ff9f8a;
+  border-color: rgba(255, 110, 85, 0.45);
+  background: rgba(255, 110, 85, 0.1);
+}
+
+.serp__row[data-kind="rival"] .serp__tag,
+.serp__row[data-kind="weak"] .serp__tag {
+  color: #e8c07a;
+  border-color: rgba(220, 170, 90, 0.4);
+  background: rgba(220, 170, 90, 0.08);
+}
+
+.serp__row[data-kind="owned"] .serp__tag,
+.serp__row[data-kind="strong"] .serp__tag {
+  color: #8fe0b6;
+  border-color: rgba(70, 200, 140, 0.42);
+  background: rgba(70, 200, 140, 0.1);
+}
+
+.serp__row[data-kind="owned"],
+.serp__row[data-kind="strong"] {
+  background: rgba(70, 200, 140, 0.035);
+}
+
+.serp__note {
+  margin: 0;
+  padding: 0.75rem 1rem 0.9rem;
+  border-top: 1px solid var(--hairline);
+  font-size: var(--t-xs);
+  color: var(--text-muted);
+}
+
+@media (max-width: 420px) {
+  .serp__row {
+    grid-template-columns: 1.4rem minmax(0, 1fr);
+    row-gap: 0.35rem;
+  }
+  .serp__tag {
+    grid-column: 2;
+    justify-self: start;
+  }
 }

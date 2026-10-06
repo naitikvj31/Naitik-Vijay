@@ -13,8 +13,9 @@ import {
   initHeroDriver,
   initOrbit,
   initContactForm,
+  initSerp,
 } from "./modules/ui.js";
-import { initCursor, initMagnetic } from "./modules/cursor.js";
+import { initCursor } from "./modules/cursor.js";
 
 /* --- Cheap, text-facing behaviour first ---------------------------------- */
 
@@ -24,8 +25,8 @@ initReveals();
 initCounters();
 initFaq();
 initContactForm();
+initSerp();
 initCursor();
-initMagnetic();
 
 document.documentElement.classList.add("js-ready");
 

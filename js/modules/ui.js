@@ -564,3 +564,41 @@ export function initContactForm(selector = "[data-contact-form]") {
   form.addEventListener("submit", onSubmit);
   return { destroy: () => form.removeEventListener("submit", onSubmit) };
 }
+
+/* ==========================================================================
+   Page-one panel
+   Flips the hero's search results between the before and after states. Both
+   lists are in the DOM at all times, so the content is there without JS and
+   the switch only toggles which one is hidden.
+   ========================================================================== */
+
+export function initSerp(selector = "[data-serp]") {
+  const panel = document.querySelector(selector);
+  if (!panel) return null;
+
+  const buttons = Array.from(panel.querySelectorAll("[data-serp-state]"));
+  const lists = Array.from(panel.querySelectorAll("[data-serp-list]"));
+  if (!buttons.length || !lists.length) return null;
+
+  function show(state) {
+    for (const list of lists) list.hidden = list.dataset.state !== state;
+    for (const button of buttons) {
+      button.setAttribute("aria-pressed", String(button.dataset.serpState === state));
+    }
+  }
+
+  function onClick(e) {
+    const button = e.target.closest("[data-serp-state]");
+    if (button) show(button.dataset.serpState);
+  }
+
+  panel.addEventListener("click", onClick);
+  show("before");
+
+  return {
+    show,
+    destroy() {
+      panel.removeEventListener("click", onClick);
+    },
+  };
+}
