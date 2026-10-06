@@ -429,6 +429,24 @@ test('every page links its assets with a content hash', () => {
     }
 });
 
+/* -------------------------------------------------------------- deploy shape */
+
+/* This site has no build step: the files in the repo are the files that get
+   served. Vercel decides that for itself by looking for a "build" script in
+   package.json, and the moment it finds one it runs it and then demands a
+   `public/` directory that this project will never produce. Adding a `build`
+   script as a local convenience broke a deploy exactly that way. Local
+   helpers must be called anything else; `npm run prep` is the one that
+   chains them. */
+test('package.json declares no build script, which would break the deploy', () => {
+    const pkg = JSON.parse(read('package.json'));
+    assert.ok(
+        !pkg.scripts || !pkg.scripts.build,
+        'package.json has a "build" script. Vercel will run it and then look for a ' +
+        'public/ directory that does not exist. Rename it (see "prep").'
+    );
+});
+
 /* ---------------------------------------------------------------- favicon */
 
 /* Google will only adopt a favicon whose raster is a multiple of 48px. The
