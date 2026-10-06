@@ -4,7 +4,9 @@
   "main": "index.js",
   "scripts": {
     "test": "node --test \"test/*.test.js\"",
-    "version": "node scripts/version-assets.mjs"
+    "version": "node scripts/version-assets.mjs",
+    "sitemap": "node scripts/sitemap-lastmod.mjs",
+    "build": "npm run sitemap && npm run version"
   },
   "repository": {
     "type": "git",

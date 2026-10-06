@@ -225,6 +225,54 @@ test('canonical URLs and sitemap entries agree', () => {
     }
 });
 
+/* Google learns, per site, whether lastmod can be trusted, and once it
+   decides the answer is no it stops using the field at all. A date in the
+   future is the fastest way to earn that verdict; a date that never moves
+   while pages change is the slower way. `npm run sitemap` derives these from
+   git, and these two tests are what stop a hand-edit undoing it. */
+test('every sitemap lastmod is a real, parseable, non-future timestamp', () => {
+    const xml = read('sitemap.xml');
+    const stamps = [...xml.matchAll(/<lastmod>([^<]+)<\/lastmod>/g)].map((m) => m[1]);
+    const locs = [...xml.matchAll(/<loc>([^<]+)<\/loc>/g)].map((m) => m[1]);
+
+    assert.equal(stamps.length, locs.length, 'every <url> needs a <lastmod>');
+
+    // One day of slack: a build machine's clock may sit ahead of this one.
+    const ceiling = Date.now() + 24 * 60 * 60 * 1000;
+
+    for (const s of stamps) {
+        const t = Date.parse(s);
+        assert.ok(!Number.isNaN(t), `lastmod is not a valid date: ${s}`);
+        assert.ok(t <= ceiling, `lastmod is in the future: ${s}`);
+    }
+});
+
+test('sitemap lastmod is not older than the page it describes', () => {
+    const xml = read('sitemap.xml');
+    const pairs = [
+        ...xml.matchAll(/<loc>([^<]+)<\/loc>[\s\S]*?<lastmod>([^<]+)<\/lastmod>/g),
+    ];
+
+    for (const [, loc, stamp] of pairs) {
+        const rel = loc.replace(SITE + '/', '') || 'index.html';
+        const file = path.join(ROOT, rel);
+        if (!fs.existsSync(file)) continue;
+
+        // Compared as instants, so a +05:30 stamp is never read as tomorrow.
+        const claimed = Date.parse(stamp);
+        const actual = fs.statSync(file).mtimeMs;
+
+        // mtime moves on checkout, so only a claim that is WILDLY stale fails:
+        // more than 30 days behind the file means someone stopped running
+        // `npm run sitemap`.
+        const monthMs = 30 * 24 * 60 * 60 * 1000;
+        assert.ok(
+            claimed >= actual - monthMs,
+            `${rel}: sitemap says ${stamp} but the file is much newer. Run: npm run sitemap`
+        );
+    }
+});
+
 /* ----------------------------------------------- accessibility and copy */
 
 test('every img has an alt attribute', () => {
