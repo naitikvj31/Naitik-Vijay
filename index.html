@@ -47,7 +47,14 @@
   <!-- Icons. The SVG is the primary (any size, crisp); the PNGs cover browsers
        that ignore SVG favicons. The full logo is deliberately not used here —
        its circuit detail is unreadable at 16 px. -->
+  <!-- Google will only use a favicon whose raster is a MULTIPLE OF 48px.
+       Only 16 and 32 were linked here, so search results fell back to the
+       grey globe. The 48/96/144 set below is what the crawler wants; the
+       SVG stays first because browsers prefer it at any size. -->
   <link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
+  <link rel="icon" href="assets/favicon-144.png" sizes="144x144" type="image/png">
+  <link rel="icon" href="assets/favicon-96.png" sizes="96x96" type="image/png">
+  <link rel="icon" href="assets/favicon-48.png" sizes="48x48" type="image/png">
   <link rel="icon" href="assets/favicon-32.png" sizes="32x32" type="image/png">
   <link rel="icon" href="assets/favicon-16.png" sizes="16x16" type="image/png">
   <link rel="apple-touch-icon" href="assets/apple-touch-icon.png">
@@ -65,9 +72,9 @@
     href="assets/fonts/ibm-plex-mono-400-latin.woff2">
   <link rel="stylesheet" href="css/fonts.css?v=58456f8b">
 
-  <link rel="stylesheet" href="css/tokens.css?v=50818c7f">
+  <link rel="stylesheet" href="css/tokens.css?v=9dc874f1">
   <link rel="stylesheet" href="css/base.css?v=ed07c637">
-  <link rel="stylesheet" href="css/components.css?v=12673f0a">
+  <link rel="stylesheet" href="css/components.css?v=5de6e57e">
 
   <!-- Applies the remembered colour scheme before the page paints. Blocking
        on purpose: a deferred script would flash the light page at a visitor
@@ -101,11 +108,6 @@
         "email": "admin@naigrowth.com",
         "telephone": "+91-8890819966",
         "priceRange": "$$",
-        "founder": {
-          "@type": "Person",
-          "name": "Naitik Vijayvargiya",
-          "jobTitle": "Founder & CEO"
-        },
         "address": {
           "@type": "PostalAddress",
           "addressCountry": "IN"
@@ -427,9 +429,24 @@
             <a class="btn btn--ghost btn--lg" href="#process">See how it works</a>
           </div>
 
-          <p class="hero__fineprint">
-            $50 to $100 one-time setup. Written report in two working days. No retainer attached.
-          </p>
+          <!-- Three promises, not one grey sentence. Set in the body face at a
+               readable size: this is the answer to "what does it cost and what
+               do I get", which is the last thing a visitor checks before
+               clicking, so it should not look like small print. -->
+          <ul class="hero__terms">
+            <li>
+              <svg viewBox="0 0 20 20" aria-hidden="true"><path d="m4 10.6 3.6 3.6L16 5.8" /></svg>
+              <span><b>$50 to $100</b>, paid once</span>
+            </li>
+            <li>
+              <svg viewBox="0 0 20 20" aria-hidden="true"><path d="m4 10.6 3.6 3.6L16 5.8" /></svg>
+              <span>Written report in <b>2 working days</b></span>
+            </li>
+            <li>
+              <svg viewBox="0 0 20 20" aria-hidden="true"><path d="m4 10.6 3.6 3.6L16 5.8" /></svg>
+              <span><b>No retainer</b> to sign</span>
+            </li>
+          </ul>
 
           <ul class="hero__proof">
             <li>
@@ -1600,7 +1617,7 @@ Five. Step one is the audit in week zero, a $50 to $100 one-time setup. We map e
               <span class="channel__body">
                 <span class="channel__name">Phone, to talk it through</span>
                 <span class="channel__value">+91 88908 19966</span>
-                <span class="channel__note">Ask for Naitik. Fifteen minutes is usually enough</span>
+                <span class="channel__note">Ask us anything. Fifteen minutes is usually enough</span>
               </span>
             </a>
             </div>
@@ -1736,7 +1753,7 @@ Five. Step one is the audit in week zero, a $50 to $100 one-time setup. We map e
             reputation consultancy and paid media for brands that cannot afford a bad first page.
           </p>
           <dl class="footer__facts">
-            <div><dt>Founded by</dt><dd>Naitik Vijayvargiya</dd></div>
+            <div><dt>What we do</dt><dd>Reputation, reviews, paid media</dd></div>
             <div><dt>Based in</dt><dd>India, working worldwide</dd></div>
             <div><dt>Platforms covered</dt><dd>8</dd></div>
           </dl>

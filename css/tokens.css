@@ -168,6 +168,8 @@
   /* Error red, picked for 4.6:1 against the light form panel. */
   --field-error: #b3261e;
   --ok-text: #0f6b3f;
+  --tick-ink: #2f54d9;
+  --tick-bed: rgba(59, 93, 219, 0.12);
   --ok-bg: rgba(16, 122, 71, 0.07);
   --ok-border: rgba(16, 122, 71, 0.4);
   --field-error-bg: rgba(179, 38, 30, 0.05);
@@ -252,6 +254,8 @@
   --field-border: rgba(255, 255, 255, 0.28);
   --field-error: #ffa39b;
   --ok-text: #9ff0c4;
+  --tick-ink: #9fc0ff;
+  --tick-bed: rgba(118, 165, 255, 0.16);
   --ok-bg: rgba(52, 199, 123, 0.1);
   --ok-border: rgba(52, 199, 123, 0.5);
   --field-error-bg: rgba(255, 99, 85, 0.08);
@@ -332,6 +336,8 @@
   --field-border: rgba(226, 190, 120, 0.38);
   --field-error: #ffab9e;
   --ok-text: #b9e8cd;
+  --tick-ink: #e3c179;
+  --tick-bed: rgba(227, 193, 121, 0.16);
   --ok-bg: rgba(52, 199, 123, 0.09);
   --ok-border: rgba(52, 199, 123, 0.42);
   --field-error-bg: rgba(255, 110, 85, 0.08);

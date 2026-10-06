@@ -2165,12 +2165,56 @@ body.cursor-press .cursor-dot__shape {
   gap: var(--s-4);
 }
 
-.hero__fineprint {
+/* The price, the turnaround and the no-retainer promise used to run together
+   as one 0.72rem mono line under the buttons, which is the typographic
+   signature of small print you are meant to skim past. It is the opposite:
+   it answers the last question a visitor has before they click. Three ticked
+   items, in the body face, at a size someone can actually read. */
+.hero__terms {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem clamp(1rem, 2.4vw, 1.9rem);
   margin: calc(var(--s-4) * -1) 0 0;
-  font-family: var(--font-mono);
-  font-size: 0.72rem;
-  letter-spacing: 0.02em;
-  color: var(--text-muted);
+  padding: 0;
+  list-style: none;
+}
+
+.hero__terms li {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-size: var(--t-sm);
+  color: var(--text-dim);
+  line-height: 1.4;
+}
+
+.hero__terms b {
+  font-weight: 600;
+  color: var(--text-strong);
+}
+
+/* A tick, drawn rather than loaded: one path, inherits the accent, and needs
+   no icon font or sprite request. */
+.hero__terms svg {
+  flex: none;
+  width: 18px;
+  height: 18px;
+  padding: 2px;
+  border-radius: 50%;
+  background: var(--tick-bed);
+  fill: none;
+  stroke: var(--tick-ink);
+  stroke-width: 2.4;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+@media (max-width: 440px) {
+  /* Stacked, so no promise ever breaks across two lines mid-phrase. */
+  .hero__terms {
+    flex-direction: column;
+    gap: 0.45rem;
+  }
 }
 
 .hero__proof {
