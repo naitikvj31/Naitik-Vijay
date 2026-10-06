@@ -307,11 +307,46 @@ test('the custom cursor only hides the native pointer once it is live', () => {
     assert.ok(!/^\s*body \* \{\s*cursor: none/m.test(css), 'cursor:none must be gated');
 });
 
-test('no page promises a free audit', () => {
-    // The audit is a $50 to $100 one-time setup.
+/* ------------------------------------------------------------- the offer
+
+   The offer is: a free consultation, then a scope of work both sides sign,
+   and only then an invoice. It used to be a $50 to $100 paid audit, and the
+   price was written into 52 places across 18 pages including two FAQ answers
+   that exist twice each, once in the DOM and once in JSON-LD. These tests
+   exist because a half-finished pricing change is worse than either price:
+   a visitor who reads "free" in the hero and a dollar figure in the FAQ
+   trusts neither.
+   ------------------------------------------------------------------------ */
+
+test('no page names a price', () => {
     for (const p of PAGES) {
-        assert.ok(!/free (reputation )?audit/i.test(html[p]), p + ' still says free audit');
-        assert.ok(!/no charge/i.test(html[p]), p + ' still says no charge');
+        const m = html[p].match(/\$\s?\d[\d,]*/);
+        assert.equal(m, null, `${p} still names a price: ${m && m[0]}`);
+        assert.ok(!/one-time setup/i.test(html[p]), p + ' still says one-time setup');
+    }
+});
+
+test('the consultation is described as free, and the scope gates the invoice', () => {
+    const home = html['index.html'];
+    assert.match(home, /free consultation/i, 'the home page never says the consultation is free');
+    assert.match(home, /scope of work/i, 'the home page never mentions the scope of work');
+
+    // The promise that money comes after a signature, not before.
+    assert.match(
+        home,
+        /nothing is invoiced until/i,
+        'the home page does not say when the first invoice happens'
+    );
+});
+
+test('every page sends people to the same offer', () => {
+    for (const p of PAGES) {
+        assert.match(
+            html[p],
+            /(Book a free consultation|Free consultation)/,
+            p + ' has no consultation call to action'
+        );
+        assert.ok(!/Request an audit/.test(html[p]), p + ' still asks for an audit');
     }
 });
 
