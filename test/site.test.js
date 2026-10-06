@@ -429,6 +429,57 @@ test('every page links its assets with a content hash', () => {
     }
 });
 
+/* ---------------------------------------------------------------- favicon */
+
+/* Google will only adopt a favicon whose raster is a multiple of 48px. The
+   site declared 16 and 32 for a long time, neither of which qualifies, and
+   search results showed the default globe instead of the mark. */
+test('every page declares a favicon Google can actually use', () => {
+    for (const p of PAGES) {
+        const sizes = [...html[p].matchAll(/<link rel="icon"[^>]*sizes="(\d+)x\d+"/g)]
+            .map((m) => Number(m[1]));
+        const usable = sizes.filter((s) => s % 48 === 0);
+        assert.ok(
+            usable.length > 0,
+            `${p}: declares ${sizes.join(', ') || 'no'} px icons, none a multiple of 48`
+        );
+    }
+});
+
+test('the root /favicon.ico exists and is a real icon file', () => {
+    const file = path.join(ROOT, 'favicon.ico');
+    assert.ok(fs.existsSync(file), 'no /favicon.ico — Google falls back to this URL');
+
+    const buf = fs.readFileSync(file);
+    // ICONDIR: reserved must be 0, type must be 1 (icon), count must be > 0.
+    assert.equal(buf.readUInt16LE(0), 0, 'favicon.ico: bad reserved field');
+    assert.equal(buf.readUInt16LE(2), 1, 'favicon.ico: not an icon file');
+
+    const count = buf.readUInt16LE(4);
+    assert.ok(count > 0, 'favicon.ico: no images inside');
+
+    const declared = [];
+    for (let i = 0; i < count; i++) {
+        const e = 6 + i * 16;
+        declared.push(buf.readUInt8(e) || 256);
+        const len = buf.readUInt32LE(e + 8);
+        const off = buf.readUInt32LE(e + 12);
+        assert.ok(off + len <= buf.length, 'favicon.ico: entry points past the file');
+    }
+    assert.ok(declared.includes(48), `favicon.ico: no 48px entry, has ${declared.join(', ')}`);
+});
+
+test('nothing robots-blocks the icons Google needs to fetch', () => {
+    const robots = read('robots.txt');
+    const blocked = [...robots.matchAll(/^Disallow:\s*(\S+)/gm)].map((m) => m[1]);
+    for (const dir of blocked) {
+        assert.ok(
+            !'/assets/'.startsWith(dir) && dir !== '/',
+            `robots.txt blocks ${dir}, which covers the favicons`
+        );
+    }
+});
+
 test('robots.txt points at the sitemap and blocks the api', () => {
     const r = read('robots.txt');
     assert.match(r, /Sitemap: https:\/\/www\.naigrowth\.com\/sitemap\.xml/);
