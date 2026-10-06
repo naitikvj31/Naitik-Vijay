@@ -57,13 +57,13 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link rel="preload" as="style"
-    href="https://fonts.googleapis.com/css2?family=Instrument+Sans:wght@400..700&family=JetBrains+Mono:wght@400;500&display=swap">
+    href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500&display=swap">
   <link rel="stylesheet"
-    href="https://fonts.googleapis.com/css2?family=Instrument+Sans:wght@400..700&family=JetBrains+Mono:wght@400;500&display=swap">
+    href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500&display=swap">
 
-  <link rel="stylesheet" href="css/tokens.css?v=8211a7a2">
+  <link rel="stylesheet" href="css/tokens.css?v=b2538ade">
   <link rel="stylesheet" href="css/base.css?v=459eee7b">
-  <link rel="stylesheet" href="css/components.css?v=76e8af91">
+  <link rel="stylesheet" href="css/components.css?v=94090dec">
 
   <!-- Applies the remembered colour scheme before the page paints. Blocking
        on purpose: a deferred script would flash the light page at a visitor
@@ -884,6 +884,23 @@ ORM and paid media do the heavy lifting. The rest feeds them. Paid PR gives you 
             <span class="service__more">How we work Trustpilot <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14" /><path d="m13 6 6 6-6 6" /></svg></span>
           </a>
 
+          <a class="glass platform" href="platforms/clutch.html" data-reveal data-reveal-delay="80" data-cursor="Open">
+            <header class="platform__head">
+              <img class="platform__logo" src="assets/logos/clutch.png" alt="Clutch logo" width="42" height="42"
+                loading="lazy" decoding="async">
+              <div>
+                <h3>Clutch</h3>
+                <span class="platform__who">Who reads it: buyers shortlisting an agency</span>
+              </div>
+            </header>
+            <p class="platform__summary">Where companies shortlist agencies. Every review is verified by a real interview, which is why buyers trust it more than anything on your own site.</p>
+            <ul class="platform__meta">
+              <li><span>First results</span><strong>4 to 8 weeks</strong></li>
+              <li><span>Difficulty</span><strong>Medium</strong></li>
+            </ul>
+            <span class="service__more">How we work Clutch <svg aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14" /><path d="m13 6 6 6-6 6" /></svg></span>
+          </a>
+
           <a class="glass platform" href="platforms/trustradius.html" data-reveal data-reveal-delay="80" data-cursor="Open">
             <header class="platform__head">
               <img class="platform__logo" src="assets/logos/trustradius.png" alt="TrustRadius logo" width="42" height="42" loading="lazy" decoding="async">
@@ -1512,8 +1529,14 @@ Five. Step one is the audit in week zero, a $50 to $100 one-time setup. We map e
     <!-- ==================================================================
          Contact / CTA
          ================================================================== -->
+    <!-- ==================================================================
+         Contact
+         Two columns rather than a centred strip: the reasons to get in touch
+         sit beside the form instead of above it, and the section uses the
+         screen on a wide display instead of leaving two empty margins.
+         ================================================================== -->
     <section class="section" id="contact" aria-labelledby="contact-heading">
-      <div class="shell">
+      <div class="contact__shell">
 
         <div class="section-head" data-reveal>
           <p class="eyebrow">Get in touch</p>
@@ -1524,65 +1547,50 @@ Five. Step one is the audit in week zero, a $50 to $100 one-time setup. We map e
           </p>
         </div>
 
-        <div class="channels">
-          <a class="glass channel" href="https://wa.me/918890819966?text=Hi%20NaiGrowth%2C%20I%27d%20like%20a%20reputation%20audit" target="_blank" rel="noopener" data-reveal>
-            <span class="channel__icon" aria-hidden="true">
-              <svg aria-hidden="true" viewBox="0 0 24 24">
-                <path d="M3.4 20.6 4.7 16A8.2 8.2 0 1 1 8 19.3Z" />
-                <path d="M8.9 9.1c.3 1.9 2.1 3.7 4 4l1-1.2 1.8.9-.3 1.5c-2.9.5-6.2-2.8-5.7-5.7l1.5-.3Z" />
-              </svg>
-            </span>
-            <span class="channel__name">WhatsApp, fastest</span>
-            <span class="channel__value">+91 88908 19966</span>
-            <span class="channel__note">Usually answered within the hour during working hours.</span>
-          </a>
+        <div class="contact__grid">
 
-          <a class="glass channel" href="mailto:admin@naigrowth.com?subject=Reputation%20audit%20request"
-            data-reveal data-reveal-delay="70">
-            <span class="channel__icon" aria-hidden="true">
-              <svg aria-hidden="true" viewBox="0 0 24 24">
-                <rect x="2.8" y="5" width="18.4" height="14" rx="2.4" />
-                <path d="m3.4 6.6 8.6 6 8.6-6" />
-              </svg>
-            </span>
-            <span class="channel__name">Email, for detail</span>
-            <span class="channel__value">admin@naigrowth.com</span>
-            <span class="channel__note">Best if you want to attach a brief or a current report.</span>
-          </a>
+          <aside class="contact__aside" data-reveal>
+            <div class="channels">
+            <a class="channel" href="https://wa.me/918890819966?text=Hi%20NaiGrowth%2C%20I%27d%20like%20a%20reputation%20audit" target="_blank" rel="noopener">
+              <span class="channel__icon" aria-hidden="true"><svg aria-hidden="true" viewBox="0 0 24 24"><path d="M3.4 20.6 4.7 16A8.2 8.2 0 1 1 8 19.3Z" /></svg></span>
+              <span class="channel__body">
+                <span class="channel__name">WhatsApp, fastest</span>
+                <span class="channel__value">+91 88908 19966</span>
+                <span class="channel__note">Usually answered within the hour</span>
+              </span>
+            </a>
+            <a class="channel" href="mailto:admin@naigrowth.com?subject=Reputation%20audit%20request">
+              <span class="channel__icon" aria-hidden="true"><svg aria-hidden="true" viewBox="0 0 24 24"><rect x="2.8" y="5" width="18.4" height="14" rx="2.4" /><path d="m3.4 6.6 8.6 6 8.6-6" /></svg></span>
+              <span class="channel__body">
+                <span class="channel__name">Email, for detail</span>
+                <span class="channel__value">admin@naigrowth.com</span>
+                <span class="channel__note">Best if you want to attach a brief or a report</span>
+              </span>
+            </a>
+            <a class="channel" href="tel:+918890819966">
+              <span class="channel__icon" aria-hidden="true"><svg aria-hidden="true" viewBox="0 0 24 24"><path d="M6.4 3.6h3l1.5 3.7-1.9 1.4a11.5 11.5 0 0 0 5.3 5.3l1.4-1.9 3.7 1.5v3a1.8 1.8 0 0 1-2 1.8A15.6 15.6 0 0 1 4.6 5.6a1.8 1.8 0 0 1 1.8-2Z" /></svg></span>
+              <span class="channel__body">
+                <span class="channel__name">Phone, to talk it through</span>
+                <span class="channel__value">+91 88908 19966</span>
+                <span class="channel__note">Ask for Naitik. Fifteen minutes is usually enough</span>
+              </span>
+            </a>
+            </div>
 
-          <a class="glass channel" href="tel:+918890819966" data-reveal data-reveal-delay="140">
-            <span class="channel__icon" aria-hidden="true">
-              <svg aria-hidden="true" viewBox="0 0 24 24">
-                <path d="M6.4 3.6h3l1.5 3.7-1.9 1.4a11.5 11.5 0 0 0 5.3 5.3l1.4-1.9 3.7 1.5v3a1.8 1.8 0 0 1-2 1.8A15.6 15.6 0 0 1 4.6 5.6a1.8 1.8 0 0 1 1.8-2Z" />
-              </svg>
-            </span>
-            <span class="channel__name">Phone, to talk it through</span>
-            <span class="channel__value">+91 88908 19966</span>
-            <span class="channel__note">Ask for Naitik. Fifteen minutes is usually enough.</span>
-          </a>
+            <div class="contact__promise">
+              <h3>What happens after you send it</h3>
+              <ol>
+                <li>We reply the same working day to agree scope.</li>
+                <li>You pay the one-time setup, $50 to $100 depending on brands and markets.</li>
+                <li>Within two working days you get the written page one audit and the plan.</li>
+              </ol>
+              <p>No retainer attached, and we will tell you plainly if you do not need us.</p>
+            </div>
+          </aside>
 
-          <a class="glass channel" href="#cf-name" data-reveal data-reveal-delay="210">
-            <span class="channel__icon" aria-hidden="true">
-              <svg aria-hidden="true" viewBox="0 0 24 24">
-                <path d="M19.4 12.6V19a2 2 0 0 1-2 2H6.6a2 2 0 0 1-2-2V6.6a2 2 0 0 1 2-2H12" />
-                <path d="M15.6 3.6 20.4 8.4 13 15.8l-4 1 1-4Z" />
-              </svg>
-            </span>
-            <span class="channel__name">Audit, no call needed</span>
-            <span class="channel__value">Fill the form below</span>
-            <span class="channel__note">$50 to $100 one-time. Written audit back in two working days.</span>
-          </a>
-        </div>
-
-        <div class="cta" data-reveal>
-          <p class="eyebrow eyebrow--center">Reputation audit &middot; $50 to $100 one-time</p>
-          <h3 class="cta__title">Find out what page one says about you.</h3>
-          <p class="cta__lead">
-            We check every result on page one for your brand. We score your reviews on every platform.
-            Then we send you a short, clear plan of what to fix first. One-time setup of $50 to $100,
-            no retainer, no obligation. If you do not need us, we will say so.
-          </p>
-
+          <div class="cta" data-reveal data-reveal-delay="80">
+            <p class="eyebrow">Reputation audit &middot; $50 to $100 one-time</p>
+            <h3 class="cta__title">Find out what page one says about you.</h3>
           <form class="cta__form" data-contact-form action="/api/contact" method="post" novalidate>
             <!-- Bot filters: a field humans never see, and a timestamp only JS sets.
                  aria-hidden sits on the wrapper so assistive tech skips the whole
@@ -1597,7 +1605,7 @@ Five. Step one is the audit in week zero, a $50 to $100 one-time setup. We map e
               <p class="field">
                 <label for="cf-name">Name</label>
                 <input id="cf-name" name="name" type="text" autocomplete="name" required
-                  minlength="2" maxlength="100" placeholder="Naitik Vijayvargiya"
+                  minlength="2" maxlength="100" placeholder="Type your name"
                   aria-describedby="cf-name-err">
                 <span class="field__error" id="cf-name-err" data-error-for="name" role="alert"></span>
               </p>
@@ -1656,29 +1664,8 @@ Five. Step one is the audit in week zero, a $50 to $100 one-time setup. We map e
 
             <output class="form-status" data-form-status aria-live="polite" hidden></output>
           </form>
-
-          <div class="cta__direct">
-            <span class="cta__direct-label">Rather not fill a form?</span>
-            <a href="https://wa.me/918890819966?text=Hi%20NaiGrowth%2C%20I%27d%20like%20a%20reputation%20audit" target="_blank" rel="noopener">
-              <svg viewBox="0 0 24 24" aria-hidden="true">
-                <path d="M3.4 20.6 4.7 16A8.2 8.2 0 1 1 8 19.3Z" />
-              </svg>
-              WhatsApp us
-            </a>
-            <a href="mailto:admin@naigrowth.com">
-              <svg viewBox="0 0 24 24" aria-hidden="true">
-                <rect x="2.8" y="5" width="18.4" height="14" rx="2.4" />
-                <path d="m3.4 6.6 8.6 6 8.6-6" />
-              </svg>
-              admin@naigrowth.com
-            </a>
-            <a href="tel:+918890819966">
-              <svg viewBox="0 0 24 24" aria-hidden="true">
-                <path d="M6.4 3.6h3l1.5 3.7-1.9 1.4a11.5 11.5 0 0 0 5.3 5.3l1.4-1.9 3.7 1.5v3a1.8 1.8 0 0 1-2 1.8A15.6 15.6 0 0 1 4.6 5.6a1.8 1.8 0 0 1 1.8-2Z" />
-              </svg>
-              +91 88908 19966
-            </a>
           </div>
+
         </div>
       </div>
     </section>
@@ -1690,64 +1677,122 @@ Five. Step one is the audit in week zero, a $50 to $100 one-time setup. We map e
        ==================================================================== -->
   <footer class="footer">
     <div class="shell">
+
+      <!-- The last chance to convert sits above the link grid, not buried
+           under it. -->
+      <div class="footer__cta">
+        <div class="footer__cta-text">
+          <h2>Find out what page one says about you.</h2>
+          <p>$50 to $100 one-time setup. Written report in two working days. No retainer.</p>
+        </div>
+        <a class="btn btn--primary btn--lg" href="index.html#contact">
+          Request an audit
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+            stroke-linejoin="round" aria-hidden="true">
+            <path d="M5 12h14" />
+            <path d="m13 6 6 6-6 6" />
+          </svg>
+        </a>
+      </div>
+
       <div class="footer__grid">
-        <div class="footer__about">
-          <a class="nav__brand" href="#top" aria-label="NaiGrowth, back to top">
-            <img src="assets/logos/naitik_logo.png" alt="NaiGrowth logo" width="38" height="38" loading="lazy"
-              decoding="async">
+
+        <div class="footer__brand">
+          <a class="nav__brand" href="index.html" aria-label="NaiGrowth home">
+            <img src="assets/logos/naitik_logo.png" alt="NaiGrowth logo" width="38" height="38"
+              loading="lazy" decoding="async">
             <span class="nav__brand-name">NAI<span>GROWTH</span></span>
           </a>
           <p>
-            An online reputation management company working on ORM, paid PR, paid reviews, reputation
-            consultancy and paid media for brands that cannot afford a bad first page.
+            An online reputation management company working on ORM, paid PR, paid reviews,
+            reputation consultancy and paid media for brands that cannot afford a bad first page.
           </p>
+          <dl class="footer__facts">
+            <div><dt>Founded by</dt><dd>Naitik Vijayvargiya</dd></div>
+            <div><dt>Based in</dt><dd>India, working worldwide</dd></div>
+            <div><dt>Platforms covered</dt><dd>8</dd></div>
+          </dl>
         </div>
 
-        <div class="footer__col">
+        <nav class="footer__col" aria-label="Services">
           <h3>Services</h3>
           <ul>
-            <li><a href="#services">Online Reputation Management</a></li>
-            <li><a href="#services">Paid Media</a></li>
-            <li><a href="#services">Paid PR &amp; Publications</a></li>
-            <li><a href="#services">Paid Reviews</a></li>
-            <li><a href="#services">Reputation Consultancy</a></li>
-            <li><a href="#services">SEO &amp; Search Visibility</a></li>
-            <li><a href="#process">How an engagement runs</a></li>
+            <li><a href="services/online-reputation-management.html">Online Reputation Management</a></li>
+            <li><a href="services/paid-media.html">Paid Media</a></li>
+            <li><a href="services/paid-pr.html">Paid PR &amp; Publications</a></li>
+            <li><a href="services/paid-reviews.html">Paid Reviews</a></li>
+            <li><a href="services/reputation-consultancy.html">Reputation Consultancy</a></li>
+            <li><a href="services/seo.html">SEO &amp; Search Visibility</a></li>
+            <li><a href="services/salesforce.html">Salesforce Consultancy</a></li>
+            <li><a href="services/website-design.html">Website Design</a></li>
           </ul>
-        </div>
+        </nav>
 
-        <div class="footer__col">
+        <nav class="footer__col" aria-label="Platforms">
           <h3>Platforms</h3>
           <ul>
-            <li><a href="#platforms">G2</a></li>
-            <li><a href="#platforms">Capterra</a></li>
-            <li><a href="#platforms">Gartner Peer Insights</a></li>
-            <li><a href="#platforms">Trustpilot</a></li>
-            <li><a href="#platforms">TrustRadius</a></li>
-            <li><a href="#platforms">Product Hunt</a></li>
-            <li><a href="#platforms">App Store &amp; Play Store</a></li>
+            <li><a href="platforms/g2.html">G2</a></li>
+            <li><a href="platforms/capterra.html">Capterra</a></li>
+            <li><a href="platforms/gartner-peer-insights.html">Gartner Peer Insights</a></li>
+            <li><a href="platforms/trustpilot.html">Trustpilot</a></li>
+            <li><a href="platforms/trustradius.html">TrustRadius</a></li>
+            <li><a href="platforms/clutch.html">Clutch</a></li>
+            <li><a href="platforms/product-hunt.html">Product Hunt</a></li>
+            <li><a href="platforms/app-stores.html">App Store &amp; Play Store</a></li>
+          </ul>
+        </nav>
+
+        <div class="footer__col footer__col--talk">
+          <h3>Talk to us</h3>
+          <ul class="footer__channels">
+            <li>
+              <a class="fchan" href="https://wa.me/918890819966?text=Hi%20NaiGrowth%2C%20I%27d%20like%20a%20reputation%20audit" target="_blank" rel="noopener">
+                <span class="fchan__icon" aria-hidden="true"><svg aria-hidden="true" viewBox="0 0 24 24"><path d="M3.4 20.6 4.7 16A8.2 8.2 0 1 1 8 19.3Z" /></svg></span>
+                <span class="fchan__text">
+                  <span class="fchan__label">WhatsApp</span>
+                  <span class="fchan__value">+91 88908 19966</span>
+                  <span class="fchan__note">Usually answered within the hour</span>
+                </span>
+              </a>
+            </li>
+            <li>
+              <a class="fchan" href="mailto:admin@naigrowth.com">
+                <span class="fchan__icon" aria-hidden="true"><svg aria-hidden="true" viewBox="0 0 24 24"><path d="M2.8 6.6a2 2 0 0 1 2-2h14.4a2 2 0 0 1 2 2v10.8a2 2 0 0 1-2 2H4.8a2 2 0 0 1-2-2Z" /><path d="m3.4 7.2 8.6 6 8.6-6" /></svg></span>
+                <span class="fchan__text">
+                  <span class="fchan__label">Email</span>
+                  <span class="fchan__value">admin@naigrowth.com</span>
+                  <span class="fchan__note">Best for a brief or a report</span>
+                </span>
+              </a>
+            </li>
+            <li>
+              <a class="fchan" href="tel:+918890819966">
+                <span class="fchan__icon" aria-hidden="true"><svg aria-hidden="true" viewBox="0 0 24 24"><path d="M6.4 3.6h3l1.5 3.7-1.9 1.4a11.5 11.5 0 0 0 5.3 5.3l1.4-1.9 3.7 1.5v3a1.8 1.8 0 0 1-2 1.8A15.6 15.6 0 0 1 4.6 5.6a1.8 1.8 0 0 1 1.8-2Z" /></svg></span>
+                <span class="fchan__text">
+                  <span class="fchan__label">Phone</span>
+                  <span class="fchan__value">+91 88908 19966</span>
+                  <span class="fchan__note">10am to 7pm IST, Mon to Sat</span>
+                </span>
+              </a>
+            </li>
           </ul>
         </div>
 
-        <div class="footer__col">
-          <h3>Contact</h3>
-          <ul>
-            <li><a href="mailto:admin@naigrowth.com">admin@naigrowth.com</a></li>
-            <li><a href="tel:+918890819966">+91 88908 19966</a></li>
-            <li>
-              <a href="https://wa.me/918890819966?text=Hi%20NaiGrowth%2C%20I%27d%20like%20a%20reputation%20audit"
-                target="_blank" rel="noopener">WhatsApp</a>
-            </li>
-            <li><a href="#faq">FAQ</a></li>
-            <li><a href="#contact">Reputation audit</a></li>
-          </ul>
-        </div>
       </div>
 
       <div class="footer__bottom">
         <p>&copy; <span id="year">2026</span> NaiGrowth. All rights reserved.</p>
-        <p>Online reputation management · ORM · Paid PR · Paid reviews · Reputation consultancy</p>
+        <nav class="footer__meta" aria-label="More">
+          <a href="index.html#process">How it runs</a>
+          <a href="index.html#why">Why us</a>
+          <a href="index.html#faq">FAQ</a>
+        </nav>
+        <p class="footer__terms">
+          Online reputation management &middot; ORM &middot; Paid PR &middot; Paid reviews &middot;
+          Reputation consultancy
+        </p>
       </div>
+
     </div>
   </footer>
 

@@ -35,11 +35,11 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link rel="stylesheet"
-    href="https://fonts.googleapis.com/css2?family=Instrument+Sans:wght@400..700&family=JetBrains+Mono:wght@400;500&display=swap">
+    href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500&display=swap">
 
-  <link rel="stylesheet" href="../css/tokens.css?v=8211a7a2">
+  <link rel="stylesheet" href="../css/tokens.css?v=b2538ade">
   <link rel="stylesheet" href="../css/base.css?v=459eee7b">
-  <link rel="stylesheet" href="../css/components.css?v=76e8af91">
+  <link rel="stylesheet" href="../css/components.css?v=94090dec">
   <script src="../js/theme.js?v=a56c7375"></script>
 
   <script type="application/ld+json">
@@ -334,52 +334,122 @@
 
   <footer class="footer">
     <div class="shell">
+
+      <!-- The last chance to convert sits above the link grid, not buried
+           under it. -->
+      <div class="footer__cta">
+        <div class="footer__cta-text">
+          <h2>Find out what page one says about you.</h2>
+          <p>$50 to $100 one-time setup. Written report in two working days. No retainer.</p>
+        </div>
+        <a class="btn btn--primary btn--lg" href="../index.html#contact">
+          Request an audit
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+            stroke-linejoin="round" aria-hidden="true">
+            <path d="M5 12h14" />
+            <path d="m13 6 6 6-6 6" />
+          </svg>
+        </a>
+      </div>
+
       <div class="footer__grid">
-        <div class="footer__about">
+
+        <div class="footer__brand">
           <a class="nav__brand" href="../index.html" aria-label="NaiGrowth home">
-            <img src="../assets/logos/naitik_logo.png" alt="NaiGrowth logo" width="38" height="38" loading="lazy">
+            <img src="../assets/logos/naitik_logo.png" alt="NaiGrowth logo" width="38" height="38"
+              loading="lazy" decoding="async">
             <span class="nav__brand-name">NAI<span>GROWTH</span></span>
           </a>
           <p>
-            An online reputation management company working on ORM, paid PR, paid reviews, reputation
-            consultancy and paid media for brands that cannot afford a bad first page.
+            An online reputation management company working on ORM, paid PR, paid reviews,
+            reputation consultancy and paid media for brands that cannot afford a bad first page.
           </p>
+          <dl class="footer__facts">
+            <div><dt>Founded by</dt><dd>Naitik Vijayvargiya</dd></div>
+            <div><dt>Based in</dt><dd>India, working worldwide</dd></div>
+            <div><dt>Platforms covered</dt><dd>8</dd></div>
+          </dl>
         </div>
-        <div class="footer__col">
+
+        <nav class="footer__col" aria-label="Services">
           <h3>Services</h3>
           <ul>
-            <li><a href="online-reputation-management.html">Online Reputation Management</a></li>
-            <li><a href="paid-media.html">Paid Media</a></li>
-            <li><a href="paid-pr.html">Paid PR &amp; Publications</a></li>
-            <li><a href="paid-reviews.html">Paid Reviews &amp; Review Management</a></li>
-            <li><a href="reputation-consultancy.html">Reputation Consultancy</a></li>
-            <li><a href="seo.html">SEO &amp; Search Visibility</a></li>
+            <li><a href="../services/online-reputation-management.html">Online Reputation Management</a></li>
+            <li><a href="../services/paid-media.html">Paid Media</a></li>
+            <li><a href="../services/paid-pr.html">Paid PR &amp; Publications</a></li>
+            <li><a href="../services/paid-reviews.html">Paid Reviews</a></li>
+            <li><a href="../services/reputation-consultancy.html">Reputation Consultancy</a></li>
+            <li><a href="../services/seo.html">SEO &amp; Search Visibility</a></li>
+            <li><a href="../services/salesforce.html">Salesforce Consultancy</a></li>
+            <li><a href="../services/website-design.html">Website Design</a></li>
           </ul>
-        </div>
-        <div class="footer__col">
+        </nav>
+
+        <nav class="footer__col" aria-label="Platforms">
           <h3>Platforms</h3>
           <ul>
-            <li><a href="../index.html#platforms">G2</a></li>
-            <li><a href="../index.html#platforms">Capterra</a></li>
-            <li><a href="../index.html#platforms">Gartner Peer Insights</a></li>
-            <li><a href="../index.html#platforms">Trustpilot</a></li>
-            <li><a href="../index.html#platforms">Product Hunt</a></li>
+            <li><a href="../platforms/g2.html">G2</a></li>
+            <li><a href="../platforms/capterra.html">Capterra</a></li>
+            <li><a href="../platforms/gartner-peer-insights.html">Gartner Peer Insights</a></li>
+            <li><a href="../platforms/trustpilot.html">Trustpilot</a></li>
+            <li><a href="../platforms/trustradius.html">TrustRadius</a></li>
+            <li><a href="../platforms/clutch.html">Clutch</a></li>
+            <li><a href="../platforms/product-hunt.html">Product Hunt</a></li>
+            <li><a href="../platforms/app-stores.html">App Store &amp; Play Store</a></li>
+          </ul>
+        </nav>
+
+        <div class="footer__col footer__col--talk">
+          <h3>Talk to us</h3>
+          <ul class="footer__channels">
+            <li>
+              <a class="fchan" href="https://wa.me/918890819966?text=Hi%20NaiGrowth%2C%20I%27d%20like%20a%20reputation%20audit" target="_blank" rel="noopener">
+                <span class="fchan__icon" aria-hidden="true"><svg aria-hidden="true" viewBox="0 0 24 24"><path d="M3.4 20.6 4.7 16A8.2 8.2 0 1 1 8 19.3Z" /></svg></span>
+                <span class="fchan__text">
+                  <span class="fchan__label">WhatsApp</span>
+                  <span class="fchan__value">+91 88908 19966</span>
+                  <span class="fchan__note">Usually answered within the hour</span>
+                </span>
+              </a>
+            </li>
+            <li>
+              <a class="fchan" href="mailto:admin@naigrowth.com">
+                <span class="fchan__icon" aria-hidden="true"><svg aria-hidden="true" viewBox="0 0 24 24"><path d="M2.8 6.6a2 2 0 0 1 2-2h14.4a2 2 0 0 1 2 2v10.8a2 2 0 0 1-2 2H4.8a2 2 0 0 1-2-2Z" /><path d="m3.4 7.2 8.6 6 8.6-6" /></svg></span>
+                <span class="fchan__text">
+                  <span class="fchan__label">Email</span>
+                  <span class="fchan__value">admin@naigrowth.com</span>
+                  <span class="fchan__note">Best for a brief or a report</span>
+                </span>
+              </a>
+            </li>
+            <li>
+              <a class="fchan" href="tel:+918890819966">
+                <span class="fchan__icon" aria-hidden="true"><svg aria-hidden="true" viewBox="0 0 24 24"><path d="M6.4 3.6h3l1.5 3.7-1.9 1.4a11.5 11.5 0 0 0 5.3 5.3l1.4-1.9 3.7 1.5v3a1.8 1.8 0 0 1-2 1.8A15.6 15.6 0 0 1 4.6 5.6a1.8 1.8 0 0 1 1.8-2Z" /></svg></span>
+                <span class="fchan__text">
+                  <span class="fchan__label">Phone</span>
+                  <span class="fchan__value">+91 88908 19966</span>
+                  <span class="fchan__note">10am to 7pm IST, Mon to Sat</span>
+                </span>
+              </a>
+            </li>
           </ul>
         </div>
-        <div class="footer__col">
-          <h3>Contact</h3>
-          <ul>
-            <li><a href="mailto:admin@naigrowth.com">admin@naigrowth.com</a></li>
-            <li><a href="tel:+918890819966">+91 88908 19966</a></li>
-            <li><a href="https://wa.me/918890819966?text=Hi%20NaiGrowth%2C%20I%27d%20like%20a%20reputation%20audit" target="_blank" rel="noopener">WhatsApp</a></li>
-            <li><a href="../index.html#process">How it runs</a></li>
-          </ul>
-        </div>
+
       </div>
+
       <div class="footer__bottom">
         <p>&copy; <span id="year">2026</span> NaiGrowth. All rights reserved.</p>
-        <p>Online reputation management &middot; ORM &middot; Paid PR &middot; Paid reviews &middot; Reputation consultancy</p>
+        <nav class="footer__meta" aria-label="More">
+          <a href="../index.html#process">How it runs</a>
+          <a href="../index.html#why">Why us</a>
+          <a href="../index.html#faq">FAQ</a>
+        </nav>
+        <p class="footer__terms">
+          Online reputation management &middot; ORM &middot; Paid PR &middot; Paid reviews &middot;
+          Reputation consultancy
+        </p>
       </div>
+
     </div>
   </footer>
 

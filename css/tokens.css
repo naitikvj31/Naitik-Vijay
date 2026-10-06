@@ -39,13 +39,15 @@
   --accent-grad-solid-alt: linear-gradient(115deg, #6d28d9 0%, #7c3aed 52%, #2f54d9 100%);
 
   /* --- Type ------------------------------------------------------------
-     Instrument Sans carries display and body: a tight modern grotesk that
-     holds up at 5rem and at 0.8rem. JetBrains Mono sets every label, eyebrow
-     and tag — the technical counterpoint that keeps the page from reading as
-     one undifferentiated sans. */
-  --font-display: "Instrument Sans", "Helvetica Neue", Helvetica, Arial, sans-serif;
-  --font-body: "Instrument Sans", "Helvetica Neue", Helvetica, Arial, sans-serif;
-  --font-mono: "JetBrains Mono", ui-monospace, "SF Mono", Menlo, Consolas, monospace;
+     One superfamily across all three roles. IBM Plex was commissioned as a
+     working corporate typeface rather than drawn for display, so it reads as
+     a real document rather than as a trend: open apertures, unfussy numerals,
+     and it holds up at 4rem and at 0.7rem alike. Plex Mono carries labels and
+     data, which keeps the technical counterpoint without introducing a second
+     foundry's drawing. */
+  --font-display: "IBM Plex Sans", "Helvetica Neue", Helvetica, Arial, sans-serif;
+  --font-body: "IBM Plex Sans", "Helvetica Neue", Helvetica, Arial, sans-serif;
+  --font-mono: "IBM Plex Mono", ui-monospace, "SF Mono", Menlo, Consolas, monospace;
 
   /* Fluid ramp — clamp() keeps headlines large without breaking small screens. */
   --t-hero: clamp(2.1rem, 4.9vw, 4.3rem);
@@ -60,14 +62,14 @@
 
   /* Display tracking is negative and gets tighter as size grows — the single
      biggest difference between current and dated large type. */
-  --track-hero: -0.042em;
-  --track-h2: -0.032em;
-  --track-h3: -0.02em;
+  --track-hero: -0.026em;
+  --track-h2: -0.02em;
+  --track-h3: -0.012em;
   --track-label: 0.16em;
 
   --lh-tight: 1.04;
   --lh-snug: 1.16;
-  --lh-body: 1.64;
+  --lh-body: 1.66;
 
   /* --- Space ------------------------------------------------------------ */
   --s-1: 0.25rem;
@@ -168,7 +170,7 @@
   --panel-bg: rgba(255, 255, 255, 0.72);
   --panel-border: rgba(18, 24, 52, 0.12);
   --chip-bg: rgba(18, 24, 52, 0.035);
-  --flagship-bg: linear-gradient(150deg, rgba(76, 125, 255, 0.1), rgba(139, 92, 246, 0.07) 55%, transparent);
+  --flagship-bg: var(--surface);
   --cta-bg: linear-gradient(152deg, rgba(76, 125, 255, 0.13), rgba(139, 92, 246, 0.09) 48%, rgba(168, 85, 247, 0.06));
   /* No specular line on a light card — glass sheen reads as a smudge. */
   --sheen: transparent;
@@ -191,6 +193,7 @@
   --cursor-ring-hover: rgba(109, 40, 217, 0.65);
   --cursor-ring-label: rgba(59, 93, 219, 0.7);
   --cursor-fill-hover: rgba(139, 92, 246, 0.05);
+  --cursor-chip-bg: rgba(255, 255, 255, 0.96);
   --cursor-fill-label: rgba(76, 125, 255, 0.12);
 }
 
@@ -250,7 +253,7 @@
   --panel-bg: rgba(255, 255, 255, 0.035);
   --panel-border: rgba(255, 255, 255, 0.14);
   --chip-bg: rgba(255, 255, 255, 0.025);
-  --flagship-bg: linear-gradient(150deg, rgba(76, 125, 255, 0.11), rgba(139, 92, 246, 0.07) 55%, transparent);
+  --flagship-bg: var(--surface);
   --cta-bg: linear-gradient(152deg, rgba(76, 125, 255, 0.16), rgba(139, 92, 246, 0.1) 48%, rgba(168, 85, 247, 0.07));
   --sheen: rgba(255, 255, 255, 0.38);
   --vignette: radial-gradient(130% 95% at 50% 0%, transparent 42%, rgba(2, 3, 7, 0.72) 100%);
@@ -268,6 +271,7 @@
   --cursor-ring-hover: rgba(169, 137, 255, 0.76);
   --cursor-ring-label: rgba(118, 165, 255, 0.8);
   --cursor-fill-hover: rgba(139, 92, 246, 0.07);
+  --cursor-chip-bg: rgba(8, 11, 26, 0.94);
   --cursor-fill-label: rgba(76, 125, 255, 0.22);
 }
 
@@ -328,7 +332,7 @@
   --panel-bg: rgba(255, 228, 170, 0.04);
   --panel-border: rgba(226, 190, 120, 0.2);
   --chip-bg: rgba(255, 228, 170, 0.04);
-  --flagship-bg: linear-gradient(150deg, rgba(227, 193, 121, 0.12), rgba(201, 154, 66, 0.06) 55%, transparent);
+  --flagship-bg: var(--surface);
   --cta-bg: linear-gradient(152deg, rgba(227, 193, 121, 0.14), rgba(201, 154, 66, 0.08) 48%, rgba(140, 102, 40, 0.05));
   --sheen: rgba(255, 235, 190, 0.4);
   --vignette: radial-gradient(130% 95% at 50% 0%, transparent 42%, rgba(4, 3, 2, 0.74) 100%);
@@ -346,6 +350,7 @@
   --cursor-ring-hover: rgba(240, 215, 155, 0.8);
   --cursor-ring-label: rgba(227, 193, 121, 0.85);
   --cursor-fill-hover: rgba(227, 193, 121, 0.07);
+  --cursor-chip-bg: rgba(11, 9, 6, 0.94);
   --cursor-fill-label: rgba(227, 193, 121, 0.14);
 
   --hero-bg: #0b0906;

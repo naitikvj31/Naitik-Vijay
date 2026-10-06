@@ -1,8 +1,10 @@
 /* ==========================================================================
    NaiGrowth — Custom cursor + magnetic hover
-   A 1:1 dot and a trailing ring that swells over interactive elements and can
-   carry a word ("View", "Drag"). Disabled outright on coarse pointers and
-   under prefers-reduced-motion — on those inputs it is noise, not polish.
+   A 1:1 dot inside a trailing focus reticle: four ticks around an open centre
+   that rotate and lock when the pointer is over something interactive. Any
+   word ("Open", "Drag") rides outside it as a chip, so the cursor never
+   covers the thing being pointed at. Disabled outright on coarse pointers and
+   under prefers-reduced-motion, where it is noise rather than polish.
    ========================================================================== */
 
 const CAN_RUN =
@@ -27,25 +29,32 @@ export function initCursor(opts = {}) {
   const textSelector =
     'input:not([type="button"]):not([type="submit"]):not([type="reset"]):not([type="checkbox"]):not([type="radio"]), textarea, [contenteditable="true"]';
 
-  const dot = document.createElement("div");
-  dot.className = "cursor-dot";
-  dot.setAttribute("aria-hidden", "true");
-  dot.appendChild(Object.assign(document.createElement("span"), {
-    className: "cursor-dot__shape",
-  }));
+  function el(tag, cls, attrs) {
+    const node = document.createElement(tag);
+    node.className = cls;
+    for (const k in attrs || {}) node.setAttribute(k, attrs[k]);
+    return node;
+  }
 
-  const ring = document.createElement("div");
-  ring.className = "cursor-ring";
-  ring.setAttribute("aria-hidden", "true");
-  ring.appendChild(Object.assign(document.createElement("span"), {
-    className: "cursor-ring__shape",
-  }));
+  const dot = el("div", "cursor-dot", { "aria-hidden": "true" });
+  dot.appendChild(el("span", "cursor-dot__shape"));
 
-  const label = document.createElement("span");
-  label.className = "cursor-ring__label";
-  ring.appendChild(label);
+  /* Four ticks around an open centre rather than a filled disc, so whatever
+     the pointer is over stays readable. The frame is a separate element: CSS
+     rotates it while JS keeps writing position to the wrapper. */
+  const ring = el("div", "cursor-reticle", { "aria-hidden": "true" });
+  const frame = el("div", "cursor-reticle__frame");
+  for (const side of ["n", "e", "s", "w"]) {
+    frame.appendChild(el("span", "cursor-tick", { "data-side": side }));
+  }
+  ring.appendChild(frame);
 
-  document.body.append(dot, ring);
+  /* The word rides outside the reticle, below and right, as a chip. */
+  const labelWrap = el("div", "cursor-label", { "aria-hidden": "true" });
+  const label = el("span", "cursor-label__chip");
+  labelWrap.appendChild(label);
+
+  document.body.append(dot, ring, labelWrap);
 
   // Target position (raw pointer) and the ring's lagging position.
   let tx = window.innerWidth / 2;
@@ -73,6 +82,9 @@ export function initCursor(opts = {}) {
     ry += (ty - ry) * 0.16;
     dot.style.transform = `translate3d(${tx}px, ${ty}px, 0)`;
     ring.style.transform = `translate3d(${rx}px, ${ry}px, 0)`;
+    /* The chip tracks the dot, not the lagging reticle: a label that trails
+       behind the pointer reads as lag rather than as weight. */
+    labelWrap.style.transform = `translate3d(${tx}px, ${ty}px, 0)`;
   }
 
   /* Delegated hover detection: one listener covers content added later
@@ -145,6 +157,7 @@ export function initCursor(opts = {}) {
       document.removeEventListener("pointerenter", onEnterWindow);
       dot.remove();
       ring.remove();
+      labelWrap.remove();
       document.body.classList.remove(
         "cursor-ready",
         "cursor-hover",

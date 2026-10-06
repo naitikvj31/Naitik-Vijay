@@ -4,17 +4,25 @@
    ========================================================================== */
 
 /* ==========================================================================
-   1. Custom cursor
-   A dot that tracks the pointer 1:1 and a ring that lags behind it. Each is a
-   positioned wrapper (JS owns its transform) holding a shape that CSS scales,
-   so hover states animate on the compositor and never touch layout.
+   1. Custom cursor — a focus reticle
 
-   The native pointer is hidden ONLY once the custom one is live, so a JS
-   failure can never leave the page with no cursor at all.
+   Not an expanding disc with a word inside it. That pattern is on every
+   templated agency site, and worse, it parks a tinted circle on top of the
+   very text the pointer is over.
+
+   This is an instrument instead: a precise dot inside four tick marks with
+   an open centre, so whatever is underneath stays readable. Hovering
+   something interactive rotates the reticle to 45 degrees and locks the
+   ticks in, the way a camera confirms focus. Any label rides OUTSIDE the
+   reticle as a small chip, below and right, never over the content.
+
+   The native pointer is hidden only once this one is live, so a JS failure
+   can never leave the page with no cursor at all.
    ========================================================================== */
 
 .cursor-dot,
-.cursor-ring {
+.cursor-reticle,
+.cursor-label {
   position: fixed;
   top: 0;
   left: 0;
@@ -27,65 +35,109 @@
   transition: opacity var(--t-med) var(--ease-out);
 }
 
-.cursor-dot__shape,
-.cursor-ring__shape,
-.cursor-ring__label {
+/* --- The dot ------------------------------------------------------------ */
+
+.cursor-dot__shape {
   position: absolute;
   top: 0;
   left: 0;
-  transform-origin: 50% 50%;
-}
-
-.cursor-dot__shape {
-  width: 7px;
-  height: 7px;
+  width: 5px;
+  height: 5px;
   border-radius: 50%;
   background: var(--cursor-fg, #fff);
-  /* A hairline of the page ground keeps the dot legible on white headlines
-     as well as on the dark ground. */
   box-shadow: 0 0 0 1px var(--cursor-halo, rgba(4, 5, 12, 0.45));
   transform: translate(-50%, -50%) scale(1);
   transition: transform var(--t-fast) var(--ease-out);
 }
 
-.cursor-ring__shape {
-  width: 38px;
-  height: 38px;
-  border: 1.5px solid var(--cursor-ring, rgba(255, 255, 255, 0.46));
-  border-radius: 50%;
-  transform: translate(-50%, -50%) scale(1);
-  transition: transform var(--t-med) var(--ease-spring),
-    background-color var(--t-med) var(--ease-out), border-color var(--t-med) var(--ease-out);
+/* --- The reticle -------------------------------------------------------- */
+
+.cursor-reticle {
+  --reach: 14px;
+  --tick: 6px;
+  --thick: 1.5px;
 }
 
-.cursor-ring__label {
-  font-family: var(--font-body);
-  font-size: 0.66rem;
-  font-weight: 600;
+.cursor-reticle__frame {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 0;
+  height: 0;
+  transform: rotate(0deg);
+  transition: transform var(--t-med) var(--ease-spring);
+}
+
+.cursor-tick {
+  position: absolute;
+  top: 0;
+  left: 0;
+  background: var(--cursor-ring, rgba(255, 255, 255, 0.46));
+  border-radius: 1px;
+  transition: transform var(--t-med) var(--ease-spring),
+    background-color var(--t-fast) linear, height var(--t-med) var(--ease-spring),
+    width var(--t-med) var(--ease-spring);
+}
+
+.cursor-tick[data-side="n"],
+.cursor-tick[data-side="s"] {
+  width: var(--thick);
+  height: var(--tick);
+  margin: calc(var(--tick) / -2) 0 0 calc(var(--thick) / -2);
+}
+
+.cursor-tick[data-side="e"],
+.cursor-tick[data-side="w"] {
+  width: var(--tick);
+  height: var(--thick);
+  margin: calc(var(--thick) / -2) 0 0 calc(var(--tick) / -2);
+}
+
+.cursor-tick[data-side="n"] { transform: translateY(calc(var(--reach) * -1)); }
+.cursor-tick[data-side="s"] { transform: translateY(var(--reach)); }
+.cursor-tick[data-side="e"] { transform: translateX(var(--reach)); }
+.cursor-tick[data-side="w"] { transform: translateX(calc(var(--reach) * -1)); }
+
+/* --- The label, outside the reticle ------------------------------------- */
+
+.cursor-label__chip {
+  position: absolute;
+  top: 0;
+  left: 0;
+  transform: translate(13px, 13px) scale(0.82);
+  transform-origin: 0 0;
+  padding: 0.26rem 0.5rem;
+  border-radius: 3px;
+  border: 1px solid var(--cursor-ring-label, rgba(118, 165, 255, 0.8));
+  background: var(--cursor-chip-bg, rgba(8, 11, 26, 0.92));
+  font-family: var(--font-mono);
+  font-size: 0.6rem;
+  font-weight: 500;
   letter-spacing: 0.12em;
   text-transform: uppercase;
   color: var(--cursor-fg, #fff);
   white-space: nowrap;
   opacity: 0;
-  transform: translate(-50%, -50%) scale(0.6);
   transition: opacity var(--t-fast) var(--ease-out), transform var(--t-med) var(--ease-spring);
 }
 
+/* --- States ------------------------------------------------------------- */
+
 body.cursor-ready .cursor-dot,
-body.cursor-ready .cursor-ring {
+body.cursor-ready .cursor-reticle {
   opacity: 1;
 }
 
-/* Only now is it safe to take the native pointer away. */
 body.cursor-ready,
 body.cursor-ready * {
   cursor: none;
 }
 
-/* Text entry is the one place precision beats polish: the custom cursor steps
-   aside and the native caret comes back. */
+/* Text entry is the one place precision beats polish: the custom cursor
+   steps aside and the native caret comes back. */
 body.cursor-ready.cursor-text .cursor-dot,
-body.cursor-ready.cursor-text .cursor-ring {
+body.cursor-ready.cursor-text .cursor-reticle,
+body.cursor-ready.cursor-text .cursor-label {
   opacity: 0;
 }
 
@@ -94,52 +146,52 @@ body.cursor-ready.cursor-text * {
   cursor: auto;
 }
 
-/* Hovering anything interactive: ring swells, dot recedes. */
-/* 1.62 put a 62px ring on top of a 44px button and tinted it violet, which
-   read as the control changing rather than the cursor reacting. */
-body.cursor-hover .cursor-ring__shape {
-  transform: translate(-50%, -50%) scale(1.34);
-  background: var(--cursor-fill-hover, rgba(139, 92, 246, 0.16));
-  border-color: var(--cursor-ring-hover, rgba(169, 137, 255, 0.76));
+/* Locked on: the frame turns to 45 degrees and the ticks draw in and
+   lengthen. The centre stays open throughout. */
+body.cursor-hover .cursor-reticle__frame,
+body.cursor-label .cursor-reticle__frame {
+  transform: rotate(45deg);
 }
 
-body.cursor-hover .cursor-dot__shape {
-  transform: translate(-50%, -50%) scale(0);
+body.cursor-hover .cursor-reticle,
+body.cursor-label .cursor-reticle {
+  --reach: 10px;
+  --tick: 9px;
 }
 
-/* Ring carries a word ("View", "Drag") over specific targets. */
-body.cursor-label .cursor-ring__shape {
-  transform: translate(-50%, -50%) scale(2.16);
-  background: var(--cursor-fill-label, rgba(76, 125, 255, 0.22));
-  border-color: var(--cursor-ring-label, rgba(118, 165, 255, 0.8));
+body.cursor-hover .cursor-tick,
+body.cursor-label .cursor-tick {
+  background: var(--cursor-ring-hover, rgba(169, 137, 255, 0.76));
 }
 
+body.cursor-hover .cursor-dot__shape,
 body.cursor-label .cursor-dot__shape {
-  transform: translate(-50%, -50%) scale(0);
+  transform: translate(-50%, -50%) scale(0.6);
 }
 
-body.cursor-label .cursor-ring__label {
+body.cursor-ready.cursor-label .cursor-label {
   opacity: 1;
-  transform: translate(-50%, -50%) scale(1);
 }
 
-/* Press feedback — the ring dips, so a click reads even without the arrow. */
-body.cursor-press .cursor-ring__shape {
-  transform: translate(-50%, -50%) scale(0.82);
+body.cursor-label .cursor-label__chip {
+  opacity: 1;
+  transform: translate(13px, 13px) scale(1);
 }
 
-body.cursor-press.cursor-hover .cursor-ring__shape {
-  transform: translate(-50%, -50%) scale(1.12);
+/* Press: the reticle snaps shut. */
+body.cursor-press .cursor-reticle {
+  --reach: 7px;
 }
 
-body.cursor-press.cursor-label .cursor-ring__shape {
-  transform: translate(-50%, -50%) scale(1.92);
+body.cursor-press .cursor-dot__shape {
+  transform: translate(-50%, -50%) scale(1.5);
 }
 
-/* Pointer-precision and motion preference both gate the whole feature. */
+/* Pointer precision and motion preference both gate the whole feature. */
 @media (hover: none), (pointer: coarse), (prefers-reduced-motion: reduce) {
   .cursor-dot,
-  .cursor-ring {
+  .cursor-reticle,
+  .cursor-label {
     display: none !important;
   }
   body.cursor-ready,
@@ -642,10 +694,16 @@ body.cursor-press.cursor-label .cursor-ring__shape {
   min-height: 15rem;
 }
 
+/* The two lead services are already wider and carry a larger icon. That is
+   the hierarchy; a tinted fill on top of it just introduced a second colour
+   that read as unrelated rather than as emphasis. */
 .service--flagship {
   grid-column: span 3;
   min-height: 19.5rem;
-  background: var(--flagship-bg);
+}
+
+.service--flagship h3 {
+  font-size: clamp(1.32rem, 2vw, 1.62rem);
 }
 
 .service--wide {
@@ -1045,357 +1103,6 @@ body.cursor-press.cursor-label .cursor-ring__shape {
 }
 
 /* ==========================================================================
-   12. CTA band
-   ========================================================================== */
-
-.cta {
-  position: relative;
-  text-align: center;
-  padding: clamp(3rem, 7vw, 5.5rem) clamp(1.4rem, 5vw, 4rem);
-  border-radius: var(--r-xl);
-  border: 1px solid var(--hairline-strong);
-  background: var(--cta-bg);
-  box-shadow: var(--shadow-md);
-  overflow: hidden;
-}
-
-.cta::before {
-  content: "";
-  position: absolute;
-  inset: 0;
-  background: radial-gradient(55% 80% at 50% 120%, rgba(255, 138, 61, 0.16), transparent 70%);
-  pointer-events: none;
-}
-
-.cta > * {
-  position: relative;
-}
-
-/* The band sits inside a section that already carries the <h2>, so its own
-   title is an <h3> and has to be styled up to display size explicitly. */
-.cta__title {
-  font-size: var(--t-h2);
-  line-height: 1.08;
-  letter-spacing: var(--track-h2);
-  max-width: 20ch;
-  margin-inline: auto;
-  margin-top: var(--s-4);
-}
-
-.cta__lead {
-  max-width: 48ch;
-  margin: var(--s-4) auto 0;
-  color: var(--text-dim);
-  font-size: var(--t-lead);
-}
-
-/* Formerly `.cta p`, which also matched every <p class="field"> inside the
-   form: the fields inherited `max-width: 48ch` and `margin-inline: auto`, so
-   each one shrank to its input's intrinsic width and floated to the middle of
-   its grid column. That is what made the contact block look like loose boxes
-   scattered around rather than a form. */
-
-.cta__actions {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
-  /* Wider than s-4: the magnetic pull moves each button up to ~14px toward the
-     pointer, and at a 16px gap the two pills met in the middle. */
-  gap: var(--s-5);
-  margin-top: var(--s-6);
-}
-
-/* ==========================================================================
-   12b. Contact form
-   ========================================================================== */
-
-/* The fields used to float in the middle of the CTA band with nothing holding
-   them together, which is what made the section read as boxes scattered about.
-   Giving the form its own bordered panel groups them into one object. */
-.cta__form {
-  max-width: 46rem;
-  margin: clamp(2rem, 4vw, 3rem) auto 0;
-  padding: clamp(1.5rem, 3vw, 2.4rem);
-  border-radius: var(--r-lg);
-  border: 1px solid var(--panel-border);
-  background: var(--panel-bg);
-  backdrop-filter: blur(16px);
-  box-shadow: var(--shadow-sm);
-  text-align: left;
-}
-
-.field-grid {
-  display: grid;
-  grid-template-columns: repeat(2, minmax(0, 1fr));
-  /* Wider row gap than column gap: an error message needs somewhere to sit
-     without crowding the label of the field below it. */
-  column-gap: var(--s-4);
-  row-gap: var(--s-5);
-}
-
-@media (max-width: 620px) {
-  .field-grid {
-    grid-template-columns: minmax(0, 1fr);
-  }
-}
-
-.field {
-  display: flex;
-  flex-direction: column;
-  gap: 0.45rem;
-  margin-bottom: var(--s-4);
-}
-
-.field-grid .field {
-  margin-bottom: 0;
-}
-
-.field label {
-  font-family: var(--font-mono);
-  font-size: 0.7rem;
-  font-weight: 500;
-  letter-spacing: 0.07em;
-  text-transform: uppercase;
-  color: var(--text-dim);
-}
-
-.field label span {
-  text-transform: none;
-  letter-spacing: 0;
-  font-weight: 400;
-  color: var(--text-faint);
-}
-
-.field input,
-.field select,
-.field textarea {
-  width: 100%;
-  padding: 0.85rem 1.05rem;
-  border-radius: var(--r-sm);
-  border: 1px solid var(--field-border);
-  background: var(--input-bg);
-  color: var(--text);
-  font-size: var(--t-sm);
-  transition: border-color var(--t-fast) var(--ease-out), background-color var(--t-fast) var(--ease-out),
-    box-shadow var(--t-fast) var(--ease-out);
-}
-
-.field input:hover,
-.field select:hover,
-.field textarea:hover {
-  border-color: var(--field-border-hover);
-}
-
-.field textarea {
-  resize: vertical;
-  min-height: 7rem;
-  line-height: 1.6;
-}
-
-/* The native arrow is invisible on a dark field, so draw one. */
-.field select {
-  appearance: none;
-  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%237f8db0' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='m6 9 6 6 6-6'/%3E%3C/svg%3E");
-  background-repeat: no-repeat;
-  background-position: right 0.9rem center;
-  background-size: 17px;
-  padding-right: 2.6rem;
-  cursor: pointer;
-}
-
-/* Options render in the OS menu, which does not inherit the page's palette. */
-.field select option {
-  background: var(--option-bg);
-  color: var(--text);
-}
-
-.field input::placeholder,
-.field textarea::placeholder {
-  color: var(--text-faint);
-}
-
-.field input:focus,
-.field select:focus,
-.field textarea:focus {
-  outline: none;
-  border-color: var(--accent-ink);
-  background: var(--bg-raise);
-  box-shadow: 0 0 0 3px rgba(139, 92, 246, 0.2);
-}
-
-.form-actions {
-  display: flex;
-  justify-content: center;
-  margin-top: var(--s-5);
-}
-
-.form-status {
-  display: block;
-  margin-top: var(--s-4);
-  /* `display:block` on a class outranks the UA's [hidden] rule, which left an
-     empty bordered bar sitting under the button before any submit. */
-
-  padding: 0.8rem 1.05rem;
-  border-radius: var(--r-sm);
-  border: 1px solid var(--hairline-strong);
-  background: var(--surface);
-  font-size: var(--t-sm);
-  color: var(--text-dim);
-  text-align: center;
-}
-
-.form-status[hidden] {
-  display: none;
-}
-
-/* These were fixed light-on-dark values, so on the light scheme the status
-   line came out as pale orange on near-white. Both states are tokens now. */
-.form-status[data-state="ok"] {
-  border-color: var(--ok-border);
-  background: var(--ok-bg);
-  color: var(--ok-text);
-}
-
-.form-status[data-state="error"] {
-  border-color: var(--field-error);
-  background: var(--field-error-bg);
-  color: var(--field-error);
-  font-weight: 500;
-}
-
-.cta__direct {
-  display: flex;
-  flex-wrap: wrap;
-  align-items: center;
-  justify-content: center;
-  gap: var(--s-2) var(--s-3);
-  margin-top: var(--s-6);
-  font-size: var(--t-sm);
-  color: var(--text-muted);
-}
-
-/* Pills rather than underlines: each one is its own 44px target and the row
-   wraps cleanly instead of leaving a stray separator on its own line. */
-.cta__direct a {
-  display: inline-flex;
-  align-items: center;
-  gap: 0.45rem;
-  min-height: 2.75rem;
-  padding: 0.55rem 1.05rem;
-  border-radius: var(--r-pill);
-  border: 1px solid var(--hairline-strong);
-  background: var(--surface);
-  color: var(--text);
-  font-weight: 500;
-  transition: color var(--t-fast) var(--ease-out), border-color var(--t-fast) var(--ease-out),
-    background-color var(--t-fast) var(--ease-out);
-}
-
-.cta__direct a svg {
-  width: 15px;
-  height: 15px;
-  fill: none;
-  stroke: var(--accent-ink);
-  stroke-width: 1.8;
-  stroke-linecap: round;
-  stroke-linejoin: round;
-  flex: none;
-}
-
-.cta__direct a:hover {
-  color: var(--accent-ink-2);
-  border-color: var(--accent-ink-2);
-  background: var(--surface-hover);
-}
-
-/* ==========================================================================
-   13. Footer
-   ========================================================================== */
-
-.footer {
-  position: relative;
-  z-index: var(--z-content);
-  border-top: 1px solid var(--hairline);
-  background: var(--footer-bg);
-  padding-block: var(--s-8) var(--s-6);
-  margin-top: calc(var(--section-y) * 0.62);
-}
-
-.footer__grid {
-  display: grid;
-  grid-template-columns: minmax(0, 1.6fr) repeat(3, minmax(0, 1fr));
-  gap: clamp(1.8rem, 4vw, 3.2rem);
-}
-
-.footer__about p {
-  color: var(--text-muted);
-  font-size: var(--t-sm);
-  max-width: 34ch;
-  margin-top: var(--s-4);
-}
-
-.footer__col h3 {
-  font-family: var(--font-mono);
-  font-size: 0.7rem;
-  font-weight: 500;
-  letter-spacing: 0.1em;
-  text-transform: uppercase;
-  color: var(--text-muted);
-  margin-bottom: var(--s-4);
-}
-
-.footer__col li + li {
-  margin-top: 0.1rem;
-}
-
-/* The wordmark is a link too, and at the smallest breakpoint its 32px logo
-   left it under the touch-target floor. */
-.footer__about .nav__brand {
-  padding-block: 0.6rem;
-}
-
-/* Inline-block with vertical padding gives each link a ~40px hit area without
-   changing how the list reads — at 18px tall these were well under the touch
-   target floor on a phone. */
-.footer__col a {
-  display: inline-block;
-  /* 44px floor on both axes — short labels like "G2" and "FAQ" were only
-     ~19px wide, under the WCAG 2.2 target-size minimum. */
-  min-width: 2.75rem;
-  padding-block: 0.8rem;
-  font-size: var(--t-sm);
-  line-height: 1.3;
-  color: var(--text-dim);
-  transition: color var(--t-fast) var(--ease-out);
-}
-
-.footer__col a:hover {
-  color: var(--accent-ink-2);
-}
-
-.footer__bottom {
-  display: flex;
-  flex-wrap: wrap;
-  align-items: center;
-  justify-content: space-between;
-  gap: var(--s-4);
-  margin-top: var(--s-8);
-  padding-top: var(--s-5);
-  border-top: 1px solid var(--hairline);
-  font-size: var(--t-xs);
-  color: var(--text-faint);
-}
-
-@media (max-width: 860px) {
-  .footer__grid {
-    grid-template-columns: repeat(2, minmax(0, 1fr));
-  }
-  .footer__about {
-    grid-column: span 2;
-  }
-}
-
-/* ==========================================================================
    14. Scroll reveal
    Opacity+transform only, so reveals never trigger layout.
    ========================================================================== */
@@ -1684,66 +1391,6 @@ body.cursor-press.cursor-label .cursor-ring__shape {
    Four ways in, each stating what it is good for and how fast it answers, so
    nobody has to guess which one gets a reply.
    ========================================================================== */
-
-.channels {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(min(100%, 14.5rem), 1fr));
-  gap: clamp(0.8rem, 1.5vw, 1.2rem);
-  margin-bottom: clamp(1.6rem, 3vw, 2.6rem);
-}
-
-.channel {
-  display: flex;
-  flex-direction: column;
-  gap: 0.55rem;
-  padding: clamp(1.1rem, 2vw, 1.4rem);
-  text-align: left;
-}
-
-.channel__icon {
-  width: 38px;
-  height: 38px;
-  display: grid;
-  place-items: center;
-  border-radius: 11px;
-  background: var(--accent-grad-soft);
-  border: 1px solid var(--hairline-strong);
-  margin-bottom: 0.2rem;
-}
-
-.channel__icon svg {
-  width: 18px;
-  height: 18px;
-  fill: none;
-  stroke: var(--accent-ink);
-  stroke-width: 1.7;
-  stroke-linecap: round;
-  stroke-linejoin: round;
-}
-
-.channel__name {
-  font-family: var(--font-mono);
-  font-size: 0.64rem;
-  font-weight: 500;
-  letter-spacing: 0.13em;
-  text-transform: uppercase;
-  color: var(--text-muted);
-}
-
-.channel__value {
-  font-size: var(--t-sm);
-  font-weight: 600;
-  color: var(--text);
-  /* Long addresses must wrap instead of pushing the card wide. */
-  overflow-wrap: anywhere;
-}
-
-.channel__note {
-  font-size: var(--t-xs);
-  color: var(--text-muted);
-  margin-top: auto;
-  padding-top: 0.35rem;
-}
 
 /* ==========================================================================
    19. Light-scheme lift
@@ -2698,4 +2345,605 @@ body.cursor-press.cursor-label .cursor-ring__shape {
     grid-column: 2;
     justify-self: start;
   }
+}
+
+/* ==========================================================================
+   27. Contact
+   Two columns on a wide screen: why to get in touch on the left, the form on
+   the right. Centred in a 1240px shell it read as a narrow strip with two
+   empty margins, which is the opposite of what a conversion section wants.
+   ========================================================================== */
+
+.contact__shell {
+  width: 100%;
+  max-width: 1400px;
+  margin-inline: auto;
+  padding-inline: var(--gutter);
+}
+
+.contact__grid {
+  display: grid;
+  gap: clamp(1.5rem, 3vw, 2.5rem);
+  align-items: start;
+}
+
+@media (min-width: 1040px) {
+  .contact__grid {
+    grid-template-columns: minmax(0, 0.82fr) minmax(0, 1fr);
+  }
+}
+
+.contact__aside {
+  display: grid;
+  gap: clamp(1.2rem, 2.5vw, 1.8rem);
+}
+
+.channels {
+  display: grid;
+  gap: 0.7rem;
+}
+
+.channel {
+  display: grid;
+  grid-template-columns: auto minmax(0, 1fr);
+  gap: 0.9rem;
+  align-items: start;
+  padding: clamp(1rem, 2vw, 1.25rem);
+  border: 1px solid var(--hairline);
+  border-radius: var(--r-md);
+  background: var(--surface);
+  box-shadow: var(--shadow-sm);
+  transition: border-color var(--t-fast) var(--ease-out),
+    background-color var(--t-fast) var(--ease-out), transform var(--t-fast) var(--ease-out);
+}
+
+.channel:hover {
+  border-color: var(--accent-ink);
+  background: var(--surface-strong);
+  transform: translateY(-2px);
+}
+
+.channel__icon {
+  width: 38px;
+  height: 38px;
+  flex: none;
+  display: grid;
+  place-items: center;
+  border-radius: 11px;
+  background: var(--accent-grad-soft);
+  border: 1px solid var(--hairline-strong);
+}
+
+.channel__icon svg {
+  width: 18px;
+  height: 18px;
+  fill: none;
+  stroke: var(--accent-ink);
+  stroke-width: 1.7;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+.channel__body {
+  display: grid;
+  gap: 2px;
+  min-width: 0;
+}
+
+.channel__name {
+  font-family: var(--font-mono);
+  font-size: 0.64rem;
+  font-weight: 500;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--text-muted);
+}
+
+.channel__value {
+  font-size: var(--t-sm);
+  font-weight: 600;
+  color: var(--text);
+  overflow-wrap: anywhere;
+}
+
+.channel__note {
+  font-size: var(--t-xs);
+  color: var(--text-muted);
+}
+
+/* What happens next, because the gap between sending a form and hearing back
+   is where most enquiries are abandoned. */
+.contact__promise {
+  padding: clamp(1.1rem, 2.2vw, 1.5rem);
+  border: 1px solid var(--hairline);
+  border-radius: var(--r-md);
+  background: var(--band-bg);
+}
+
+.contact__promise h3 {
+  font-size: var(--t-h4);
+  margin-bottom: var(--s-4);
+}
+
+.contact__promise ol {
+  display: grid;
+  gap: 0.65rem;
+  counter-reset: step;
+  margin-bottom: var(--s-4);
+}
+
+.contact__promise li {
+  position: relative;
+  padding-left: 2rem;
+  font-size: var(--t-sm);
+  color: var(--text-dim);
+  counter-increment: step;
+}
+
+.contact__promise li::before {
+  content: counter(step);
+  position: absolute;
+  left: 0;
+  top: 0.05em;
+  width: 1.35rem;
+  height: 1.35rem;
+  display: grid;
+  place-items: center;
+  border-radius: 50%;
+  border: 1px solid var(--hairline-strong);
+  font-family: var(--font-mono);
+  font-size: 0.66rem;
+  color: var(--accent-ink);
+}
+
+.contact__promise > p {
+  margin: 0;
+  font-size: var(--t-xs);
+  color: var(--text-muted);
+}
+
+/* --- The form panel ----------------------------------------------------- */
+
+.cta {
+  position: relative;
+  padding: clamp(1.5rem, 3vw, 2.3rem);
+  border-radius: var(--r-xl);
+  border: 1px solid var(--hairline-strong);
+  background: var(--cta-bg);
+  box-shadow: var(--shadow-md);
+  overflow: hidden;
+}
+
+.cta__title {
+  font-size: clamp(1.35rem, 2.4vw, 1.9rem);
+  line-height: 1.1;
+  letter-spacing: var(--track-h2);
+  margin: var(--s-3) 0 0;
+  max-width: 24ch;
+}
+
+.cta__form {
+  margin: clamp(1.4rem, 2.6vw, 2rem) 0 0;
+  padding: 0;
+  border: 0;
+  background: none;
+  backdrop-filter: none;
+  box-shadow: none;
+  max-width: none;
+}
+
+.form-actions {
+  display: flex;
+  margin-top: var(--s-5);
+}
+
+.form-actions .btn {
+  width: 100%;
+}
+
+/* ==========================================================================
+   28. Footer
+   A closing CTA band, then a four-track grid where the brand block and the
+   contact block carry real content rather than a third and fourth list of
+   links padding out the width.
+   ========================================================================== */
+
+.footer {
+  position: relative;
+  z-index: var(--z-content);
+  border-top: 1px solid var(--hairline);
+  background: var(--footer-bg);
+  padding-block: clamp(2.5rem, 5vw, 4rem) var(--s-6);
+  margin-top: calc(var(--section-y) * 0.62);
+}
+
+.footer .shell {
+  max-width: 1400px;
+}
+
+.footer__cta {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--s-5);
+  padding: clamp(1.3rem, 3vw, 2.1rem) clamp(1.3rem, 3vw, 2.3rem);
+  border: 1px solid var(--hairline-strong);
+  border-radius: var(--r-lg);
+  background: var(--cta-bg);
+  margin-bottom: clamp(2.2rem, 4.5vw, 3.5rem);
+}
+
+.footer__cta-text h2 {
+  font-size: clamp(1.2rem, 2.3vw, 1.65rem);
+  letter-spacing: -0.028em;
+  margin: 0;
+}
+
+.footer__cta-text p {
+  margin: 0.35rem 0 0;
+  font-size: var(--t-sm);
+  color: var(--text-dim);
+}
+
+.footer__cta .btn {
+  flex: none;
+}
+
+.footer__grid {
+  display: grid;
+  gap: clamp(1.8rem, 3.5vw, 3rem);
+  grid-template-columns: minmax(0, 1fr);
+}
+
+@media (min-width: 760px) {
+  .footer__grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+@media (min-width: 1100px) {
+  .footer__grid {
+    grid-template-columns: minmax(0, 1.5fr) minmax(0, 1fr) minmax(0, 1fr) minmax(0, 1.25fr);
+  }
+}
+
+.footer__brand p {
+  color: var(--text-muted);
+  font-size: var(--t-sm);
+  max-width: 40ch;
+  margin-top: var(--s-4);
+}
+
+.footer__facts {
+  display: grid;
+  gap: 0.55rem;
+  margin-top: var(--s-5);
+}
+
+.footer__facts div {
+  display: flex;
+  gap: 0.6rem;
+  align-items: baseline;
+  font-size: var(--t-xs);
+}
+
+.footer__facts dt {
+  font-family: var(--font-mono);
+  font-size: 0.62rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--text-faint);
+  flex: none;
+  min-width: 9rem;
+}
+
+.footer__facts dd {
+  margin: 0;
+  color: var(--text-dim);
+}
+
+.footer__col h3 {
+  font-family: var(--font-mono);
+  font-size: 0.68rem;
+  font-weight: 500;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--text-muted);
+  margin-bottom: var(--s-4);
+}
+
+.footer__col a {
+  display: inline-block;
+  min-width: 2.75rem;
+  padding-block: 0.52rem;
+  font-size: var(--t-sm);
+  line-height: 1.3;
+  color: var(--text-dim);
+  transition: color var(--t-fast) var(--ease-out);
+}
+
+.footer__col a:hover {
+  color: var(--accent-ink);
+}
+
+/* --- Contact channels in the footer ------------------------------------- */
+
+.footer__channels {
+  display: grid;
+  gap: 0.45rem;
+}
+
+.fchan {
+  display: grid !important;
+  grid-template-columns: auto minmax(0, 1fr);
+  gap: 0.7rem;
+  align-items: center;
+  padding: 0.6rem 0.7rem !important;
+  border: 1px solid var(--hairline);
+  border-radius: var(--r-sm);
+  background: var(--surface);
+  transition: border-color var(--t-fast) var(--ease-out),
+    background-color var(--t-fast) var(--ease-out);
+}
+
+.fchan:hover {
+  border-color: var(--accent-ink);
+  background: var(--surface-strong);
+}
+
+.fchan__icon {
+  width: 30px;
+  height: 30px;
+  display: grid;
+  place-items: center;
+  border-radius: 8px;
+  background: var(--accent-grad-soft);
+}
+
+.fchan__icon svg {
+  width: 15px;
+  height: 15px;
+  fill: none;
+  stroke: var(--accent-ink);
+  stroke-width: 1.7;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+.fchan__text {
+  display: grid;
+  gap: 1px;
+  min-width: 0;
+}
+
+.fchan__label {
+  font-family: var(--font-mono);
+  font-size: 0.58rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--text-faint);
+}
+
+.fchan__value {
+  font-size: 0.86rem;
+  font-weight: 600;
+  color: var(--text);
+  overflow-wrap: anywhere;
+}
+
+.fchan__note {
+  font-size: 0.7rem;
+  color: var(--text-muted);
+}
+
+/* --- Bottom bar --------------------------------------------------------- */
+
+.footer__bottom {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--s-3) var(--s-5);
+  margin-top: clamp(2.2rem, 4.5vw, 3.5rem);
+  padding-top: var(--s-5);
+  border-top: 1px solid var(--hairline);
+  font-size: var(--t-xs);
+  color: var(--text-faint);
+}
+
+.footer__bottom p {
+  margin: 0;
+}
+
+.footer__meta {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.2rem 1.1rem;
+}
+
+.footer__meta a {
+  display: inline-block;
+  padding-block: 0.5rem;
+  color: var(--text-dim);
+  transition: color var(--t-fast) var(--ease-out);
+}
+
+.footer__meta a:hover {
+  color: var(--accent-ink);
+}
+
+.footer__terms {
+  color: var(--text-faint);
+}
+
+@media (max-width: 860px) {
+  .footer__cta {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+  .footer__cta .btn {
+    width: 100%;
+  }
+}
+
+/* ==========================================================================
+   29. Form fields
+   Restored after the contact rewrite: these rules were inside the old
+   centred-CTA block and went with it, which left every input unstyled.
+   ========================================================================== */
+
+.field-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  /* Wider row gap than column gap: an error message needs somewhere to sit
+     without crowding the label of the field below it. */
+  column-gap: var(--s-4);
+  row-gap: var(--s-5);
+}
+
+@media (max-width: 620px) {
+  .field-grid {
+    grid-template-columns: minmax(0, 1fr);
+  }
+}
+
+.field {
+  display: flex;
+  flex-direction: column;
+  gap: 0.45rem;
+  margin-bottom: var(--s-5);
+}
+
+.field-grid .field {
+  margin-bottom: 0;
+}
+
+.field label {
+  font-family: var(--font-mono);
+  font-size: 0.7rem;
+  font-weight: 500;
+  letter-spacing: 0.07em;
+  text-transform: uppercase;
+  color: var(--text-dim);
+}
+
+.field label span {
+  text-transform: none;
+  letter-spacing: 0;
+  font-weight: 400;
+  color: var(--text-faint);
+}
+
+.field input,
+.field select,
+.field textarea {
+  width: 100%;
+  padding: 0.85rem 1.05rem;
+  border-radius: var(--r-sm);
+  border: 1px solid var(--field-border);
+  background: var(--input-bg);
+  color: var(--text);
+  font-size: var(--t-sm);
+  transition: border-color var(--t-fast) var(--ease-out), background-color var(--t-fast) var(--ease-out),
+    box-shadow var(--t-fast) var(--ease-out);
+}
+
+.field input:hover,
+.field select:hover,
+.field textarea:hover {
+  border-color: var(--field-border-hover);
+}
+
+.field textarea {
+  resize: vertical;
+  min-height: 7rem;
+  line-height: 1.6;
+}
+
+/* The native arrow is invisible on a dark field, so draw one. */
+.field select {
+  appearance: none;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%237f8db0' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='m6 9 6 6 6-6'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: right 0.9rem center;
+  background-size: 17px;
+  padding-right: 2.6rem;
+  cursor: pointer;
+}
+
+/* Options render in the OS menu, which does not inherit the page's palette. */
+.field select option {
+  background: var(--option-bg);
+  color: var(--text);
+}
+
+.field input::placeholder,
+.field textarea::placeholder {
+  color: var(--text-faint);
+}
+
+.field input:focus,
+.field select:focus,
+.field textarea:focus {
+  outline: none;
+  border-color: var(--accent-ink);
+  background: var(--bg-raise);
+  box-shadow: 0 0 0 3px rgba(139, 92, 246, 0.2);
+}
+
+.field__error {
+  display: block;
+  font-size: var(--t-xs);
+  line-height: 1.4;
+  color: var(--field-error);
+}
+
+.field__error:not(:empty) {
+  margin-top: 0.3rem;
+}
+
+.field input[aria-invalid="true"],
+.field select[aria-invalid="true"],
+.field textarea[aria-invalid="true"] {
+  border-color: var(--field-error);
+  background: var(--field-error-bg);
+}
+
+.field input[aria-invalid="true"]:focus,
+.field select[aria-invalid="true"]:focus,
+.field textarea[aria-invalid="true"]:focus {
+  border-color: var(--field-error);
+  box-shadow: 0 0 0 3px var(--field-error-ring);
+}
+
+.form-status {
+  display: block;
+  margin-top: var(--s-4);
+  padding: 0.8rem 1.05rem;
+  border-radius: var(--r-sm);
+  border: 1px solid var(--hairline-strong);
+  background: var(--surface);
+  font-size: var(--t-sm);
+  color: var(--text-dim);
+  text-align: center;
+}
+
+/* `display: block` on a class outranks the UA's [hidden] rule, which left an
+   empty bordered bar sitting under the button before any submit. */
+.form-status[hidden] {
+  display: none;
+}
+
+.form-status[data-state="ok"] {
+  border-color: var(--ok-border);
+  background: var(--ok-bg);
+  color: var(--ok-text);
+}
+
+.form-status[data-state="error"] {
+  border-color: var(--field-error);
+  background: var(--field-error-bg);
+  color: var(--field-error);
+  font-weight: 500;
 }
