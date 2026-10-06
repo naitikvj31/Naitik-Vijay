@@ -25,10 +25,22 @@ import {
 
 /* ---------------------------------------------------------------- origin */
 
-test('isAllowedOrigin accepts the apex and its subdomains over https', () => {
+test('isAllowedOrigin accepts the two hosts the site actually runs on', () => {
     assert.equal(isAllowedOrigin('https://naigrowth.com'), true);
     assert.equal(isAllowedOrigin('https://www.naigrowth.com'), true);
-    assert.equal(isAllowedOrigin('https://staging.naigrowth.com'), true);
+});
+
+/* Not a wildcard: a subdomain that is later abandoned or taken over must not
+   inherit permission to post here. Anything else opts in via ALLOWED_ORIGINS. */
+test('isAllowedOrigin does not trust arbitrary subdomains', () => {
+    assert.equal(isAllowedOrigin('https://staging.naigrowth.com'), false);
+    assert.equal(isAllowedOrigin('https://abandoned.naigrowth.com'), false);
+    assert.equal(
+        isAllowedOrigin('https://staging.naigrowth.com', {
+            extra: ['https://staging.naigrowth.com'],
+        }),
+        true
+    );
 });
 
 test('isAllowedOrigin rejects look-alike hosts', () => {
@@ -268,9 +280,79 @@ test('rate limiter prunes expired keys instead of growing without bound', () => 
 
 /* ------------------------------------------------------------------- ip */
 
-test('clientIp takes the first hop and falls back safely', () => {
-    assert.equal(clientIp({ 'x-forwarded-for': '203.0.113.9, 70.41.3.18' }), '203.0.113.9');
-    assert.equal(clientIp({ 'x-forwarded-for': '  203.0.113.9  ' }), '203.0.113.9');
+test('clientIp prefers the headers the platform writes', () => {
+    assert.equal(
+        clientIp({ 'x-real-ip': '198.51.100.7', 'x-forwarded-for': '1.1.1.1, 198.51.100.7' }),
+        '198.51.100.7'
+    );
+    assert.equal(clientIp({ 'x-vercel-forwarded-for': '198.51.100.7' }), '198.51.100.7');
+});
+
+/* The whole point of the rewrite: a sender who supplies their own
+   X-Forwarded-For gets it prepended to the chain, so reading left to right
+   handed them a fresh rate-limit key on every request. */
+test('clientIp cannot be spoofed by a client-supplied forwarded-for', () => {
+    const spoofed = { 'x-forwarded-for': '10.0.0.1, 203.0.113.9' };
+    assert.equal(clientIp(spoofed), '203.0.113.9');
+
+    // A long forged chain still resolves to the hop nearest us.
+    assert.equal(
+        clientIp({ 'x-forwarded-for': '1.1.1.1, 2.2.2.2, 3.3.3.3, 203.0.113.9' }),
+        '203.0.113.9'
+    );
+
+    // Two different forgeries must land on the SAME limiter key.
+    const a = clientIp({ 'x-forwarded-for': 'aaaa, 203.0.113.9' });
+    const b = clientIp({ 'x-forwarded-for': 'bbbb, 203.0.113.9' });
+    assert.equal(a, b);
+});
+
+test('clientIp discards anything that is not an address', () => {
     assert.equal(clientIp({}), 'unknown');
     assert.equal(clientIp({ 'x-forwarded-for': '' }), 'unknown');
+    assert.equal(clientIp({ 'x-forwarded-for': 'not-an-ip' }), 'unknown');
+    assert.equal(clientIp({ 'x-real-ip': '<script>alert(1)</script>' }), 'unknown');
+    assert.equal(clientIp({ 'x-forwarded-for': '999.999.999.999' }), 'unknown');
+    assert.equal(clientIp({ 'x-forwarded-for': '2001:db8::1' }), '2001:db8::1');
+});
+
+/* ------------------------------------------------------------ body shape */
+
+test('a non-string field is rejected before any rule runs', () => {
+    const base = {
+        name: 'Rahul Shah',
+        email: 'rahul@example.com',
+        message: 'We need help with our G2 page before a funding round.',
+        fts: Date.now() - 5000,
+    };
+    const bad = [
+        { name: {} },
+        { name: ['a', 'b'] },
+        { message: 42 },
+        { email: true },
+        { phone: ['9', '1'] },
+        { service: { toString: 'orm' } },
+    ];
+    for (const patch of bad) {
+        const result = validateSubmission({ ...base, ...patch });
+        assert.equal(result.ok, false, JSON.stringify(patch));
+        assert.equal(result.reason, 'shape', JSON.stringify(patch));
+    }
+});
+
+test('an oversized field is rejected without running a regex over it', () => {
+    const result = validateSubmission({
+        name: 'Rahul Shah',
+        email: 'rahul@example.com',
+        message: 'x'.repeat(200000),
+        fts: Date.now() - 5000,
+    });
+    assert.equal(result.ok, false);
+    assert.equal(result.reason, 'shape');
+});
+
+test('an array or null body is rejected outright', () => {
+    assert.equal(validateSubmission([]).reason, 'shape');
+    assert.equal(validateSubmission(null).reason, 'shape');
+    assert.equal(validateSubmission('string').reason, 'shape');
 });

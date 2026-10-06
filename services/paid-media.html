@@ -18,13 +18,13 @@
   <meta property="og:url" content="https://www.naigrowth.com/services/paid-media.html">
   <meta property="og:title" content="Paid Media Agency for Brand Search Ads | NaiGrowth">
   <meta property="og:description" content="Paid media that protects your brand search and takes your competitors' traffic. Google, LinkedIn, Meta and programmatic, run by one team with one plan.">
-  <meta property="og:image" content="https://www.naigrowth.com/assets/og-image.png">
+  <meta property="og:image" content="https://www.naigrowth.com/assets/og-image.jpg">
   <meta property="og:image:width" content="1200">
   <meta property="og:image:height" content="630">
   <meta name="twitter:card" content="summary_large_image">
   <meta name="twitter:title" content="Paid Media Agency for Brand Search Ads | NaiGrowth">
   <meta name="twitter:description" content="Paid media that protects your brand search and takes your competitors' traffic. Google, LinkedIn, Meta and programmatic, run by one team with one plan.">
-  <meta name="twitter:image" content="https://www.naigrowth.com/assets/og-image.png">
+  <meta name="twitter:image" content="https://www.naigrowth.com/assets/og-image.jpg">
 
   <link rel="icon" href="../assets/favicon.svg" type="image/svg+xml">
   <link rel="icon" href="../assets/favicon-32.png" sizes="32x32" type="image/png">
@@ -32,14 +32,21 @@
   <link rel="apple-touch-icon" href="../assets/apple-touch-icon.png">
   <link rel="manifest" href="../site.webmanifest">
 
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link rel="stylesheet"
-    href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500&display=swap">
+  <!-- Typefaces, served from this origin rather than fonts.googleapis.com.
+       That removes a DNS lookup, a TLS handshake and a second cross-origin
+       round trip from the critical path, and stops handing a third party the
+       IP address of every visitor. Two files are preloaded: the body weight
+       and the weight the headings use. Everything else loads on demand,
+       gated by unicode-range. -->
+  <link rel="preload" as="font" type="font/woff2" crossorigin
+    href="../assets/fonts/ibm-plex-sans-400-700-latin.woff2">
+  <link rel="preload" as="font" type="font/woff2" crossorigin
+    href="../assets/fonts/ibm-plex-mono-400-latin.woff2">
+  <link rel="stylesheet" href="../css/fonts.css?v=58456f8b">
 
-  <link rel="stylesheet" href="../css/tokens.css?v=b2538ade">
-  <link rel="stylesheet" href="../css/base.css?v=459eee7b">
-  <link rel="stylesheet" href="../css/components.css?v=94090dec">
+  <link rel="stylesheet" href="../css/tokens.css?v=50818c7f">
+  <link rel="stylesheet" href="../css/base.css?v=ed07c637">
+  <link rel="stylesheet" href="../css/components.css?v=12673f0a">
   <script src="../js/theme.js?v=a56c7375"></script>
 
   <script type="application/ld+json">
@@ -132,7 +139,7 @@
   <header class="nav nav--scrolled" data-nav>
     <div class="shell nav__inner">
       <a class="nav__brand" href="../index.html" aria-label="NaiGrowth home">
-        <img src="../assets/logos/naitik_logo.png" alt="NaiGrowth logo" width="38" height="38">
+        <img src="../assets/logos/naitik-logo-96.png" alt="NaiGrowth logo" width="38" height="38">
         <span class="nav__brand-name">NAI<span>GROWTH</span></span>
       </a>
 
@@ -356,7 +363,7 @@
 
         <div class="footer__brand">
           <a class="nav__brand" href="../index.html" aria-label="NaiGrowth home">
-            <img src="../assets/logos/naitik_logo.png" alt="NaiGrowth logo" width="38" height="38"
+            <img src="../assets/logos/naitik-logo-96.png" alt="NaiGrowth logo" width="38" height="38"
               loading="lazy" decoding="async">
             <span class="nav__brand-name">NAI<span>GROWTH</span></span>
           </a>
@@ -453,8 +460,7 @@
     </div>
   </footer>
 
-  <script src="../js/vendor/lenis.js?v=42bf5944" defer></script>
-  <script type="module" src="../js/main.js?v=9e26ee6c"></script>
+  <script type="module" src="../js/main.js?v=c9d90ac0"></script>
 </body>
 
 </html>

@@ -13,62 +13,28 @@ const prefersReduced = () =>
   window.matchMedia("(prefers-reduced-motion: reduce)").matches;
 
 /* ==========================================================================
-   Smooth scroll (Lenis)
-   Vendored as a classic script, so it arrives on globalThis rather than as a
-   module export. Absent or reduced-motion: native scrolling, unchanged.
+   Smooth scroll
+   There is deliberately no JS here any more.
+
+   This used to run Lenis: it swallowed every wheel event and re-emitted the
+   page position through its own easing on a permanent rAF loop. Two things
+   came out of that. The scroll never matched the trackpad, so the page felt
+   like it was floating a beat behind the finger, and because Lenis drives
+   `window` while `body` still carried `overflow-x: hidden` (which makes the
+   body its own scroll container) the two disagreed about who owned the
+   scroll position and the page would snap back toward the top mid-gesture.
+
+   Native scrolling has none of that. It is 1:1 with the input device, keeps
+   real momentum, keeps the scrollbar honest, and costs no main-thread time.
+   Anchor jumps are handled in CSS by `scroll-behavior: smooth` plus
+   `scroll-padding-top`, which also keeps the browser's own focus handling
+   intact — something the old click handler had to reimplement by hand.
+
+   Kept as an exported no-op so a page that still calls it does not throw.
    ========================================================================== */
 
 export function initSmoothScroll() {
-  const Lenis = globalThis.Lenis;
-  if (!Lenis || prefersReduced()) return null;
-
-  const lenis = new Lenis({
-    duration: 1.05,
-    easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
-    smoothWheel: true,
-    touchMultiplier: 1.6,
-  });
-
-  let raf = 0;
-  function frame(time) {
-    lenis.raf(time);
-    raf = requestAnimationFrame(frame);
-  }
-  raf = requestAnimationFrame(frame);
-
-  // In-page anchors must route through Lenis or they fight the smoothing.
-  function onClick(e) {
-    const link = e.target.closest('a[href^="#"]');
-    if (!link) return;
-    const id = link.getAttribute("href");
-    if (!id || id === "#") return;
-    const target = document.querySelector(id);
-    if (!target) return;
-
-    e.preventDefault();
-    lenis.scrollTo(target, { offset: -84 });
-
-    /* preventDefault also cancels the browser's native fragment behaviour,
-       which is what moves keyboard focus to the target. Without restoring it
-       the skip link does nothing for its actual audience, and every nav jump
-       leaves focus stranded in the header. Sections are not focusable by
-       default, so give the target a programmatic-only tab stop. */
-    if (!target.hasAttribute("tabindex")) target.setAttribute("tabindex", "-1");
-    target.focus({ preventScroll: true });
-
-    // Keep the URL shareable, without the jump preventDefault just suppressed.
-    if (history.replaceState) history.replaceState(null, "", id);
-  }
-  document.addEventListener("click", onClick);
-
-  return {
-    lenis,
-    destroy() {
-      cancelAnimationFrame(raf);
-      document.removeEventListener("click", onClick);
-      lenis.destroy();
-    },
-  };
+  return null;
 }
 
 /* ==========================================================================

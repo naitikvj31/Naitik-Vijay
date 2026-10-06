@@ -27,7 +27,16 @@ import {
    tested without a network. See test/ for the suite.
    ========================================================================== */
 
-const limiter = createRateLimiter({ windowMs: 10 * 60 * 1000, max: 3 });
+const WINDOW_MS = 10 * 60 * 1000;
+
+const limiter = createRateLimiter({ windowMs: WINDOW_MS, max: 3 });
+
+/* A second ceiling with no key, so a spread of addresses cannot do what one
+   address is stopped from doing. 3 per IP per ten minutes bounds one sender;
+   this bounds the mailbox and the SMTP quota as a whole. Per-instance like
+   the other limiter, so it is a cost ceiling rather than an access control,
+   and it sits well above any real day's enquiries. */
+const burst = createRateLimiter({ windowMs: WINDOW_MS, max: 40, maxKeys: 1 });
 
 /* Previews and local work are opt-in through an env var rather than a broad
    "*.vercel.app" pattern, which let anyone's preview deployment post here. */
@@ -64,7 +73,9 @@ export default async function handler(req, res) {
     }
 
     const ip = clientIp(req.headers);
-    if (limiter.check(ip)) {
+    if (limiter.check(ip) || burst.check('all')) {
+        // Retry-After keeps a well-behaved client from hammering the window.
+        res.setHeader('Retry-After', String(Math.ceil(WINDOW_MS / 1000)));
         return res
             .status(429)
             .json({ success: false, message: 'Too many requests. Please try again later.' });

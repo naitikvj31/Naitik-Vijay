@@ -29,7 +29,7 @@
   <meta property="og:title" content="ORM &amp; Online Reputation Management Company | NaiGrowth">
   <meta property="og:description"
     content="Online reputation management, paid PR, paid reviews and reputation consultancy for brands that cannot afford a bad first page.">
-  <meta property="og:image" content="https://www.naigrowth.com/assets/og-image.png">
+  <meta property="og:image" content="https://www.naigrowth.com/assets/og-image.jpg">
   <meta property="og:image:width" content="1200">
   <meta property="og:image:height" content="630">
   <meta property="og:image:alt"
@@ -40,7 +40,7 @@
   <meta name="twitter:title" content="ORM &amp; Online Reputation Management Company | NaiGrowth">
   <meta name="twitter:description"
     content="Online reputation management, paid PR, paid reviews and reputation consultancy for brands that cannot afford a bad first page.">
-  <meta name="twitter:image" content="https://www.naigrowth.com/assets/og-image.png">
+  <meta name="twitter:image" content="https://www.naigrowth.com/assets/og-image.jpg">
   <meta name="twitter:image:alt"
     content="NaiGrowth: online reputation management, ORM, paid PR, paid reviews and reputation consultancy">
 
@@ -53,17 +53,21 @@
   <link rel="apple-touch-icon" href="assets/apple-touch-icon.png">
   <link rel="manifest" href="site.webmanifest">
 
-  <!-- Fonts. Preconnect first so the handshake overlaps CSS parsing. -->
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link rel="preload" as="style"
-    href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500&display=swap">
-  <link rel="stylesheet"
-    href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500&display=swap">
+  <!-- Typefaces, served from this origin rather than fonts.googleapis.com.
+       That removes a DNS lookup, a TLS handshake and a second cross-origin
+       round trip from the critical path, and stops handing a third party the
+       IP address of every visitor. Two files are preloaded: the body weight
+       and the weight the headings use. Everything else loads on demand,
+       gated by unicode-range. -->
+  <link rel="preload" as="font" type="font/woff2" crossorigin
+    href="assets/fonts/ibm-plex-sans-400-700-latin.woff2">
+  <link rel="preload" as="font" type="font/woff2" crossorigin
+    href="assets/fonts/ibm-plex-mono-400-latin.woff2">
+  <link rel="stylesheet" href="css/fonts.css?v=58456f8b">
 
-  <link rel="stylesheet" href="css/tokens.css?v=b2538ade">
-  <link rel="stylesheet" href="css/base.css?v=459eee7b">
-  <link rel="stylesheet" href="css/components.css?v=94090dec">
+  <link rel="stylesheet" href="css/tokens.css?v=50818c7f">
+  <link rel="stylesheet" href="css/base.css?v=ed07c637">
+  <link rel="stylesheet" href="css/components.css?v=12673f0a">
 
   <!-- Applies the remembered colour scheme before the page paints. Blocking
        on purpose: a deferred script would flash the light page at a visitor
@@ -89,11 +93,11 @@
         "url": "https://www.naigrowth.com/",
         "logo": {
           "@type": "ImageObject",
-          "url": "https://www.naigrowth.com/assets/logos/naitik_logo.png",
+          "url": "https://www.naigrowth.com/assets/logos/naitik-logo-192.png",
           "width": 640,
           "height": 640
         },
-        "image": "https://www.naigrowth.com/assets/logos/naitik_logo.png",
+        "image": "https://www.naigrowth.com/assets/logos/naitik-logo-192.png",
         "email": "admin@naigrowth.com",
         "telephone": "+91-8890819966",
         "priceRange": "$$",
@@ -325,7 +329,7 @@
   <header class="nav" data-nav>
     <div class="shell nav__inner">
       <a class="nav__brand" href="#top" aria-label="NaiGrowth, back to top">
-        <img src="assets/logos/naitik_logo.png"
+        <img src="assets/logos/naitik-logo-96.png"
           alt="NaiGrowth logo, an illuminated N monogram with an upward growth arrow" width="38" height="38">
         <span class="nav__brand-name">NAI<span>GROWTH</span></span>
       </a>
@@ -1133,26 +1137,50 @@ Accounts, profiles, ad assets and content are yours the whole time. If we stop w
     <!-- ==================================================================
          Stats
          ================================================================== -->
-    <section class="section section--tight" aria-labelledby="stats-heading">
+    <section class="section section--band stats-band" aria-labelledby="stats-heading">
       <div class="shell">
-        <h2 class="visually-hidden" id="stats-heading">NaiGrowth by the numbers</h2>
+        <div class="stats__head">
+          <p class="eyebrow" data-reveal>By the numbers</p>
+          <h2 id="stats-heading" data-reveal>What the work adds up to.</h2>
+          <p class="stats__lead" data-reveal>
+            Every first call opens with the same two questions. How much have you actually
+            done, and who for. Short answers, right here.
+          </p>
+        </div>
+
         <div class="stats" data-reveal>
-          <div class="stat">
+          <article class="stat">
+            <span class="stat__rail" aria-hidden="true"></span>
             <span class="stat__num" data-count-to="10000" data-count-suffix="+">10,000+</span>
             <span class="stat__label">Verified reviews delivered</span>
-          </div>
-          <div class="stat">
+            <span class="stat__note">
+              Real users on real accounts, across G2, Capterra, Trustpilot and the app stores.
+            </span>
+          </article>
+          <article class="stat">
+            <span class="stat__rail" aria-hidden="true"></span>
             <span class="stat__num" data-count-to="50" data-count-suffix="+">50+</span>
             <span class="stat__label">Brands worldwide</span>
-          </div>
-          <div class="stat">
+            <span class="stat__note">
+              B2B software, fintech, D2C and professional services teams.
+            </span>
+          </article>
+          <article class="stat">
+            <span class="stat__rail" aria-hidden="true"></span>
             <span class="stat__num" data-count-to="40" data-count-suffix="+">40+</span>
             <span class="stat__label">Websites built &amp; managed</span>
-          </div>
-          <div class="stat">
+            <span class="stat__note">
+              Designed, shipped and kept running by the same people.
+            </span>
+          </article>
+          <article class="stat">
+            <span class="stat__rail" aria-hidden="true"></span>
             <span class="stat__num" data-count-to="98" data-count-suffix="%">98%</span>
             <span class="stat__label">Client satisfaction</span>
-          </div>
+            <span class="stat__note">
+              The number we are judged on, and the one we watch hardest.
+            </span>
+          </article>
         </div>
       </div>
     </section>
@@ -1699,7 +1727,7 @@ Five. Step one is the audit in week zero, a $50 to $100 one-time setup. We map e
 
         <div class="footer__brand">
           <a class="nav__brand" href="index.html" aria-label="NaiGrowth home">
-            <img src="assets/logos/naitik_logo.png" alt="NaiGrowth logo" width="38" height="38"
+            <img src="assets/logos/naitik-logo-96.png" alt="NaiGrowth logo" width="38" height="38"
               loading="lazy" decoding="async">
             <span class="nav__brand-name">NAI<span>GROWTH</span></span>
           </a>
@@ -1799,8 +1827,7 @@ Five. Step one is the audit in week zero, a $50 to $100 one-time setup. We map e
   <!-- Lenis is a classic script and must run before the module reads it off
        globalThis. Deferred classic scripts and modules execute in document
        order, so this ordering is guaranteed. -->
-  <script src="js/vendor/lenis.js?v=42bf5944" defer></script>
-  <script type="module" src="js/main.js?v=9e26ee6c"></script>
+  <script type="module" src="js/main.js?v=c9d90ac0"></script>
 </body>
 
 </html>

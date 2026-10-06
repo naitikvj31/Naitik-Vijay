@@ -5,7 +5,6 @@
    ========================================================================== */
 
 import {
-  initSmoothScroll,
   initNav,
   initReveals,
   initCounters,
@@ -19,7 +18,6 @@ import { initCursor } from "./modules/cursor.js";
 
 /* --- Cheap, text-facing behaviour first ---------------------------------- */
 
-initSmoothScroll();
 initNav();
 initReveals();
 initCounters();

@@ -62,6 +62,14 @@ export const FORM_MAX_MS = 12 * 60 * 60 * 1000;
 
 const APEX = 'naigrowth.com';
 
+/* Named hosts only, not "anything under the apex". A wildcard means that the
+   day any subdomain is pointed somewhere and later abandoned — a stale CNAME
+   to a parked service, a one-off landing page on a host someone else can
+   claim — whoever picks it up can post to this endpoint from a page we do not
+   control. The site lives on exactly two hosts, so those are the two. Preview
+   deployments opt in explicitly through ALLOWED_ORIGINS. */
+export const ALLOWED_HOSTS = [APEX, 'www.' + APEX];
+
 export function isAllowedOrigin(origin, { allowLocalhost = false, extra = [] } = {}) {
     if (!origin) return false;
 
@@ -76,9 +84,7 @@ export function isAllowedOrigin(origin, { allowLocalhost = false, extra = [] } =
 
     const host = url.hostname.toLowerCase();
 
-    if (host === APEX || host.endsWith('.' + APEX)) {
-        return url.protocol === 'https:';
-    }
+    if (ALLOWED_HOSTS.includes(host)) return url.protocol === 'https:';
 
     if (allowLocalhost && (host === 'localhost' || host === '127.0.0.1')) return true;
 
@@ -128,7 +134,37 @@ export function looksLikeSpam(message) {
    `silent` means answer 200 so a bot learns nothing from the response.
    ========================================================================== */
 
+/* Every field this endpoint reads is a text field, so anything that is not a
+   string is not a submission. Without this, `{"message": [...10k strings]}`
+   gets concatenated by String() into one enormous value BEFORE any length
+   rule can look at it, and `{"name": {}}` quietly validates as the literal
+   text "[object Object]". Types are checked before sizes, sizes before
+   patterns: no regex ever sees an unbounded string. */
+const TEXT_FIELDS = ['name', 'email', 'phone', 'service', 'message'];
+
+/* Comfortably above the longest real enquiry (3000 characters plus the other
+   fields) and far below anything worth spending CPU on. */
+export const MAX_FIELD_CHARS = 4000;
+
+export function checkShape(body) {
+    if (!body || typeof body !== 'object' || Array.isArray(body)) {
+        return 'Malformed request.';
+    }
+    for (const field of TEXT_FIELDS) {
+        const value = body[field];
+        if (value === undefined || value === null) continue;
+        if (typeof value !== 'string') return 'Malformed request.';
+        if (value.length > MAX_FIELD_CHARS) return 'That submission is too long.';
+    }
+    return null;
+}
+
 export function validateSubmission(body = {}, now = Date.now()) {
+    const malformed = checkShape(body);
+    if (malformed) {
+        return { ok: false, status: 400, message: malformed, reason: 'shape' };
+    }
+
     // Honeypot: a field no human sees.
     if (body.company_website) {
         return { ok: false, status: 200, silent: true, reason: 'honeypot' };
@@ -217,7 +253,49 @@ export function createRateLimiter({ windowMs = 10 * 60 * 1000, max = 3, maxKeys 
     };
 }
 
+/* ==========================================================================
+   Client IP
+
+   This used to read the FIRST entry of X-Forwarded-For, which is the one
+   value in the whole request an attacker gets to choose. A proxy appends the
+   peer it saw to the end of that header, so a request carrying
+   `X-Forwarded-For: 10.0.0.1` arrives as "10.0.0.1, <real client>" — read
+   left to right you get the attacker's string, a fresh one per request, and
+   the rate limiter never fires twice on the same key. It also meant the
+   "Sender IP" line in the notification email was whatever the sender typed.
+
+   Trusted sources first. X-Real-Ip and X-Vercel-Forwarded-For are written by
+   the platform edge and are single-valued, so there is nothing to append to.
+   Only if neither is present do we fall back to X-Forwarded-For, and then to
+   its LAST entry: the hop nearest us, which is the only one our own
+   infrastructure wrote. Anything that is not a plausible IP is discarded
+   rather than used as a limiter key.
+   ========================================================================== */
+
+const IPV4_RE = /^(25[0-5]|2[0-4]\d|1\d\d|[1-9]?\d)(\.(25[0-5]|2[0-4]\d|1\d\d|[1-9]?\d)){3}$/;
+const IPV6_RE = /^[0-9a-f:]{2,45}$/i;
+
+export function isIpish(value) {
+    const v = String(value || '').trim();
+    if (!v) return false;
+    // ::ffff:203.0.113.4 and [2001:db8::1]:443 both turn up in the wild.
+    const bare = v.replace(/^\[|\]$/g, '').replace(/^::ffff:/i, '');
+    return IPV4_RE.test(bare) || (v.includes(':') && IPV6_RE.test(bare));
+}
+
 export function clientIp(headers = {}) {
-    const fwd = headers['x-forwarded-for'] || '';
-    return String(fwd).split(',')[0].trim() || 'unknown';
+    const single = [headers['x-real-ip'], headers['x-vercel-forwarded-for']];
+    for (const candidate of single) {
+        const v = String(candidate || '').trim();
+        if (isIpish(v)) return v;
+    }
+
+    const chain = String(headers['x-forwarded-for'] || '')
+        .split(',')
+        .map((s) => s.trim())
+        .filter(Boolean);
+    const nearest = chain[chain.length - 1];
+    if (isIpish(nearest)) return nearest;
+
+    return 'unknown';
 }

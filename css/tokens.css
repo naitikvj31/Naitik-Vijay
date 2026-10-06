@@ -85,7 +85,12 @@
 
   --section-y: clamp(4rem, 10vw, 9rem);
   --gutter: clamp(1.15rem, 4vw, 2.5rem);
-  --maxw: 1240px;
+  /* One page frame for the whole site. The nav, the hero, every section, the
+     contact block and the footer all measure from this, so a logo, a headline
+     and a footer link sit on exactly the same left edge. Before this there
+     were four different frames (1240 / 1400 / 1440) and the nav sat 120px
+     further in than the hero under it, which read as a logo nudged right. */
+  --maxw: 1400px;
   --maxw-prose: 65ch;
 
   /* --- Form ------------------------------------------------------------- */
@@ -153,6 +158,7 @@
   --drawer-bg: rgba(252, 253, 255, 0.98);
   --band-bg: rgba(255, 255, 255, 0.62);
   --stat-bg: #ffffff;
+  --stat-bg-hover: #f3f6ff;
   --footer-bg: #eef1f8;
   --input-bg: #ffffff;
   --option-bg: #ffffff;
@@ -239,6 +245,7 @@
   --drawer-bg: rgba(4, 5, 12, 0.96);
   --band-bg: rgba(8, 11, 26, 0.45);
   --stat-bg: rgba(14, 18, 38, 0.86);
+  --stat-bg-hover: rgba(30, 38, 74, 0.92);
   --footer-bg: rgba(2, 3, 7, 0.7);
   --input-bg: rgba(255, 255, 255, 0.055);
   --option-bg: #0b0f1f;
@@ -318,6 +325,7 @@
   --drawer-bg: rgba(11, 9, 6, 0.97);
   --band-bg: rgba(255, 228, 170, 0.035);
   --stat-bg: #141009;
+  --stat-bg-hover: #1d1710;
   --footer-bg: #080704;
   --input-bg: rgba(255, 228, 170, 0.06);
   --option-bg: #141009;

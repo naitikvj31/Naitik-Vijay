@@ -11,22 +11,18 @@
   padding: 0;
 }
 
+/* Scrolling is the browser's job. scroll-padding-top keeps an anchored
+   section clear of the fixed bar, and scroll-behavior gives the jump its
+   easing, both without a line of JS between the finger and the page. */
 html {
   -webkit-text-size-adjust: 100%;
   scroll-behavior: smooth;
   scroll-padding-top: 6rem;
-}
-
-/* Lenis drives scrolling when JS is up; it sets .lenis on <html>. When it does,
-   native smooth-scroll must be off or the two fight each other. */
-html.lenis {
-  scroll-behavior: auto;
-}
-html.lenis body {
-  height: auto;
-}
-.lenis.lenis-smooth [data-lenis-prevent] {
-  overscroll-behavior: contain;
+  /* `clip`, never `hidden`. overflow-x:hidden turns the element into a scroll
+     container, so anything focused or anchored inside it can shunt the page
+     and snap the position back toward the top. `clip` cuts the overflow off
+     and can never be scrolled, which is all this was ever meant to do. */
+  overflow-x: clip;
 }
 
 body {
@@ -36,7 +32,7 @@ body {
   font-size: var(--t-body);
   line-height: var(--lh-body);
   min-height: 100vh;
-  overflow-x: hidden;
+  overflow-x: clip;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   text-rendering: optimizeLegibility;

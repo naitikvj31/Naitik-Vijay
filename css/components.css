@@ -913,11 +913,32 @@ body.cursor-press .cursor-dot__shape {
 
 /* ==========================================================================
    9. Stats band
+   Four figures used to sit alone in a flat white pill with nothing to say for
+   themselves. A number on its own is a claim; a number with its scope under
+   it is evidence. So each cell now carries the figure, what it counts, and
+   one line saying where it comes from, and the band gets a heading that
+   frames the whole set instead of hiding it from everyone but a screen
+   reader. The rail above each figure is a measuring tick: it is the only
+   moving part, and it extends on hover.
    ========================================================================== */
+
+.stats__head {
+  display: flex;
+  flex-direction: column;
+  gap: var(--s-3);
+  max-width: 46rem;
+  margin-bottom: clamp(2rem, 4vw, 3.2rem);
+}
+
+.stats__lead {
+  color: var(--text-dim);
+  font-size: var(--t-lead);
+  max-width: 44rem;
+}
 
 .stats {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(min(100%, 12rem), 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 15rem), 1fr));
   gap: 1px;
   background: var(--hairline);
   border: 1px solid var(--hairline);
@@ -926,16 +947,32 @@ body.cursor-press .cursor-dot__shape {
 }
 
 .stat {
+  position: relative;
   background: var(--stat-bg);
-  padding: clamp(1.6rem, 3vw, 2.4rem) clamp(1.2rem, 2vw, 1.8rem);
+  padding: clamp(1.6rem, 2.6vw, 2.3rem) clamp(1.3rem, 2vw, 1.9rem);
   display: flex;
   flex-direction: column;
-  gap: var(--s-2);
+  gap: 0.6rem;
   transition: background-color var(--t-med) var(--ease-out);
 }
 
+/* A short measuring tick above the figure. It is the cell's only animation,
+   which is what keeps a four-up grid from looking like it is fidgeting. */
+.stat__rail {
+  width: 30px;
+  height: 2px;
+  border-radius: 2px;
+  background: var(--accent-grad-solid);
+  margin-bottom: 0.45rem;
+  transition: width var(--t-med) var(--ease-spring);
+}
+
 .stat:hover {
-  background: rgba(139, 92, 246, 0.09);
+  background: var(--stat-bg-hover);
+}
+
+.stat:hover .stat__rail {
+  width: 68px;
 }
 
 .stat__num {
@@ -944,6 +981,7 @@ body.cursor-press .cursor-dot__shape {
   font-weight: 600;
   letter-spacing: -0.05em;
   line-height: 1;
+  color: var(--text-strong);
   font-variant-numeric: tabular-nums;
 }
 
@@ -953,7 +991,18 @@ body.cursor-press .cursor-dot__shape {
   font-weight: 400;
   letter-spacing: 0.07em;
   text-transform: uppercase;
+  color: var(--text-dim);
+}
+
+/* Pinned to the bottom so the supporting lines share one baseline across the
+   row however long the label above each one runs. */
+.stat__note {
+  margin-top: auto;
+  padding-top: 0.55rem;
+  font-size: var(--t-sm);
+  line-height: 1.5;
   color: var(--text-muted);
+  text-wrap: pretty;
 }
 
 /* ==========================================================================
@@ -1120,10 +1169,13 @@ body.cursor-press .cursor-dot__shape {
 }
 
 @media (scripting: enabled) {
+  /* 26px over 0.8s meant a section was still settling well after it had
+     arrived, which on a fast scroll reads as the page wobbling under you.
+     Shorter travel over a shorter time lands before the eye gets there. */
   [data-reveal] {
     opacity: 0;
-    transform: translateY(26px);
-    transition: opacity 0.8s var(--ease-out), transform 0.8s var(--ease-out);
+    transform: translateY(16px);
+    transition: opacity 0.45s var(--ease-out), transform 0.45s var(--ease-out);
   }
 
   [data-reveal].is-revealed {
@@ -2073,7 +2125,7 @@ body.cursor-press .cursor-dot__shape {
   position: relative;
   z-index: var(--z-content);
   width: 100%;
-  max-width: 1440px;
+  max-width: var(--maxw);
   margin-inline: auto;
   padding-inline: var(--gutter);
   display: grid;
@@ -2356,7 +2408,7 @@ body.cursor-press .cursor-dot__shape {
 
 .contact__shell {
   width: 100%;
-  max-width: 1400px;
+  max-width: var(--maxw);
   margin-inline: auto;
   padding-inline: var(--gutter);
 }
@@ -2557,9 +2609,8 @@ body.cursor-press .cursor-dot__shape {
   margin-top: calc(var(--section-y) * 0.62);
 }
 
-.footer .shell {
-  max-width: 1400px;
-}
+/* The footer used to widen itself past the page frame. Now the frame is the
+   wide one, so it simply inherits .shell and lines up with everything else. */
 
 .footer__cta {
   display: flex;

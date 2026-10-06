@@ -13,14 +13,21 @@
   <link rel="icon" href="assets/favicon-32.png" sizes="32x32" type="image/png">
   <link rel="apple-touch-icon" href="assets/apple-touch-icon.png">
 
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link rel="stylesheet"
-    href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500&display=swap">
+  <!-- Typefaces, served from this origin rather than fonts.googleapis.com.
+       That removes a DNS lookup, a TLS handshake and a second cross-origin
+       round trip from the critical path, and stops handing a third party the
+       IP address of every visitor. Two files are preloaded: the body weight
+       and the weight the headings use. Everything else loads on demand,
+       gated by unicode-range. -->
+  <link rel="preload" as="font" type="font/woff2" crossorigin
+    href="assets/fonts/ibm-plex-sans-400-700-latin.woff2">
+  <link rel="preload" as="font" type="font/woff2" crossorigin
+    href="assets/fonts/ibm-plex-mono-400-latin.woff2">
+  <link rel="stylesheet" href="css/fonts.css?v=58456f8b">
 
-  <link rel="stylesheet" href="css/tokens.css?v=b2538ade">
-  <link rel="stylesheet" href="css/base.css?v=459eee7b">
-  <link rel="stylesheet" href="css/components.css?v=94090dec">
+  <link rel="stylesheet" href="css/tokens.css?v=50818c7f">
+  <link rel="stylesheet" href="css/base.css?v=ed07c637">
+  <link rel="stylesheet" href="css/components.css?v=12673f0a">
   <script src="js/theme.js?v=a56c7375"></script>
 </head>
 
@@ -30,7 +37,7 @@
   <header class="nav nav--scrolled">
     <div class="shell nav__inner">
       <a class="nav__brand" href="/" aria-label="NaiGrowth home">
-        <img src="assets/logos/naitik_logo.png" alt="NaiGrowth logo" width="38" height="38">
+        <img src="assets/logos/naitik-logo-96.png" alt="NaiGrowth logo" width="38" height="38">
         <span class="nav__brand-name">NAI<span>GROWTH</span></span>
       </a>
       <div class="nav__actions">
@@ -145,7 +152,7 @@
 
         <div class="footer__brand">
           <a class="nav__brand" href="/" aria-label="NaiGrowth home">
-            <img src="assets/logos/naitik_logo.png" alt="NaiGrowth logo" width="38" height="38"
+            <img src="assets/logos/naitik-logo-96.png" alt="NaiGrowth logo" width="38" height="38"
               loading="lazy" decoding="async">
             <span class="nav__brand-name">NAI<span>GROWTH</span></span>
           </a>

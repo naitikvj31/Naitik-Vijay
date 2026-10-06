@@ -310,9 +310,30 @@ test('security headers are declared and the CSP allows no inline script', () => 
     assert.match(csp, /script-src 'self'/);
     assert.ok(!/script-src[^;]*unsafe-inline/.test(csp), 'CSP allows inline script');
     assert.ok(!/script-src[^;]*unsafe-eval/.test(csp), 'CSP allows eval');
+    assert.match(csp, /script-src-attr 'none'/);
     assert.match(csp, /frame-ancestors 'none'/);
     assert.match(csp, /object-src 'none'/);
     assert.match(csp, /base-uri 'self'/);
+});
+
+/* Fonts are served from this origin. If a stylesheet, font or any other
+   subresource ever points at a third party again, the CSP will block it in
+   the browser and this will fail first. */
+test('the CSP names no external origin at all', () => {
+    const v = JSON.parse(read('vercel.json'));
+    const global = v.headers.find((h) => h.source === '/(.*)');
+    const csp = global.headers.find((h) => h.key === 'Content-Security-Policy').value;
+    assert.ok(!/https?:\/\//.test(csp), 'CSP still allows an external origin: ' + csp);
+});
+
+test('no page loads a stylesheet or font from a third party', () => {
+    for (const p of PAGES) {
+        for (const m of html[p].matchAll(/<link[^>]*\shref="([^"]+)"[^>]*>/g)) {
+            const tag = m[0];
+            if (!/rel="(stylesheet|preload|preconnect|dns-prefetch)"/.test(tag)) continue;
+            assert.ok(!/^https?:\/\//.test(m[1]), `${p}: external resource ${m[1]}`);
+        }
+    }
 });
 
 test('no page loads a script from a third-party origin', () => {
