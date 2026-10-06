@@ -301,6 +301,27 @@ test('content is visible without JavaScript', () => {
     assert.match(base, /opacity:\s*1/, 'default reveal state must be visible');
 });
 
+/* The page never scrolls sideways, so every pixel of horizontal drift in a
+   trackpad gesture is overscroll, and the browser's default action for that
+   is swipe-to-go-back. Scrolling down would occasionally start navigating
+   instead, landing the reader at the top of the page. Pinning the x axis is
+   what stops it; the y axis must stay `auto` so pull to refresh survives. */
+test('horizontal overscroll cannot turn into a back-navigation gesture', () => {
+    // Comments stripped first: the rule above this one explains in prose why
+    // `overflow-x: hidden` is wrong, and a naive search finds that sentence
+    // and reports the declaration it warns against as present.
+    const css = read('css/base.css').replace(/\/\*[\s\S]*?\*\//g, '');
+
+    assert.match(css, /overscroll-behavior-x:\s*none/, 'x overscroll is not pinned');
+    assert.ok(
+        !/overscroll-behavior:\s*none/.test(css),
+        'pinning both axes would also kill pull to refresh; pin x only'
+    );
+    // clip, not hidden: hidden makes the element its own scroll container.
+    assert.match(css, /overflow-x:\s*clip/);
+    assert.ok(!/overflow-x:\s*hidden/.test(css), 'overflow-x:hidden is back');
+});
+
 test('the custom cursor only hides the native pointer once it is live', () => {
     const css = read('css/components.css');
     assert.match(css, /body\.cursor-ready,\s*\n\s*body\.cursor-ready \* \{\s*\n\s*cursor: none/);

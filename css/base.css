@@ -23,6 +23,21 @@ html {
      and snap the position back toward the top. `clip` cuts the overflow off
      and can never be scrolled, which is all this was ever meant to do. */
   overflow-x: clip;
+
+  /* A two-finger trackpad scroll is never purely vertical: there is always a
+     few pixels of horizontal drift in the gesture. This page has nothing to
+     scroll sideways, so every one of those pixels becomes horizontal
+     OVERSCROLL, and the browser's default action for that is the
+     swipe-to-go-back navigation gesture. Scrolling down a long page would
+     occasionally start navigating back instead, which lands you at the top.
+
+     It got easier to trigger when overflow-x moved from `hidden` to `clip`:
+     `hidden` made the element a scroll container, which quietly absorbed the
+     horizontal delta, and `clip` correctly does not.
+
+     Only the x axis is pinned. Vertical overscroll stays `auto` so pull to
+     refresh and the usual rubber band still work. */
+  overscroll-behavior-x: none;
 }
 
 body {
