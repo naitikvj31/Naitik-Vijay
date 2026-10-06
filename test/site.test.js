@@ -177,7 +177,9 @@ test('every referenced local asset exists', () => {
         const attrs = [...html[p].matchAll(/(?:src|href)="((?:\.\.\/|\/)?(?:assets|css|js)\/[^"]+)"/g)];
         assert.ok(attrs.length > 0, p + ' references no local assets');
         for (const m of attrs) {
-            const target = path.resolve(m[1].startsWith('/') ? ROOT : dir, '.' + path.sep + m[1].replace(/^\//, ''));
+            // Strip the cache-busting ?v=<hash> before resolving to a file.
+            const rel = m[1].split('?')[0];
+            const target = path.resolve(rel.startsWith('/') ? ROOT : dir, '.' + path.sep + rel.replace(/^\//, ''));
             assert.ok(fs.existsSync(target), `${p}: missing asset ${m[1]}`);
         }
     }
@@ -334,6 +336,27 @@ test('billing material is excluded from the deployment', () => {
     const ignore = read('.vercelignore');
     for (const line of ['invoices/', 'ads/*invoice*', '*.docx']) {
         assert.ok(ignore.includes(line), '.vercelignore is missing ' + line);
+    }
+});
+
+test('unversioned CSS and JS are never cached beyond a revalidation', () => {
+    // A long max-age on an asset whose URL never changes means a deploy
+    // cannot reach anyone who already has it: fresh markup, stale stylesheet.
+    const v = JSON.parse(read('vercel.json'));
+    for (const source of ['/css/(.*)', '/js/(.*)']) {
+        const block = v.headers.find((h) => h.source === source);
+        assert.ok(block, 'no header block for ' + source);
+        const cc = block.headers.find((h) => h.key === 'Cache-Control').value;
+        assert.match(cc, /max-age=0/, source + ' may go stale: ' + cc);
+        assert.match(cc, /must-revalidate/, source);
+    }
+});
+
+test('every page links its assets with a content hash', () => {
+    for (const p of PAGES) {
+        for (const m of html[p].matchAll(/(?:href|src)="((?:\.\.\/)?(?:css|js)\/[^"]+\.(?:css|js))(\?v=[a-f0-9]+)?"/g)) {
+            assert.ok(m[2], `${p}: ${m[1]} has no ?v= stamp — run npm run version`);
+        }
     }
 });
 

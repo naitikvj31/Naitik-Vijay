@@ -61,14 +61,14 @@
   <link rel="stylesheet"
     href="https://fonts.googleapis.com/css2?family=Instrument+Sans:wght@400..700&family=JetBrains+Mono:wght@400;500&display=swap">
 
-  <link rel="stylesheet" href="css/tokens.css">
-  <link rel="stylesheet" href="css/base.css">
-  <link rel="stylesheet" href="css/components.css">
+  <link rel="stylesheet" href="css/tokens.css?v=8211a7a2">
+  <link rel="stylesheet" href="css/base.css?v=459eee7b">
+  <link rel="stylesheet" href="css/components.css?v=76e8af91">
 
   <!-- Applies the remembered colour scheme before the page paints. Blocking
        on purpose: a deferred script would flash the light page at a visitor
        who chose dark. ~1 KB, no dependencies. -->
-  <script src="js/theme.js"></script>
+  <script src="js/theme.js?v=a56c7375"></script>
 
   <!-- ======================================================================
        Structured data
@@ -1754,8 +1754,8 @@ Five. Step one is the audit in week zero, a $50 to $100 one-time setup. We map e
   <!-- Lenis is a classic script and must run before the module reads it off
        globalThis. Deferred classic scripts and modules execute in document
        order, so this ordering is guaranteed. -->
-  <script src="js/vendor/lenis.js" defer></script>
-  <script type="module" src="js/main.js"></script>
+  <script src="js/vendor/lenis.js?v=42bf5944" defer></script>
+  <script type="module" src="js/main.js?v=9e26ee6c"></script>
 </body>
 
 </html>
