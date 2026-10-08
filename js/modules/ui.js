@@ -30,11 +30,58 @@ const prefersReduced = () =>
    `scroll-padding-top`, which also keeps the browser's own focus handling
    intact — something the old click handler had to reimplement by hand.
 
-   Kept as an exported no-op so a page that still calls it does not throw.
+   What is left is the one scroll a visitor actually asks for: a click on an
+   in-page link. `scroll-behavior` in CSS cannot be used for it, because it
+   would also animate the scrolls the BROWSER starts on its own, and an
+   animated scroll restoration after a reload looks exactly like the page
+   sliding back to the top on its own. So the easing lives here, on a click
+   handler, where nothing but a deliberate press can reach it.
    ========================================================================== */
 
 export function initSmoothScroll() {
-  return null;
+  function onClick(e) {
+    // Let the browser handle modified clicks: new tab, download, and so on.
+    if (e.defaultPrevented || e.button !== 0 || e.metaKey || e.ctrlKey || e.shiftKey || e.altKey) {
+      return;
+    }
+
+    const link = e.target.closest('a[href^="#"]');
+    if (!link) return;
+
+    const hash = link.getAttribute("href");
+    if (!hash || hash === "#") return;
+
+    let target;
+    try {
+      target = document.querySelector(hash);
+    } catch {
+      return; // not a valid selector, let the browser try
+    }
+    if (!target) return;
+
+    e.preventDefault();
+    target.scrollIntoView({
+      behavior: prefersReduced() ? "auto" : "smooth",
+      block: "start",
+    });
+
+    /* preventDefault also cancels the browser's own fragment handling, which
+       is what moves keyboard focus into the target. Put it back, or the skip
+       link does nothing for the only people who use it. Sections are not
+       focusable by default, so give the target a programmatic-only tab stop. */
+    if (!target.hasAttribute("tabindex")) target.setAttribute("tabindex", "-1");
+    target.focus({ preventScroll: true });
+
+    // Keep the URL shareable without re-triggering the jump we just handled.
+    if (history.replaceState) history.replaceState(null, "", hash);
+  }
+
+  document.addEventListener("click", onClick);
+  return {
+    destroy() {
+      document.removeEventListener("click", onClick);
+    },
+  };
 }
 
 /* ==========================================================================

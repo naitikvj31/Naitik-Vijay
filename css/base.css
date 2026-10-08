@@ -16,7 +16,22 @@
    easing, both without a line of JS between the finger and the page. */
 html {
   -webkit-text-size-adjust: 100%;
-  scroll-behavior: smooth;
+
+  /* Deliberately NOT `smooth`.
+
+     scroll-behavior applies to every scroll of this box, including the ones
+     the browser starts on its own: scroll restoration after a load or a
+     reload, and scrolls caused by focus moving. With `smooth` those stop
+     being instant and become a visible glide, so a reader who starts
+     scrolling while the page is still settling watches it slide back toward
+     the top under them. That is the "it glitches and goes back up" report,
+     and it is invisible to a test that waits for the page to finish loading
+     before it scrolls, which is why it survived two attempts to find it.
+
+     Anchor clicks still animate. That is done from a click handler in
+     js/modules/ui.js, which only ever runs on a deliberate press and never
+     touches the wheel. */
+  scroll-behavior: auto;
   scroll-padding-top: 6rem;
   /* `clip`, never `hidden`. overflow-x:hidden turns the element into a scroll
      container, so anything focused or anchored inside it can shunt the page

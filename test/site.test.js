@@ -322,6 +322,26 @@ test('horizontal overscroll cannot turn into a back-navigation gesture', () => {
     assert.ok(!/overflow-x:\s*hidden/.test(css), 'overflow-x:hidden is back');
 });
 
+/* scroll-behavior applies to every scroll of the box, including the ones the
+   browser starts itself: restoration after a load or reload, and focus moves.
+   With `smooth` those glide, and a reader scrolling a page that is still
+   settling watches it slide back to the top. Anchor easing belongs on a click
+   handler, where only a deliberate press can reach it. */
+test('smooth scrolling is never left to CSS on the root element', () => {
+    const css = read('css/base.css').replace(/\/\*[\s\S]*?\*\//g, '');
+    const root = css.match(/(^|\})\s*html\s*\{([\s\S]*?)\}/);
+    assert.ok(root, 'no html rule in base.css');
+    assert.ok(
+        !/scroll-behavior:\s*smooth/.test(root[2]),
+        'html has scroll-behavior: smooth; browser-initiated scrolls will animate'
+    );
+    assert.match(root[2], /scroll-padding-top/, 'anchors still need to clear the fixed bar');
+
+    const js = read('js/modules/ui.js');
+    assert.match(js, /behavior:\s*prefersReduced\(\)\s*\?\s*"auto"\s*:\s*"smooth"/,
+        'anchor clicks no longer ease, and reduced motion must still win');
+});
+
 test('the custom cursor only hides the native pointer once it is live', () => {
     const css = read('css/components.css');
     assert.match(css, /body\.cursor-ready,\s*\n\s*body\.cursor-ready \* \{\s*\n\s*cursor: none/);
