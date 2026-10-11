@@ -121,15 +121,33 @@
   transition: opacity var(--t-fast) var(--ease-out), transform var(--t-med) var(--ease-spring);
 }
 
-/* --- States ------------------------------------------------------------- */
-
 body.cursor-ready .cursor-dot,
 body.cursor-ready .cursor-reticle {
   opacity: 1;
 }
 
-body.cursor-ready,
-body.cursor-ready * {
+/* Hide the native pointer.  The old rule was `body.cursor-ready *` — a
+   universal selector that forced Chrome to recalculate cursor styles on
+   EVERY element in the DOM whenever any class was toggled on body (which
+   clearHoverState does during scroll).  That recalculation was expensive
+   enough to collapse the document height for one frame, which is the
+   scroll-jump-to-top bug.
+
+   Inheriting `cursor:none` from body covers most elements.  The few that
+   browsers override (links, buttons, inputs, textareas) need an explicit
+   rule, but naming them is three orders of magnitude cheaper than `*`. */
+body.cursor-ready {
+  cursor: none;
+}
+
+body.cursor-ready a,
+body.cursor-ready button,
+body.cursor-ready [role="button"],
+body.cursor-ready input,
+body.cursor-ready textarea,
+body.cursor-ready select,
+body.cursor-ready summary,
+body.cursor-ready label {
   cursor: none;
 }
 
@@ -141,8 +159,18 @@ body.cursor-ready.cursor-text .cursor-label {
   opacity: 0;
 }
 
-body.cursor-ready.cursor-text,
-body.cursor-ready.cursor-text * {
+body.cursor-ready.cursor-text {
+  cursor: auto;
+}
+
+body.cursor-ready.cursor-text a,
+body.cursor-ready.cursor-text button,
+body.cursor-ready.cursor-text [role="button"],
+body.cursor-ready.cursor-text input,
+body.cursor-ready.cursor-text textarea,
+body.cursor-ready.cursor-text select,
+body.cursor-ready.cursor-text summary,
+body.cursor-ready.cursor-text label {
   cursor: auto;
 }
 
@@ -195,7 +223,14 @@ body.cursor-press .cursor-dot__shape {
     display: none !important;
   }
   body.cursor-ready,
-  body.cursor-ready * {
+  body.cursor-ready a,
+  body.cursor-ready button,
+  body.cursor-ready [role="button"],
+  body.cursor-ready input,
+  body.cursor-ready textarea,
+  body.cursor-ready select,
+  body.cursor-ready summary,
+  body.cursor-ready label {
     cursor: auto;
   }
   body.cursor-ready a,

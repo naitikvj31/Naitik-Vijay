@@ -344,7 +344,16 @@ test('smooth scrolling is never left to CSS on the root element', () => {
 
 test('the custom cursor only hides the native pointer once it is live', () => {
     const css = read('css/components.css');
-    assert.match(css, /body\.cursor-ready,\s*\n\s*body\.cursor-ready \* \{\s*\n\s*cursor: none/);
+    /* The native pointer is hidden via `cursor: none` on body.cursor-ready
+       and on named interactive elements — never via a `*` universal selector,
+       which would force Chrome to recalculate every element on any body class
+       toggle (the old scroll-jump bug). */
+    assert.match(css, /body\.cursor-ready\s*\{[^}]*cursor:\s*none/,
+        'body.cursor-ready must set cursor:none');
+    assert.match(css, /body\.cursor-ready\s+a[\s,]/,
+        'links must get cursor:none explicitly');
+    assert.ok(!/body\.cursor-ready,\s*\n\s*body\.cursor-ready \*\s*\{/.test(css),
+        'universal * selector must not be used (causes scroll-jump bug)');
     assert.ok(!/^\s*body \* \{\s*cursor: none/m.test(css), 'cursor:none must be gated');
 });
 

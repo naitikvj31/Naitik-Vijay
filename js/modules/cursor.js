@@ -166,12 +166,17 @@ export function initCursor(opts = {}) {
   function onScrollStart() {
     if (!scrolling) clearHoverState();
     clearTimeout(scrolling);
-    // Long enough that a wheel's inertia does not look like a stop.
+    /* 250 ms covers the longest inertial micro-pause Chrome produces on a
+       trackpad or mouse wheel.  When it fires, the flag is cleared and
+       lastResolvedX is invalidated — the very next rAF tick inside `tick()`
+       will call `maybeResolveHover()` which calls `resolveHover()`.  Doing
+       it there instead of right here guarantees the hit test runs inside a
+       rAF callback that is already past the browser's own scroll/layout
+       work, which is what collapsed the document before. */
     scrolling = setTimeout(() => {
       scrolling = 0;
       lastResolvedX = NaN;
-      resolveHover();
-    }, 140);
+    }, 250);
   }
 
   function onDown() {
