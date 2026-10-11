@@ -579,3 +579,56 @@ test('robots.txt points at the sitemap and blocks the api', () => {
     assert.match(r, /Sitemap: https:\/\/www\.naigrowth\.com\/sitemap\.xml/);
     assert.match(r, /Disallow: \/api\//);
 });
+
+/* ==========================================================================
+   The custom cursor must never hit-test while the page is scrolling
+
+   Third report of "I scroll down and it snaps back to the top", and the
+   first two fixes were wrong. `scroll-behavior: smooth` and the trackpad
+   back-swipe were both real problems and neither was this one.
+
+   What it actually was: cursor.js listened for `pointerover` and
+   `pointerout` on `document` to spot what the pointer was over. While the
+   page scrolls under a stationary pointer those fire continuously, each one
+   a hit test and a `closest()` walk interleaved with the browser's own
+   scrolling. Measured frame by frame in Chrome, the document collapsed for
+   exactly one frame — documentElement.scrollHeight dropped from 12512 to
+   900, which is body's `min-height: 100vh` with nothing else contributing.
+   Maximum scroll was zero for that frame, so the position was clamped to 0,
+   and the next frame restored the height with the scroll already gone. At a
+   240px wheel notch it hit the cliff at 1680px, every time.
+
+   Bisected by disabling each init in turn against the live page: only
+   initCursor made the difference. Replacing the two listeners with
+   elementFromPoint in the frame loop did NOT fix it — the hit test is the
+   problem, not the event. It is fixed only by not hit-testing until the page
+   has settled.
+
+   So this test guards the rule, not the implementation: no pointer-tracking
+   listeners on `document`, and the hover resolver returns early while a
+   scroll is in flight.
+   ========================================================================== */
+test('the custom cursor does not hit-test during a scroll', () => {
+    const src = read('js/modules/cursor.js')
+        .replace(/\/\*[\s\S]*?\*\//g, '')
+        .replace(/^\s*\/\/.*$/gm, '');
+
+    for (const event of ['pointerover', 'pointerout']) {
+        assert.ok(
+            !new RegExp(`addEventListener\\(\\s*["']${event}["']`).test(src),
+            `cursor.js listens for ${event}. While the page scrolls under a ` +
+            'still pointer that fires every frame, and the hit test it does ' +
+            'collapses the document for a frame — the page snaps to the top.'
+        );
+    }
+
+    assert.match(
+        src, /if \(scrolling\)\s*return;/,
+        'the hover resolver no longer bails out while the page is scrolling, ' +
+        'which is the whole of this fix'
+    );
+    assert.match(
+        src, /addEventListener\("scroll", onScrollStart/,
+        'nothing marks the page as scrolling, so the guard above can never be true'
+    );
+});

@@ -85,36 +85,93 @@ export function initCursor(opts = {}) {
     /* The chip tracks the dot, not the lagging reticle: a label that trails
        behind the pointer reads as lag rather than as weight. */
     labelWrap.style.transform = `translate3d(${tx}px, ${ty}px, 0)`;
+    maybeResolveHover();
   }
 
-  /* Delegated hover detection: one listener covers content added later
-     (nav drawer, revealed sections) with no re-binding. */
-  function onOver(e) {
-    if (e.target.closest && e.target.closest(textSelector)) {
-      document.body.classList.add("cursor-text");
+  /* Hover detection, resolved from the pointer position in the frame loop.
+
+     This used to be two delegated listeners, `pointerover` and `pointerout`
+     on `document`. They were elegant — one pair covered content added later
+     with no re-binding — and they broke scrolling on this page.
+
+     The symptom: wheel-scrolling past roughly 1700px snapped the page back to
+     the top, over and over, in Chrome. Measured frame by frame, the document
+     collapsed for exactly one frame — documentElement.scrollHeight went from
+     12512 to 900, which is body's `min-height: 100vh` with nothing else
+     contributing. With a maximum scroll of zero for that frame the browser
+     clamped the position to 0, and the next frame restored the height with
+     the scroll already lost.
+
+     It was bisected to this pair and nothing else: disable initCursor and the
+     page scrolls; disable any other init and it still jumps; take out just
+     these two registrations and it scrolls. A delegated pointerover on
+     `document` fires for every element the pointer crosses while the page
+     moves underneath it, and on a document this size that is a hit test and a
+     `closest()` walk inside the scroll frame.
+
+     Resolving hover from the position we already track costs one
+     elementFromPoint at most every fourth frame, and only when the pointer or
+     the scroll has actually moved — and it cannot interleave with the
+     browser's own scrolling the way a pointer event can. */
+  let lastHover = null;
+  let lastText = false;
+  let scrolling = 0;
+  let lastResolvedX = NaN;
+  let lastResolvedY = NaN;
+
+  function clearHoverState() {
+    lastHover = null;
+    lastText = false;
+    document.body.classList.remove("cursor-hover", "cursor-label", "cursor-text");
+  }
+
+  function resolveHover() {
+    const el = document.elementFromPoint(tx, ty);
+    const hit = el && el.closest ? el.closest(hoverSelector) : null;
+    const text = !!(el && el.closest && el.closest(textSelector));
+
+    // Nothing changed: no class writes, so no style recalculation either.
+    if (hit === lastHover && text === lastText) return;
+    lastHover = hit;
+    lastText = text;
+
+    document.body.classList.toggle("cursor-text", text);
+    if (!hit || text) {
+      document.body.classList.remove("cursor-hover", "cursor-label");
+      return;
     }
-    const hit = e.target.closest(hoverSelector);
-    if (!hit) return;
+
     const word = hit.getAttribute(labelAttr);
-    if (word) {
-      label.textContent = word;
-      document.body.classList.add("cursor-label");
-      document.body.classList.remove("cursor-hover");
-    } else {
-      document.body.classList.add("cursor-hover");
-    }
+    document.body.classList.toggle("cursor-label", !!word);
+    document.body.classList.toggle("cursor-hover", !word);
+    if (word) label.textContent = word;
   }
 
-  function onOut(e) {
-    const field = e.target.closest && e.target.closest(textSelector);
-    if (field && !(e.relatedTarget && field.contains(e.relatedTarget))) {
-      document.body.classList.remove("cursor-text");
-    }
-    const hit = e.target.closest(hoverSelector);
-    if (!hit) return;
-    // Ignore moves between descendants of the same target.
-    if (e.relatedTarget && hit.contains(e.relatedTarget)) return;
-    document.body.classList.remove("cursor-hover", "cursor-label");
+  function maybeResolveHover() {
+    if (!ready) return;
+
+    /* Never while the page is moving. This is the whole fix: a hit test
+       interleaved with the browser's own scrolling is what collapsed the
+       document, and hover feedback during a scroll is worthless anyway —
+       the pointer is not pointing at anything, the page is sliding past it.
+       Resolution resumes a beat after the page settles. */
+    if (scrolling) return;
+
+    if (tx === lastResolvedX && ty === lastResolvedY) return;
+    lastResolvedX = tx;
+    lastResolvedY = ty;
+    resolveHover();
+  }
+
+  function onScrollStart() {
+    if (!scrolling) clearHoverState();
+    clearTimeout(scrolling);
+    // Long enough that a wheel's inertia does not look like a stop.
+    scrolling = setTimeout(() => {
+      scrolling = 0;
+      lastResolvedX = NaN;
+      resolveHover();
+    }, 140);
   }
 
   function onDown() {
@@ -127,6 +184,7 @@ export function initCursor(opts = {}) {
 
   function onLeaveWindow() {
     document.body.classList.remove("cursor-ready", "cursor-press");
+    clearHoverState();
   }
 
   function onEnterWindow() {
@@ -134,8 +192,7 @@ export function initCursor(opts = {}) {
   }
 
   window.addEventListener("pointermove", onMove, { passive: true });
-  document.addEventListener("pointerover", onOver, { passive: true });
-  document.addEventListener("pointerout", onOut, { passive: true });
+  window.addEventListener("scroll", onScrollStart, { passive: true });
   document.addEventListener("pointerdown", onDown, { passive: true });
   window.addEventListener("pointerup", onUp, { passive: true });
   window.addEventListener("blur", onUp);
@@ -148,8 +205,8 @@ export function initCursor(opts = {}) {
     destroy() {
       cancelAnimationFrame(raf);
       window.removeEventListener("pointermove", onMove);
-      document.removeEventListener("pointerover", onOver);
-      document.removeEventListener("pointerout", onOut);
+      window.removeEventListener("scroll", onScrollStart);
+      clearTimeout(scrolling);
       document.removeEventListener("pointerdown", onDown);
       window.removeEventListener("pointerup", onUp);
       window.removeEventListener("blur", onUp);
