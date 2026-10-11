@@ -143,74 +143,73 @@ body.cursor-ready {
 body.cursor-ready a,
 body.cursor-ready button,
 body.cursor-ready [role="button"],
-body.cursor-ready input,
-body.cursor-ready textarea,
 body.cursor-ready select,
 body.cursor-ready summary,
 body.cursor-ready label {
   cursor: none;
 }
 
-/* Text entry is the one place precision beats polish: the custom cursor
-   steps aside and the native caret comes back. */
+body.cursor-ready input,
+body.cursor-ready textarea {
+  cursor: text;
+}
+
+/* Text entry: native caret is restored, custom cursor is hidden */
 body.cursor-ready.cursor-text .cursor-dot,
 body.cursor-ready.cursor-text .cursor-reticle,
 body.cursor-ready.cursor-text .cursor-label {
   opacity: 0;
 }
 
-body.cursor-ready.cursor-text {
-  cursor: auto;
-}
-
-body.cursor-ready.cursor-text a,
-body.cursor-ready.cursor-text button,
-body.cursor-ready.cursor-text [role="button"],
-body.cursor-ready.cursor-text input,
-body.cursor-ready.cursor-text textarea,
-body.cursor-ready.cursor-text select,
-body.cursor-ready.cursor-text summary,
-body.cursor-ready.cursor-text label {
-  cursor: auto;
-}
-
 /* Locked on: the frame turns to 45 degrees and the ticks draw in and
    lengthen. The centre stays open throughout. */
+.cursor-reticle.is-hover .cursor-reticle__frame,
+.cursor-reticle.is-label .cursor-reticle__frame,
 body.cursor-hover .cursor-reticle__frame,
 body.cursor-label .cursor-reticle__frame {
   transform: rotate(45deg);
 }
 
+.cursor-reticle.is-hover,
+.cursor-reticle.is-label,
 body.cursor-hover .cursor-reticle,
 body.cursor-label .cursor-reticle {
   --reach: 10px;
   --tick: 9px;
 }
 
+.cursor-reticle.is-hover .cursor-tick,
+.cursor-reticle.is-label .cursor-tick,
 body.cursor-hover .cursor-tick,
 body.cursor-label .cursor-tick {
   background: var(--cursor-ring-hover, rgba(169, 137, 255, 0.76));
 }
 
+.cursor-dot.is-hover .cursor-dot__shape,
+.cursor-dot.is-label .cursor-dot__shape,
 body.cursor-hover .cursor-dot__shape,
 body.cursor-label .cursor-dot__shape {
   transform: translate(-50%, -50%) scale(0.6);
 }
 
+.cursor-label.is-active,
 body.cursor-ready.cursor-label .cursor-label {
   opacity: 1;
 }
 
+.cursor-label.is-active .cursor-label__chip,
 body.cursor-label .cursor-label__chip {
   opacity: 1;
   transform: translate(13px, 13px) scale(1);
 }
 
 /* Press: the reticle snaps shut. */
+.cursor-reticle.is-press,
 body.cursor-press .cursor-reticle {
   --reach: 7px;
 }
 
+.cursor-dot.is-press .cursor-dot__shape,
 body.cursor-press .cursor-dot__shape {
   transform: translate(-50%, -50%) scale(1.5);
 }

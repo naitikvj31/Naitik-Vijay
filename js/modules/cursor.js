@@ -122,7 +122,12 @@ export function initCursor(opts = {}) {
   function clearHoverState() {
     lastHover = null;
     lastText = false;
-    document.body.classList.remove("cursor-hover", "cursor-label", "cursor-text");
+    ring.classList.remove("is-hover", "is-label");
+    dot.classList.remove("is-hover", "is-label");
+    labelWrap.classList.remove("is-active");
+    dot.style.opacity = "";
+    ring.style.opacity = "";
+    labelWrap.style.opacity = "";
   }
 
   function resolveHover() {
@@ -135,15 +140,34 @@ export function initCursor(opts = {}) {
     lastHover = hit;
     lastText = text;
 
-    document.body.classList.toggle("cursor-text", text);
-    if (!hit || text) {
-      document.body.classList.remove("cursor-hover", "cursor-label");
+    if (text) {
+      dot.style.opacity = "0";
+      ring.style.opacity = "0";
+      labelWrap.style.opacity = "0";
+      ring.classList.remove("is-hover", "is-label");
+      dot.classList.remove("is-hover", "is-label");
+      labelWrap.classList.remove("is-active");
+      return;
+    }
+
+    dot.style.opacity = "";
+    ring.style.opacity = "";
+    labelWrap.style.opacity = "";
+
+    if (!hit) {
+      ring.classList.remove("is-hover", "is-label");
+      dot.classList.remove("is-hover", "is-label");
+      labelWrap.classList.remove("is-active");
       return;
     }
 
     const word = hit.getAttribute(labelAttr);
-    document.body.classList.toggle("cursor-label", !!word);
-    document.body.classList.toggle("cursor-hover", !word);
+    const isLabel = !!word;
+    ring.classList.toggle("is-label", isLabel);
+    ring.classList.toggle("is-hover", !isLabel);
+    dot.classList.toggle("is-label", isLabel);
+    dot.classList.toggle("is-hover", !isLabel);
+    labelWrap.classList.toggle("is-active", isLabel);
     if (word) label.textContent = word;
   }
 
@@ -180,15 +204,19 @@ export function initCursor(opts = {}) {
   }
 
   function onDown() {
-    document.body.classList.add("cursor-press");
+    ring.classList.add("is-press");
+    dot.classList.add("is-press");
   }
 
   function onUp() {
-    document.body.classList.remove("cursor-press");
+    ring.classList.remove("is-press");
+    dot.classList.remove("is-press");
   }
 
   function onLeaveWindow() {
-    document.body.classList.remove("cursor-ready", "cursor-press");
+    document.body.classList.remove("cursor-ready");
+    ring.classList.remove("is-press");
+    dot.classList.remove("is-press");
     clearHoverState();
   }
 
