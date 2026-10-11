@@ -74,7 +74,7 @@
 
   <link rel="stylesheet" href="css/tokens.css?v=9dc874f1">
   <link rel="stylesheet" href="css/base.css?v=3e4400f0">
-  <link rel="stylesheet" href="css/components.css?v=e29d3865">
+  <link rel="stylesheet" href="css/components.css?v=5de6e57e">
 
   <!-- Applies the remembered colour scheme before the page paints. Blocking
        on purpose: a deferred script would flash the light page at a visitor
@@ -417,10 +417,37 @@
             you plainly what cannot be moved.
           </p>
 
-          <!-- The numbers live with the claim, not in the strip below. They are
-               the evidence for the sentence directly above them, and they fill
-               the column so the copy stands level with the result page instead
-               of floating in the top half of it. -->
+          <div class="hero__cta">
+            <a class="btn btn--primary btn--lg" href="#contact">
+              Book a free consultation
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                stroke-linejoin="round" aria-hidden="true">
+                <path d="M5 12h14" />
+                <path d="m13 6 6 6-6 6" />
+              </svg>
+            </a>
+            <a class="btn btn--ghost btn--lg" href="#process">See how it works</a>
+          </div>
+
+          <!-- Three promises, not one grey sentence. Set in the body face at a
+               readable size: this is the answer to "what does it cost and what
+               do I get", which is the last thing a visitor checks before
+               clicking, so it should not look like small print. -->
+          <ul class="hero__terms">
+            <li>
+              <svg viewBox="0 0 20 20" aria-hidden="true"><path d="m4 10.6 3.6 3.6L16 5.8" /></svg>
+              <span><b>Free consultation</b>, no commitment</span>
+            </li>
+            <li>
+              <svg viewBox="0 0 20 20" aria-hidden="true"><path d="m4 10.6 3.6 3.6L16 5.8" /></svg>
+              <span>We agree a <b>scope of work</b> first</span>
+            </li>
+            <li>
+              <svg viewBox="0 0 20 20" aria-hidden="true"><path d="m4 10.6 3.6 3.6L16 5.8" /></svg>
+              <span><b>No retainer</b> to sign</span>
+            </li>
+          </ul>
+
           <ul class="hero__proof">
             <li>
               <span class="hero__proof-num" data-count-to="10000" data-count-suffix="+">10,000+</span>
@@ -435,7 +462,6 @@
               <span class="hero__proof-label">Platforms we cover</span>
             </li>
           </ul>
-
         </div>
 
         <figure class="serp" data-serp>
@@ -561,47 +587,7 @@
             specific client&rsquo;s results.
           </p>
         </figure>
-      </div>
 
-      <!-- One strip across the full width rather than a stack under the left
-           column. It ties the headline and the result page together instead of
-           leaving two columns floating beside each other, and it puts the three
-           commitments and the three numbers on the same line of sight as the
-           button, which is where a visitor looks last before clicking. -->
-      <div class="hero__base">
-        <div class="hero__base-inner">
-        <div class="hero__cta">
-          <a class="btn btn--primary btn--lg" href="#contact">
-            Book a free consultation
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
-              stroke-linejoin="round" aria-hidden="true">
-              <path d="M5 12h14" />
-              <path d="m13 6 6 6-6 6" />
-            </svg>
-          </a>
-          <a class="btn btn--ghost btn--lg" href="#process">See how it works</a>
-        </div>
-
-        <!-- Three promises, not one grey sentence. Set in the body face at a
-             readable size: this is the answer to "what does it cost and what
-             do I get", which is the last thing a visitor checks before
-             clicking, so it should not look like small print. -->
-        <ul class="hero__terms">
-          <li>
-            <svg viewBox="0 0 20 20" aria-hidden="true"><path d="m4 10.6 3.6 3.6L16 5.8" /></svg>
-            <span><b>Free consultation</b>, no commitment</span>
-          </li>
-          <li>
-            <svg viewBox="0 0 20 20" aria-hidden="true"><path d="m4 10.6 3.6 3.6L16 5.8" /></svg>
-            <span>We agree a <b>scope of work</b> first</span>
-          </li>
-          <li>
-            <svg viewBox="0 0 20 20" aria-hidden="true"><path d="m4 10.6 3.6 3.6L16 5.8" /></svg>
-            <span><b>No retainer</b> to sign</span>
-          </li>
-        </ul>
-
-        </div>
       </div>
     </section>
 
