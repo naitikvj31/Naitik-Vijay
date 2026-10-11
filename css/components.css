@@ -2111,14 +2111,17 @@ body.cursor-press .cursor-dot__shape {
   overflow: hidden;
 }
 
-/* A single wide wash instead of the old radial glows. Flat enough that the
-   headline sits on an even ground at every width. */
+/* No diagonal blue-to-purple wash. It was decoration that said nothing about
+   the work, and a two-hue gradient behind a headline is the single most
+   recognisable stock-template move there is. What replaces it is a quiet
+   vertical settle that only exists to stop the page reading as a flat
+   rectangle, plus a hairline where the hero ends. */
 .hero::before {
   content: "";
   position: absolute;
   inset: 0;
   pointer-events: none;
-  background: linear-gradient(118deg, transparent 38%, rgba(76, 125, 255, 0.1) 72%, rgba(139, 92, 246, 0.14) 100%);
+  background: linear-gradient(180deg, rgba(255, 255, 255, 0.025) 0%, transparent 42%);
 }
 
 .hero__shell {
@@ -2133,9 +2136,76 @@ body.cursor-press .cursor-dot__shape {
   align-items: center;
 }
 
+/* The result page runs off the right edge of the screen rather than sitting
+   beside the copy as a rounded card.
+
+   That is the whole idea of this hero. The business exists because of what
+   page one looks like, so page one should BE the hero — a real page carrying
+   on past the edge of the window, not an illustration of one parked in a
+   box. A card centred in a 50/50 grid reads as stock furniture; content that
+   deliberately breaks the page frame does not, because it takes arithmetic
+   nobody does by accident.
+
+   The left padding is computed so the headline still lines up with every
+   other section's gutter even though the grid itself is no longer centred. */
 @media (min-width: 1040px) {
   .hero__shell {
-    grid-template-columns: minmax(0, 1.04fr) minmax(0, 1fr);
+    max-width: none;
+    margin-inline: 0;
+    padding-left: max(var(--gutter), calc((100vw - var(--maxw)) / 2 + var(--gutter)));
+    padding-right: 0;
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1.12fr);
+    align-items: center;
+  }
+
+  /* Open on the right: no border, no radius, nothing to say "this stopped". */
+  .hero .serp {
+    border-right: 0;
+    border-radius: var(--r-md) 0 0 var(--r-md);
+  }
+}
+
+/* ---------------------------------------------------------------------------
+   The strip under both columns
+   --------------------------------------------------------------------------- */
+
+.hero__base {
+  position: relative;
+  z-index: var(--z-content);
+  width: 100%;
+  max-width: var(--maxw);
+  margin-inline: auto;
+  padding-inline: var(--gutter);
+  margin-top: clamp(2.5rem, 5vw, 4rem);
+}
+
+.hero__base-inner {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: clamp(1.5rem, 3vw, 2.75rem);
+  padding-top: clamp(1.75rem, 3vw, 2.5rem);
+  border-top: 1px solid var(--hairline-strong);
+}
+
+.hero__base .hero__cta {
+  flex: 0 0 auto;
+  margin: 0;
+}
+
+/* The commitments sit beside the button, not beneath it: this is the last
+   thing read before the click, so it belongs on the same line of sight. */
+.hero__base .hero__terms {
+  flex: 1 1 20rem;
+  min-width: 0;
+  margin: 0;
+}
+
+/* The commitments take the rest of the row, so the strip stays one line. */
+@media (min-width: 1040px) {
+  .hero__base .hero__terms {
+    margin-left: auto;
+    flex: 0 1 auto;
   }
 }
 
