@@ -1,0 +1,674 @@
+/* ==========================================================================
+   NaiGrowth — Diwali 2026 campaign
+   TEMPORARY. Loaded after components.css on every page, which is what lets
+   it win on equal specificity without a single edit to the shared sheets.
+
+   To retire the campaign: delete the two <link>/<script> lines from the head
+   of every page, delete the .promo bar and the #diwali section from the
+   markup, and delete this file and js/campaign.js. Nothing else references
+   them. js/campaign.js already hides both once 30 November 2026 has passed,
+   so a late cleanup is untidy rather than wrong.
+
+   THE ONE IDEA HERE
+   The gold scheme in tokens.css is already an obsidian-and-brass palette,
+   drawn for the NaiGrowth visiting card and measured for AA. A Diwali band
+   needs exactly that palette, so nothing new is invented: the campaign
+   re-declares the gold scheme's values LOCALLY, the same way .on-dark keeps
+   the hero dark in either theme. A festive band that followed the theme
+   switch would stop reading as festive in two of the three schemes.
+   ========================================================================== */
+
+/* --------------------------------------------------------------------------
+   1. Campaign palette
+   Declared on both campaign roots rather than on :root, so a page without the
+   campaign inherits nothing and these names cannot leak into the rest of the
+   site. Brass and champagne are the gold scheme's own inks; flame is the
+   --ember hue already in tokens.css, pushed one step warmer for the wick.
+   -------------------------------------------------------------------------- */
+.promo,
+.diwali {
+  --dw-ground: #0b0906;
+  --dw-ground-deep: #060503;
+  --dw-champ: #f0d79b;
+  --dw-brass: #d4a955;
+  --dw-brass-deep: #8c6628;
+  --dw-flame: #ffb24d;
+  --dw-core: #fff0c4;
+  --dw-ink: #fffaf0;
+  --dw-ink-dim: #cdb792;
+  --dw-ink-faint: #a08a68;
+  --dw-line: rgba(226, 190, 120, 0.2);
+  --dw-line-strong: rgba(226, 190, 120, 0.42);
+
+  /* The shared components inside the band read these, not the --dw- names
+     above, so .btn, .eyebrow and the headings come out brass on their own. */
+  --text: var(--dw-ink);
+  --text-strong: var(--dw-ink);
+  --text-dim: var(--dw-ink-dim);
+  --text-muted: var(--dw-ink-faint);
+  --hairline: var(--dw-line);
+  --hairline-strong: var(--dw-line-strong);
+  --surface: rgba(255, 228, 170, 0.055);
+  --surface-hover: rgba(255, 228, 170, 0.11);
+  --accent-ink: var(--dw-champ);
+  --accent-ink-2: var(--dw-brass);
+  --accent-grad: linear-gradient(115deg, #c99a42 0%, #e3c179 60%, #f0d79b 100%);
+  --accent-grad-solid: linear-gradient(115deg, #e8c983 0%, #d4a955 68%, #c08f3c 100%);
+  --accent-grad-solid-alt: linear-gradient(115deg, #c08f3c 0%, #d4a955 52%, #e8c983 100%);
+  --text-grad: linear-gradient(104deg, #fffaf0 0%, #f6e8cd 54%, #e0c89c 100%);
+  /* White on brass measures about 2:1. Filled controls run dark ink instead. */
+  --btn-primary-ink: #14100a;
+
+  color-scheme: dark;
+}
+
+/* --------------------------------------------------------------------------
+   2. The announcement bar
+   Fixed above the navigation, which is itself fixed at top: 0. Rather than
+   reposition two elements by hand, the bar's height lives in --promo-h and
+   the nav and both page headers measure from it. --promo-h is 0 until
+   js/campaign.js sets data-promo="on" before first paint, so a client that
+   never runs the script gets the page exactly as it was.
+   -------------------------------------------------------------------------- */
+:root {
+  --promo-h: 0px;
+}
+
+html[data-promo="on"] {
+  --promo-h: 46px;
+}
+
+.promo {
+  display: none;
+}
+
+html[data-promo="on"] .promo {
+  display: block;
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  /* One above the nav: the bar frames the nav, it does not slide under it. */
+  z-index: calc(var(--z-nav) + 1);
+  height: var(--promo-h);
+  background: var(--dw-ground);
+  border-bottom: 1px solid var(--dw-line-strong);
+  color: var(--dw-ink);
+  font-size: var(--t-xs);
+}
+
+/* A warm pool under the bar's own lamp, so the strip reads as lit rather
+   than as a dark rule across the top of the page. */
+.promo::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background: radial-gradient(60% 320% at 14% 120%, rgba(255, 178, 77, 0.17), transparent 70%);
+}
+
+.promo__inner {
+  position: relative;
+  z-index: 1;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  gap: var(--s-3);
+}
+
+.promo__lamp {
+  flex: none;
+  display: inline-flex;
+  width: 22px;
+  height: 18px;
+}
+
+.promo__lamp svg {
+  width: 100%;
+  height: 100%;
+}
+
+.promo__text {
+  margin: 0;
+  min-width: 0;
+  flex: 1;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  color: var(--dw-ink-dim);
+  letter-spacing: 0.005em;
+}
+
+.promo__text strong {
+  color: var(--dw-champ);
+  font-weight: 600;
+  background: none;
+  -webkit-text-fill-color: currentColor;
+}
+
+.promo__short {
+  display: none;
+}
+
+.promo__cta {
+  flex: none;
+  color: var(--dw-champ);
+  font-weight: 600;
+  text-decoration: none;
+  border-bottom: 1px solid var(--dw-line-strong);
+  padding-bottom: 1px;
+  transition: border-color var(--t-fast) var(--ease-out), color var(--t-fast) var(--ease-out);
+}
+
+.promo__cta:hover {
+  color: var(--dw-core);
+  border-bottom-color: var(--dw-champ);
+}
+
+.promo__close {
+  flex: none;
+  /* 34px of hit area for a 13px glyph: a dismiss nobody can hit is a dark
+     pattern by accident. */
+  width: 34px;
+  height: 34px;
+  display: grid;
+  place-items: center;
+  margin-right: calc(var(--s-2) * -1);
+  border: 0;
+  border-radius: var(--r-pill);
+  background: none;
+  color: var(--dw-ink-faint);
+  cursor: pointer;
+  transition: color var(--t-fast) var(--ease-out), background-color var(--t-fast) var(--ease-out);
+}
+
+.promo__close svg {
+  width: 13px;
+  height: 13px;
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 1.9;
+  stroke-linecap: round;
+}
+
+.promo__close:hover {
+  color: var(--dw-champ);
+  background: rgba(255, 228, 170, 0.09);
+}
+
+@media (max-width: 720px) {
+  .promo__long {
+    display: none;
+  }
+
+  .promo__short {
+    display: inline;
+  }
+
+  .promo__cta {
+    /* The offer section is one tap away under the bar anyway, and three
+       controls plus two lines of copy do not fit 390px without shrinking the
+       dismiss below a thumb. */
+    display: none;
+  }
+}
+
+/* --------------------------------------------------------------------------
+   3. Making room for the bar
+   Both page headers set padding-block as a shorthand in components.css; a
+   padding-top longhand in a later sheet overrides only the top half, which is
+   the whole intent. The clamp() values are repeated from components.css and
+   have to stay in step with it while the campaign is live.
+   -------------------------------------------------------------------------- */
+.nav {
+  top: var(--promo-h);
+}
+
+.hero {
+  padding-top: calc(clamp(6.5rem, 11vw, 9rem) + var(--promo-h));
+}
+
+.page-head {
+  padding-top: calc(clamp(7rem, 12vw, 9.5rem) + var(--promo-h));
+}
+
+html[data-promo="on"] .skip-link:focus {
+  top: calc(var(--promo-h) + 0.6rem);
+}
+
+/* --------------------------------------------------------------------------
+   4. The campaign band
+   -------------------------------------------------------------------------- */
+.diwali {
+  position: relative;
+  z-index: var(--z-content);
+  overflow: hidden;
+  padding-block: calc(var(--section-y) * 0.6) calc(var(--section-y) * 0.68);
+  background: var(--dw-ground);
+  color: var(--dw-ink);
+  border-block: 1px solid var(--dw-line);
+}
+
+html[data-campaign="over"] .diwali {
+  display: none;
+}
+
+/* The lit ground. One wide wash rising from the lamp row at the top edge,
+   plus a deepening at the bottom so the band settles instead of glowing
+   evenly from corner to corner. */
+.diwali::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background:
+    radial-gradient(120% 68% at 50% 0%, rgba(255, 178, 77, 0.16), transparent 62%),
+    radial-gradient(90% 60% at 50% 104%, rgba(140, 102, 40, 0.22), transparent 70%),
+    linear-gradient(180deg, transparent 52%, var(--dw-ground-deep) 100%);
+}
+
+.diwali__shell {
+  position: relative;
+  z-index: 2;
+  display: grid;
+  justify-items: center;
+  text-align: center;
+  gap: var(--s-5);
+}
+
+.diwali__eyebrow {
+  color: var(--dw-champ);
+  margin: 0;
+}
+
+.diwali h2 {
+  max-width: 22ch;
+  margin: 0;
+  color: var(--dw-ink);
+  text-wrap: balance;
+}
+
+.diwali__lead {
+  max-width: 62ch;
+  margin: 0;
+  color: var(--dw-ink-dim);
+  font-size: var(--t-lead);
+  line-height: var(--lh-body);
+}
+
+/* --------------------------------------------------------------------------
+   5. The lamp row
+   Seven lamps on a hairline across the full width of the band: the parapet
+   of lamps that is the one thing every Diwali looks like, drawn rather than
+   illustrated. No rangoli, no burst, no script lettering.
+   -------------------------------------------------------------------------- */
+.diwali__lamps {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 1;
+  height: 0;
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  padding-inline: var(--gutter);
+  pointer-events: none;
+}
+
+/* The hairline the lamps stand on is the band's own top border; this is the
+   brass bloom laid over it. */
+.diwali__lamps::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, var(--dw-line-strong) 18%, var(--dw-brass) 50%, var(--dw-line-strong) 82%, transparent);
+}
+
+.diya {
+  position: relative;
+  flex: none;
+  width: clamp(26px, 3.2vw, 38px);
+  margin-top: -1px;
+}
+
+.diya svg {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+
+.diya__bowl {
+  fill: var(--dw-brass-deep);
+}
+
+.diya__rim {
+  fill: var(--dw-brass);
+}
+
+.diya__flame {
+  fill: var(--dw-flame);
+  transform-origin: 50% 100%;
+}
+
+.diya__core {
+  fill: var(--dw-core);
+  transform-origin: 50% 100%;
+}
+
+/* The pool of light each lamp throws down the face of the band. */
+.diya::before {
+  content: "";
+  position: absolute;
+  left: 50%;
+  top: 2px;
+  width: 300%;
+  height: clamp(90px, 11vw, 150px);
+  transform: translateX(-50%);
+  background: radial-gradient(58% 100% at 50% 0%, rgba(255, 178, 77, 0.17), rgba(255, 178, 77, 0.05) 40%, transparent 74%);
+  pointer-events: none;
+}
+
+/* Only the three middle lamps are drawn at full strength: seven identical
+   lamps at identical brightness read as a repeated asset, which is the exact
+   thing this is meant not to look like. */
+.diya:nth-child(1),
+.diya:nth-child(7) {
+  opacity: 0.6;
+}
+
+.diya:nth-child(2),
+.diya:nth-child(6) {
+  opacity: 0.82;
+}
+
+/* --------------------------------------------------------------------------
+   6. Flicker and embers
+   Every duration below is a different prime-ish fraction of a second so the
+   row never returns to phase. A lamp row that pulses in unison reads as a
+   loading state.
+   -------------------------------------------------------------------------- */
+@keyframes dw-flame {
+  0%, 100% {
+    transform: scale(1, 1) translateX(0);
+    opacity: 1;
+  }
+
+  28% {
+    transform: scale(0.93, 1.1) translateX(0.3px);
+    opacity: 0.92;
+  }
+
+  54% {
+    transform: scale(1.05, 0.9) translateX(-0.3px);
+    opacity: 1;
+  }
+
+  76% {
+    transform: scale(0.96, 1.05) translateX(0.2px);
+    opacity: 0.95;
+  }
+}
+
+@keyframes dw-glow {
+  0%, 100% {
+    opacity: 1;
+  }
+
+  40% {
+    opacity: 0.74;
+  }
+
+  70% {
+    opacity: 0.92;
+  }
+}
+
+.diya__flame,
+.diya__core {
+  animation: dw-flame 2.3s var(--ease-in-out) infinite;
+}
+
+.diya::before {
+  animation: dw-glow 2.3s var(--ease-in-out) infinite;
+}
+
+.diya:nth-child(2) .diya__flame,
+.diya:nth-child(2) .diya__core,
+.diya:nth-child(2)::before {
+  animation-duration: 3.1s;
+  animation-delay: -0.4s;
+}
+
+.diya:nth-child(3) .diya__flame,
+.diya:nth-child(3) .diya__core,
+.diya:nth-child(3)::before {
+  animation-duration: 2.7s;
+  animation-delay: -1.1s;
+}
+
+.diya:nth-child(4) .diya__flame,
+.diya:nth-child(4) .diya__core,
+.diya:nth-child(4)::before {
+  animation-duration: 3.7s;
+  animation-delay: -0.7s;
+}
+
+.diya:nth-child(5) .diya__flame,
+.diya:nth-child(5) .diya__core,
+.diya:nth-child(5)::before {
+  animation-duration: 2.9s;
+  animation-delay: -1.9s;
+}
+
+.diya:nth-child(6) .diya__flame,
+.diya:nth-child(6) .diya__core,
+.diya:nth-child(6)::before {
+  animation-duration: 3.3s;
+  animation-delay: -0.2s;
+}
+
+.diya:nth-child(7) .diya__flame,
+.diya:nth-child(7) .diya__core,
+.diya:nth-child(7)::before {
+  animation-duration: 2.5s;
+  animation-delay: -1.4s;
+}
+
+/* Embers. Twelve 2px sparks drifting up the band, nothing more: a particle
+   field would cost a canvas and a main-thread budget to say the same thing. */
+.diwali__embers {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  pointer-events: none;
+}
+
+.diwali__embers span {
+  position: absolute;
+  bottom: -8px;
+  width: 2px;
+  height: 2px;
+  border-radius: 50%;
+  background: var(--dw-flame);
+  opacity: 0;
+  animation: dw-ember 11s linear infinite;
+}
+
+@keyframes dw-ember {
+  0% {
+    transform: translateY(0) translateX(0);
+    opacity: 0;
+  }
+
+  12% {
+    opacity: 0.5;
+  }
+
+  70% {
+    opacity: 0.26;
+  }
+
+  100% {
+    transform: translateY(-78vh) translateX(22px);
+    opacity: 0;
+  }
+}
+
+.diwali__embers span:nth-child(1)  { left: 6%;  animation-delay: 0s;    animation-duration: 12s; }
+.diwali__embers span:nth-child(2)  { left: 14%; animation-delay: -7s;   animation-duration: 10s; }
+.diwali__embers span:nth-child(3)  { left: 23%; animation-delay: -3.5s; animation-duration: 13s; }
+.diwali__embers span:nth-child(4)  { left: 31%; animation-delay: -9s;   animation-duration: 11s; }
+.diwali__embers span:nth-child(5)  { left: 39%; animation-delay: -1.5s; animation-duration: 14s; }
+.diwali__embers span:nth-child(6)  { left: 47%; animation-delay: -6s;   animation-duration: 10.5s; }
+.diwali__embers span:nth-child(7)  { left: 56%; animation-delay: -11s;  animation-duration: 12.5s; }
+.diwali__embers span:nth-child(8)  { left: 64%; animation-delay: -4.5s; animation-duration: 11.5s; }
+.diwali__embers span:nth-child(9)  { left: 72%; animation-delay: -8.5s; animation-duration: 13.5s; }
+.diwali__embers span:nth-child(10) { left: 80%; animation-delay: -2.5s; animation-duration: 10.8s; }
+.diwali__embers span:nth-child(11) { left: 88%; animation-delay: -10s;  animation-duration: 12.8s; }
+.diwali__embers span:nth-child(12) { left: 94%; animation-delay: -5.5s; animation-duration: 11.2s; }
+
+/* --------------------------------------------------------------------------
+   7. What the free map contains
+   Three columns divided by hairlines rather than three cards. The band
+   already paints a ground; boxing the items inside it would make four
+   nested surfaces out of one idea.
+   -------------------------------------------------------------------------- */
+.diwali__list {
+  list-style: none;
+  margin: var(--s-3) 0 0;
+  padding: 0;
+  width: 100%;
+  display: grid;
+  gap: 0;
+  border-top: 1px solid var(--dw-line);
+  text-align: left;
+}
+
+.diwali__list li {
+  padding: var(--s-5) 0;
+  border-bottom: 1px solid var(--dw-line);
+}
+
+@media (min-width: 820px) {
+  .diwali__list {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    border-bottom: 1px solid var(--dw-line);
+  }
+
+  .diwali__list li {
+    padding: var(--s-5) var(--s-5) var(--s-5) 0;
+    border-bottom: 0;
+    border-left: 1px solid var(--dw-line);
+    padding-left: var(--s-5);
+  }
+
+  .diwali__list li:first-child {
+    border-left: 0;
+    padding-left: 0;
+  }
+}
+
+.diwali__list h3 {
+  margin: 0 0 var(--s-2);
+  font-size: var(--t-h4);
+  font-weight: 600;
+  letter-spacing: var(--track-h3);
+  color: var(--dw-champ);
+  background: none;
+  -webkit-text-fill-color: currentColor;
+}
+
+.diwali__list p {
+  margin: 0;
+  font-size: var(--t-sm);
+  color: var(--dw-ink-dim);
+}
+
+/* --------------------------------------------------------------------------
+   8. Calls to action and the closing line
+   -------------------------------------------------------------------------- */
+.diwali__cta {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
+  gap: var(--s-4);
+  margin-top: var(--s-3);
+}
+
+.diwali__cta .btn--primary {
+  box-shadow: 0 12px 34px rgba(201, 154, 66, 0.3), inset 0 1px 0 rgba(255, 245, 220, 0.3);
+}
+
+.diwali__cta .btn--primary:hover {
+  box-shadow: 0 20px 48px rgba(227, 193, 121, 0.4), inset 0 1px 0 rgba(255, 245, 220, 0.38);
+}
+
+/* The lamp switch. Quiet on purpose: it is a delight, not a second offer, so
+   it never competes with the consultation button beside it. */
+.diwali__lamp-toggle {
+  color: var(--dw-champ);
+}
+
+.diwali__lamp-toggle .diya {
+  width: 20px;
+  margin: 0;
+}
+
+.diwali__lamp-toggle .diya::before {
+  display: none;
+}
+
+.diwali__lamp-toggle svg {
+  width: 100%;
+  height: auto;
+  transition: none;
+}
+
+.diwali__lamp-toggle:hover svg {
+  transform: none;
+}
+
+.diwali__lamp-toggle:hover {
+  border-color: var(--dw-champ);
+}
+
+.diwali__fine {
+  margin: var(--s-3) 0 0;
+  max-width: 62ch;
+  font-size: var(--t-xs);
+  color: var(--dw-ink-faint);
+}
+
+.diwali__deadline {
+  display: block;
+  margin-bottom: 0.45rem;
+  font-size: var(--t-sm);
+  color: var(--dw-champ);
+  font-family: var(--font-mono);
+  font-variant-numeric: tabular-nums;
+  letter-spacing: 0.02em;
+}
+
+/* --------------------------------------------------------------------------
+   9. Reduced motion
+   The lamps stay lit, they simply stop moving, and the embers go away rather
+   than hanging frozen mid-rise where they would read as dust on the screen.
+   -------------------------------------------------------------------------- */
+@media (prefers-reduced-motion: reduce) {
+
+  .diya__flame,
+  .diya__core,
+  .diya::before,
+  .diwali__embers span {
+    animation: none;
+  }
+
+  .diwali__embers {
+    display: none;
+  }
+}

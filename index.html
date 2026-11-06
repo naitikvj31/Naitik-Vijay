@@ -75,11 +75,19 @@
   <link rel="stylesheet" href="css/tokens.css?v=9dc874f1">
   <link rel="stylesheet" href="css/base.css?v=3e4400f0">
   <link rel="stylesheet" href="css/components.css?v=5f28fe37">
+  
+  <!-- DIWALI 2026 CAMPAIGN. Loaded last on purpose: it re-declares the gold
+       scheme's tokens inside the festive band, and equal specificity means
+       the later sheet wins without a single edit to the three above it.
+       Retiring the campaign is this line, the line below it, the .promo bar
+       and the #diwali section. See the header of css/campaign.css. -->
+  <link rel="stylesheet" href="css/campaign.css?v=6718f8ef">
 
   <!-- Applies the remembered colour scheme before the page paints. Blocking
        on purpose: a deferred script would flash the light page at a visitor
        who chose dark. ~1 KB, no dependencies. -->
   <script src="js/theme.js?v=a56c7375"></script>
+  <script src="js/campaign.js?v=bbe4af31"></script>
 
   <!-- ======================================================================
        Structured data
@@ -328,6 +336,28 @@
 
 <body>
   <a class="skip-link" href="#main">Skip to main content</a>
+  
+  <!-- DIWALI 2026 CAMPAIGN: announcement bar.
+       Hidden until js/campaign.js sets data-promo before first paint, so a
+       client that runs no script never gets an overlay it cannot dismiss,
+       and the bar stops appearing on its own after 30 November 2026. -->
+  <aside class="promo" aria-label="Diwali 2026 offer">
+    <div class="shell promo__inner">
+      <span class="promo__lamp" aria-hidden="true"><svg viewBox="0 0 36 30" aria-hidden="true"><path class="diya__flame" d="M18 3c2.7 3.3 4.2 5.5 4.2 7.7a4.2 4.2 0 0 1-8.4 0C13.8 8.5 15.3 6.3 18 3Z" /><path class="diya__core" d="M18 7.6c1.3 1.7 2 2.8 2 3.9a2 2 0 0 1-4 0c0-1.1.7-2.2 2-3.9Z" /><rect class="diya__rim" x="1.8" y="15.2" width="32.4" height="2.1" rx="1.05" /><path class="diya__bowl" d="M4.6 17.3h26.8c-1.2 5.4-6.6 9-13.4 9s-12.2-3.6-13.4-9Z" /></svg></span>
+      <p class="promo__text">
+        <strong>Diwali 2026.</strong>
+        <span class="promo__long">Your whole page one, written out and free, for anyone who asks before 30 November.</span>
+        <span class="promo__short">Your page one, written out, free.</span>
+      </p>
+      <a class="promo__cta" href="#diwali">See the offer</a>
+      <button class="promo__close" type="button" data-promo-close
+        aria-label="Dismiss the Diwali offer notice">
+        <svg viewBox="0 0 20 20" aria-hidden="true">
+          <path d="M5.5 5.5 14.5 14.5M14.5 5.5 5.5 14.5" />
+        </svg>
+      </button>
+    </div>
+  </aside>
 
   <!-- ====================================================================
        Navigation
@@ -592,6 +622,132 @@
           </p>
         </figure>
 
+      </div>
+    </section>
+
+    <!-- ==================================================================
+         DIWALI 2026 CAMPAIGN
+         TEMPORARY. js/campaign.js hides this band on its own once
+         30 November 2026 has passed; removing it by hand is this section,
+         the .promo bar above the navigation, the two campaign lines in the
+         head of all 18 pages, css/campaign.css and js/campaign.js.
+
+         It sits here, directly under the hero, because the hero argues that
+         page one decides the deal and this band is the offer to go and read
+         the reader's own page one. Any lower and it is a promotion; here it
+         is the next sentence.
+
+         The band paints the gold scheme's obsidian and brass in ALL THREE
+         themes, the same way .on-dark keeps the hero dark in either: a
+         festive band that followed the theme switch would stop reading as
+         festive in two schemes out of three. css/campaign.css re-declares
+         the tokens locally, so .btn, .eyebrow and the headings inside here
+         come out brass with no fork of components.css.
+
+         No price is named, and no commercial promise is made that the
+         process section does not already make. Week zero of the published
+         process is the free consultation, and it already maps page one,
+         scores the reviews against three competitors and names what cannot
+         be moved. The campaign gives that a name and a closing date; it
+         does not invent an offer.
+         ================================================================== -->
+    <section class="diwali" id="diwali" aria-labelledby="diwali-heading">
+
+      <!-- Seven lamps on the band's top hairline: the parapet of diyas that
+           every Diwali actually looks like, drawn rather than illustrated.
+           The flames flicker on six different durations so the row never
+           returns to phase, and the outer lamps are dimmed, because seven
+           identical lamps at identical brightness read as one asset
+           repeated, which is the thing this is meant not to look like. -->
+      <div class="diwali__lamps" aria-hidden="true">
+        <span class="diya"><svg viewBox="0 0 36 30" aria-hidden="true"><path class="diya__flame" d="M18 3c2.7 3.3 4.2 5.5 4.2 7.7a4.2 4.2 0 0 1-8.4 0C13.8 8.5 15.3 6.3 18 3Z" /><path class="diya__core" d="M18 7.6c1.3 1.7 2 2.8 2 3.9a2 2 0 0 1-4 0c0-1.1.7-2.2 2-3.9Z" /><rect class="diya__rim" x="1.8" y="15.2" width="32.4" height="2.1" rx="1.05" /><path class="diya__bowl" d="M4.6 17.3h26.8c-1.2 5.4-6.6 9-13.4 9s-12.2-3.6-13.4-9Z" /></svg></span>
+        <span class="diya"><svg viewBox="0 0 36 30" aria-hidden="true"><path class="diya__flame" d="M18 3c2.7 3.3 4.2 5.5 4.2 7.7a4.2 4.2 0 0 1-8.4 0C13.8 8.5 15.3 6.3 18 3Z" /><path class="diya__core" d="M18 7.6c1.3 1.7 2 2.8 2 3.9a2 2 0 0 1-4 0c0-1.1.7-2.2 2-3.9Z" /><rect class="diya__rim" x="1.8" y="15.2" width="32.4" height="2.1" rx="1.05" /><path class="diya__bowl" d="M4.6 17.3h26.8c-1.2 5.4-6.6 9-13.4 9s-12.2-3.6-13.4-9Z" /></svg></span>
+        <span class="diya"><svg viewBox="0 0 36 30" aria-hidden="true"><path class="diya__flame" d="M18 3c2.7 3.3 4.2 5.5 4.2 7.7a4.2 4.2 0 0 1-8.4 0C13.8 8.5 15.3 6.3 18 3Z" /><path class="diya__core" d="M18 7.6c1.3 1.7 2 2.8 2 3.9a2 2 0 0 1-4 0c0-1.1.7-2.2 2-3.9Z" /><rect class="diya__rim" x="1.8" y="15.2" width="32.4" height="2.1" rx="1.05" /><path class="diya__bowl" d="M4.6 17.3h26.8c-1.2 5.4-6.6 9-13.4 9s-12.2-3.6-13.4-9Z" /></svg></span>
+        <span class="diya"><svg viewBox="0 0 36 30" aria-hidden="true"><path class="diya__flame" d="M18 3c2.7 3.3 4.2 5.5 4.2 7.7a4.2 4.2 0 0 1-8.4 0C13.8 8.5 15.3 6.3 18 3Z" /><path class="diya__core" d="M18 7.6c1.3 1.7 2 2.8 2 3.9a2 2 0 0 1-4 0c0-1.1.7-2.2 2-3.9Z" /><rect class="diya__rim" x="1.8" y="15.2" width="32.4" height="2.1" rx="1.05" /><path class="diya__bowl" d="M4.6 17.3h26.8c-1.2 5.4-6.6 9-13.4 9s-12.2-3.6-13.4-9Z" /></svg></span>
+        <span class="diya"><svg viewBox="0 0 36 30" aria-hidden="true"><path class="diya__flame" d="M18 3c2.7 3.3 4.2 5.5 4.2 7.7a4.2 4.2 0 0 1-8.4 0C13.8 8.5 15.3 6.3 18 3Z" /><path class="diya__core" d="M18 7.6c1.3 1.7 2 2.8 2 3.9a2 2 0 0 1-4 0c0-1.1.7-2.2 2-3.9Z" /><rect class="diya__rim" x="1.8" y="15.2" width="32.4" height="2.1" rx="1.05" /><path class="diya__bowl" d="M4.6 17.3h26.8c-1.2 5.4-6.6 9-13.4 9s-12.2-3.6-13.4-9Z" /></svg></span>
+        <span class="diya"><svg viewBox="0 0 36 30" aria-hidden="true"><path class="diya__flame" d="M18 3c2.7 3.3 4.2 5.5 4.2 7.7a4.2 4.2 0 0 1-8.4 0C13.8 8.5 15.3 6.3 18 3Z" /><path class="diya__core" d="M18 7.6c1.3 1.7 2 2.8 2 3.9a2 2 0 0 1-4 0c0-1.1.7-2.2 2-3.9Z" /><rect class="diya__rim" x="1.8" y="15.2" width="32.4" height="2.1" rx="1.05" /><path class="diya__bowl" d="M4.6 17.3h26.8c-1.2 5.4-6.6 9-13.4 9s-12.2-3.6-13.4-9Z" /></svg></span>
+        <span class="diya"><svg viewBox="0 0 36 30" aria-hidden="true"><path class="diya__flame" d="M18 3c2.7 3.3 4.2 5.5 4.2 7.7a4.2 4.2 0 0 1-8.4 0C13.8 8.5 15.3 6.3 18 3Z" /><path class="diya__core" d="M18 7.6c1.3 1.7 2 2.8 2 3.9a2 2 0 0 1-4 0c0-1.1.7-2.2 2-3.9Z" /><rect class="diya__rim" x="1.8" y="15.2" width="32.4" height="2.1" rx="1.05" /><path class="diya__bowl" d="M4.6 17.3h26.8c-1.2 5.4-6.6 9-13.4 9s-12.2-3.6-13.4-9Z" /></svg></span>
+      </div>
+
+      <!-- Twelve 2px embers drifting up the band. A particle canvas would
+           cost a shader and a frame budget to say the same thing. -->
+      <div class="diwali__embers" aria-hidden="true">
+        <span></span>
+        <span></span>
+        <span></span>
+        <span></span>
+        <span></span>
+        <span></span>
+        <span></span>
+        <span></span>
+        <span></span>
+        <span></span>
+        <span></span>
+        <span></span>
+      </div>
+
+      <div class="shell diwali__shell">
+        <p class="eyebrow diwali__eyebrow">Diwali 2026 <span aria-hidden="true">&middot;</span> 8 November</p>
+
+        <h2 id="diwali-heading">Diwali opens a new ledger. Open one for page one.</h2>
+
+        <p class="diwali__lead">
+          On Diwali morning the old account book is closed and a new one is blessed. Page one of
+          Google is the only ledger your buyer reads before the first call, and most brands have
+          never once seen theirs written down. Ask before 30 November and we will write yours out
+          in full, free, whether or not you go on to work with us.
+        </p>
+
+        <ul class="diwali__list">
+          <li>
+            <h3>Every result on page one</h3>
+            <p>
+              The ten results your brand name returns today, in order, and which of them you do
+              not control.
+            </p>
+          </li>
+          <li>
+            <h3>Your reviews against three competitors</h3>
+            <p>
+              Platform by platform, with the rating gap scored and the gaps that close quickest
+              marked first.
+            </p>
+          </li>
+          <li>
+            <h3>What cannot be moved</h3>
+            <p>
+              The results no agency can shift, named at the start, so nothing gets sold to you
+              twice.
+            </p>
+          </li>
+        </ul>
+
+        <div class="diwali__cta">
+          <a class="btn btn--primary btn--lg" href="#contact">
+            Book a free consultation
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+              stroke-linejoin="round" aria-hidden="true">
+              <path d="M5 12h14" />
+              <path d="m13 6 6 6-6 6" />
+            </svg>
+          </a>
+
+          <!-- The gold scheme in tokens.css is already an obsidian and brass
+               palette, already measured for AA. The festive version of the
+               whole site therefore costs one attribute, and it stays opt-in:
+               light is the site's deliberate default, and repainting it for
+               every visitor is a bigger call than a campaign band. -->
+          <button class="btn btn--ghost btn--lg diwali__lamp-toggle" type="button" data-lamp-toggle
+            aria-pressed="false">
+            <span class="diya" aria-hidden="true"><svg viewBox="0 0 36 30" aria-hidden="true"><path class="diya__flame" d="M18 3c2.7 3.3 4.2 5.5 4.2 7.7a4.2 4.2 0 0 1-8.4 0C13.8 8.5 15.3 6.3 18 3Z" /><path class="diya__core" d="M18 7.6c1.3 1.7 2 2.8 2 3.9a2 2 0 0 1-4 0c0-1.1.7-2.2 2-3.9Z" /><rect class="diya__rim" x="1.8" y="15.2" width="32.4" height="2.1" rx="1.05" /><path class="diya__bowl" d="M4.6 17.3h26.8c-1.2 5.4-6.6 9-13.4 9s-12.2-3.6-13.4-9Z" /></svg></span>
+            <span data-lamp-label>Light the lamps</span>
+          </button>
+        </div>
+
+        <p class="diwali__fine">
+          <span class="diwali__deadline">Open until 30 November 2026<span data-diwali-days></span></span>
+          A free call, and nothing is invoiced before you have signed a scope of work.
+        </p>
       </div>
     </section>
 

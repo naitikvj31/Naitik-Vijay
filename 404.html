@@ -31,11 +31,41 @@
   <link rel="stylesheet" href="css/tokens.css?v=9dc874f1">
   <link rel="stylesheet" href="css/base.css?v=3e4400f0">
   <link rel="stylesheet" href="css/components.css?v=5f28fe37">
+  
+  <!-- DIWALI 2026 CAMPAIGN. Loaded last on purpose: it re-declares the gold
+       scheme's tokens inside the festive band, and equal specificity means
+       the later sheet wins without a single edit to the three above it.
+       Retiring the campaign is this line, the line below it, the .promo bar
+       and the #diwali section. See the header of css/campaign.css. -->
+  <link rel="stylesheet" href="css/campaign.css?v=6718f8ef">
   <script src="js/theme.js?v=a56c7375"></script>
+  <script src="js/campaign.js?v=bbe4af31"></script>
 </head>
 
 <body>
   <a class="skip-link" href="#main">Skip to main content</a>
+  
+  <!-- DIWALI 2026 CAMPAIGN: announcement bar.
+       Hidden until js/campaign.js sets data-promo before first paint, so a
+       client that runs no script never gets an overlay it cannot dismiss,
+       and the bar stops appearing on its own after 30 November 2026. -->
+  <aside class="promo" aria-label="Diwali 2026 offer">
+    <div class="shell promo__inner">
+      <span class="promo__lamp" aria-hidden="true"><svg viewBox="0 0 36 30" aria-hidden="true"><path class="diya__flame" d="M18 3c2.7 3.3 4.2 5.5 4.2 7.7a4.2 4.2 0 0 1-8.4 0C13.8 8.5 15.3 6.3 18 3Z" /><path class="diya__core" d="M18 7.6c1.3 1.7 2 2.8 2 3.9a2 2 0 0 1-4 0c0-1.1.7-2.2 2-3.9Z" /><rect class="diya__rim" x="1.8" y="15.2" width="32.4" height="2.1" rx="1.05" /><path class="diya__bowl" d="M4.6 17.3h26.8c-1.2 5.4-6.6 9-13.4 9s-12.2-3.6-13.4-9Z" /></svg></span>
+      <p class="promo__text">
+        <strong>Diwali 2026.</strong>
+        <span class="promo__long">Your whole page one, written out and free, for anyone who asks before 30 November.</span>
+        <span class="promo__short">Your page one, written out, free.</span>
+      </p>
+      <a class="promo__cta" href="index.html#diwali">See the offer</a>
+      <button class="promo__close" type="button" data-promo-close
+        aria-label="Dismiss the Diwali offer notice">
+        <svg viewBox="0 0 20 20" aria-hidden="true">
+          <path d="M5.5 5.5 14.5 14.5M14.5 5.5 5.5 14.5" />
+        </svg>
+      </button>
+    </div>
+  </aside>
 
   <header class="nav nav--scrolled">
     <div class="shell nav__inner">
